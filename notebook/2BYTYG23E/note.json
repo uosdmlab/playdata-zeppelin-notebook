@@ -42,9 +42,50 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "text": "%md\n### 모델 설명\n- *name* \u003d 말투 TF를 학습한 모델\n- *name*Old \u003d TF를 학습한 모델\n- *name*All \u003d (말투 Feature + 말투 TF)를 학습한 모델\n\n### 결합 모델\n- PV1 \u003d Logistic Regression + Random Forest + SVM\n- PV2 \u003d Random Forest + Naive Bayes + SVM",
+      "dateUpdated": "Oct 13, 2016 5:17:06 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476346339107_1906428931",
+      "id": "20161013-171219_1752690573",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch3\u003e모델 설명\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cem\u003ename\u003c/em\u003e \u003d 말투 TF를 학습한 모델\u003c/li\u003e\n\u003cli\u003e\u003cem\u003ename\u003c/em\u003eOld \u003d TF를 학습한 모델\u003c/li\u003e\n\u003cli\u003e\u003cem\u003ename\u003c/em\u003eAll \u003d (말투 Feature + 말투 TF)를 학습한 모델\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e결합 모델\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003ePV1 \u003d Logistic Regression + Random Forest + SVM\u003c/li\u003e\n\u003cli\u003ePV2 \u003d Random Forest + Naive Bayes + SVM\u003c/li\u003e\n\u003c/ul\u003e\n"
+      },
+      "dateCreated": "Oct 13, 2016 5:12:19 PM",
+      "dateStarted": "Oct 13, 2016 5:17:04 PM",
+      "dateFinished": "Oct 13, 2016 5:17:04 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
       "title": "Model Performance",
       "text": "%sql SELECT * FROM metric",
-      "dateUpdated": "Oct 13, 2016 4:32:01 PM",
+      "dateUpdated": "Oct 13, 2016 4:32:01 AM",
       "config": {
         "enabled": true,
         "graph": {
