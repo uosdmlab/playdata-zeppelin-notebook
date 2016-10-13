@@ -164,7 +164,7 @@
     },
     {
       "text": "%md\n\u003e 다음 노트들에서 첫 번째 뉴스 기사의 `TF`값이 `IDF`로 인해 어떻게 변했는지 살펴봅니다.",
-      "dateUpdated": "Oct 11, 2016 9:56:16 PM",
+      "dateUpdated": "Oct 11, 2016 9:56:16 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -197,16 +197,16 @@
         "type": "HTML",
         "msg": "\u003cblockquote\u003e\u003cp\u003e다음 노트들에서 첫 번째 뉴스 기사의 \u003ccode\u003eTF\u003c/code\u003e값이 \u003ccode\u003eIDF\u003c/code\u003e로 인해 어떻게 변했는지 살펴봅니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n"
       },
-      "dateCreated": "Oct 11, 2016 9:55:15 PM",
-      "dateStarted": "Oct 11, 2016 9:56:14 PM",
-      "dateFinished": "Oct 11, 2016 9:56:14 PM",
+      "dateCreated": "Oct 11, 2016 9:55:15 AM",
+      "dateStarted": "Oct 11, 2016 9:56:14 AM",
+      "dateFinished": "Oct 11, 2016 9:56:14 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "첫 번째 뉴스 기사의 제목",
       "text": "val news \u003d spark.read.parquet(\"playdata/data/news-with-id.parquet\").persist\nval firstNewsTitle \u003d news.where(s\"id \u003d ${tfidf.first.getLong(0)}\").select(\"title\").first.getString(0)\n\nprintln(s\"첫 번째 뉴스 기사 제목: $firstNewsTitle\")",
-      "dateUpdated": "Oct 11, 2016 9:56:31 PM",
+      "dateUpdated": "Oct 11, 2016 9:56:31 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -248,7 +248,7 @@
     {
       "title": "첫 번째 뉴스 기사의 TF, TF-IDF 값 추출",
       "text": "import org.apache.spark.ml.linalg.Vector\n\nval tfArray \u003d tfidf.select(\"tf\").first.getAs[Vector](0).toArray\nval tfidfArray \u003d tfidf.select(\"features\").first.getAs[Vector](0).toArray",
-      "dateUpdated": "Oct 11, 2016 9:56:50 PM",
+      "dateUpdated": "Oct 11, 2016 9:56:50 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -290,7 +290,7 @@
     {
       "title": "TF, TF-IDF 값을 단어와 매핑",
       "text": "import org.apache.spark.ml.feature.CountVectorizerModel\n\nval cvModel \u003d CountVectorizerModel.load(\"playdata/model/cntVec\")\n\nval wordsAndFeatures \u003d (cvModel.vocabulary, tfArray, tfidfArray).zipped.toArray\n\nspark.createDataFrame(wordsAndFeatures)\n    .toDF(\"word\", \"TF\", \"TFIDF\")\n    .createOrReplaceTempView(\"tfidf\")",
-      "dateUpdated": "Oct 11, 2016 9:57:20 PM",
+      "dateUpdated": "Oct 11, 2016 9:57:20 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -330,9 +330,9 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "title": "뉴스 기사 [청주시청 화재 ‘전산 일시 마비’]의 TF-TDF TOP 10",
+      "title": "뉴스 기사 [청주시청 화재 ‘전산 일시 마비’] 단어들 중 TF-IDF TOP 10",
       "text": "%sql\nSELECT  * \nFROM    tfidf \nWHERE   TF \u003c\u003e 0 \nORDER BY TFIDF DESC\nLIMIT 10",
-      "dateUpdated": "Oct 11, 2016 9:58:58 PM",
+      "dateUpdated": "Oct 14, 2016 2:38:45 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -378,7 +378,7 @@
           }
         },
         "enabled": true,
-        "editorMode": "ace/mode/sql",
+        "editorMode": "ace/mode/markdown",
         "helium": {},
         "title": true
       },
@@ -401,9 +401,9 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "title": "뉴스 기사 [청주시청 화재 ‘전산 일시 마비’]의 TF TOP 10",
+      "title": "뉴스 기사 [청주시청 화재 ‘전산 일시 마비’] 던어들 중 TF TOP 10",
       "text": "%sql\nSELECT  * \nFROM    tfidf \nWHERE   TF \u003c\u003e 0 \nORDER BY TF DESC\nLIMIT 10",
-      "dateUpdated": "Oct 11, 2016 9:59:01 PM",
+      "dateUpdated": "Oct 14, 2016 2:38:52 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -449,7 +449,7 @@
           }
         },
         "enabled": true,
-        "editorMode": "ace/mode/sql",
+        "editorMode": "ace/mode/markdown",
         "helium": {},
         "title": true
       },
@@ -474,7 +474,7 @@
     {
       "title": "IDF 모델과 TF-IDF vector 저장",
       "text": "idfModel.save(\"playdata/model/idf\")\ntfIdf.drop(\"tf\").write.parquet(\"playdata/feature/tf-idf.parquet\")",
-      "dateUpdated": "Oct 11, 2016 9:59:47 PM",
+      "dateUpdated": "Oct 11, 2016 9:59:47 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {

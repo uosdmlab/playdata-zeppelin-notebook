@@ -2,7 +2,7 @@
   "paragraphs": [
     {
       "text": "val news \u003d spark.read.parquet(\"playdata/data/news-with-id.parquet\").persist\nval words \u003d spark.read.parquet(\"playdata/data/words.parquet\").persist\n\nnews.createOrReplaceTempView(\"news\")\nwords.createOrReplaceTempView(\"word\")",
-      "dateUpdated": "Oct 13, 2016 4:15:31 PM",
+      "dateUpdated": "Oct 13, 2016 9:34:35 PM",
       "config": {
         "enabled": true,
         "tableHide": false,
@@ -36,15 +36,15 @@
         "msg": "\nnews: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [body: string, date: string ... 7 more fields]\n\nwords: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, word: string ... 5 more fields]\n"
       },
       "dateCreated": "Oct 9, 2016 10:40:22 AM",
-      "dateStarted": "Oct 13, 2016 4:15:31 PM",
-      "dateFinished": "Oct 13, 2016 4:15:34 PM",
+      "dateStarted": "Oct 13, 2016 9:34:35 PM",
+      "dateFinished": "Oct 13, 2016 9:34:59 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "\"말이 많냐 적냐!\": 뉴스 기사 제목, 내용 길이 (X\u003d내용글자수, Y\u003d제목글자수)",
       "text": "%sql \nSELECT  LENGTH(body), LENGTH(title), CASE label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label \nFROM    news",
-      "dateUpdated": "Oct 13, 2016 4:14:27 PM",
+      "dateUpdated": "Oct 13, 2016 4:14:27 AM",
       "config": {
         "enabled": true,
         "title": true,
@@ -478,9 +478,9 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "title": "제목 단어 품사별 출현 확률 TOP 6",
-      "text": "%sql\nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio,\n    CASE pos\n        WHEN \u0027N\u0027 THEN \u0027체언\u0027\n        WHEN \u0027S\u0027 THEN \u0027부호\u0027\n        WHEN \u0027SN\u0027 THEN \u0027숫자\u0027\n        WHEN \u0027J\u0027 THEN \u0027관계언\u0027\n        WHEN \u0027E\u0027 THEN \u0027어미\u0027\n        WHEN \u0027V\u0027 THEN \u0027용언\u0027\n        ELSE pos\n    END AS pos\nFROM\n(\n    SELECT  label, origin, pos[0] AS pos, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin, pos\n) t1 JOIN (\n    SELECT  label, origin, COUNT(*) AS total\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin\n) t2 ON (t1.label \u003d t2.label AND t1.origin \u003d t2.origin)\nWHERE   t1.origin \u003d \u0027title\u0027\n    AND pos \u003c\u003e \u0027XS\u0027 AND pos \u003c\u003e \u0027M\u0027 AND pos \u003c\u003e \u0027SL\u0027 \n    AND pos \u003c\u003e \u0027XP\u0027AND pos \u003c\u003e \u0027SH\u0027 AND pos \u003c\u003e \u0027XR\u0027\n    AND pos \u003c\u003e \u0027UNK\u0027 AND pos \u003c\u003e \u0027VCP\u0027 AND pos \u003c\u003e \u0027EP\u0027 AND pos \u003c\u003e \u0027I\u0027\nORDER BY ratio DESC, pos",
-      "dateUpdated": "Oct 13, 2016 4:16:54 PM",
+      "title": "제목 품사 비율 TOP 6",
+      "text": "%sql\nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio,\n    CASE pos\n        WHEN \u0027N\u0027 THEN \u0027체언\u0027\n        WHEN \u0027S\u0027 THEN \u0027부호\u0027\n        WHEN \u0027SN\u0027 THEN \u0027숫자\u0027\n        WHEN \u0027J\u0027 THEN \u0027관계언\u0027\n        WHEN \u0027E\u0027 THEN \u0027어미\u0027\n        WHEN \u0027V\u0027 THEN \u0027용언\u0027\n        ELSE pos\n    END AS pos\nFROM\n(\n    SELECT  label, origin, pos[0] AS pos, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin, pos\n) t1 JOIN (\n    SELECT  label, origin, COUNT(*) AS total\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin\n) t2 ON (t1.label \u003d t2.label AND t1.origin \u003d t2.origin)\nWHERE   t1.origin \u003d \u0027title\u0027\n    AND pos \u003c\u003e \u0027XS\u0027 AND pos \u003c\u003e \u0027M\u0027 AND pos \u003c\u003e \u0027SL\u0027 \n    AND pos \u003c\u003e \u0027XP\u0027AND pos \u003c\u003e \u0027SH\u0027 AND pos \u003c\u003e \u0027XR\u0027\n    AND pos \u003c\u003e \u0027UNK\u0027 AND pos \u003c\u003e \u0027VCP\u0027 AND pos \u003c\u003e \u0027EP\u0027 AND pos \u003c\u003e \u0027I\u0027\nORDER BY label, ratio DESC, pos",
+      "dateUpdated": "Oct 14, 2016 1:41:47 AM",
       "config": {
         "enabled": true,
         "title": true,
@@ -542,18 +542,18 @@
       "result": {
         "code": "SUCCESS",
         "type": "TABLE",
-        "msg": "label\tratio\tpos\n화재\t0.6273516642547033\t체언\n비화재\t0.6159633243211473\t체언\n비화재\t0.18902080639473376\t부호\n화재\t0.1734804630969609\t부호\n화재\t0.07398697539797396\t숫자\n화재\t0.06023878437047757\t관계언\n비화재\t0.049136005642412134\t관계언\n비화재\t0.03608792758904432\t숫자\n비화재\t0.027741859644998236\t어미\n비화재\t0.023392500293875632\t용언\n화재\t0.016823444283646887\t어미\n화재\t0.015557163531114327\t용언\n"
+        "msg": "label\tratio\tpos\n비화재\t0.6159633243211473\t체언\n비화재\t0.18902080639473376\t부호\n비화재\t0.049136005642412134\t관계언\n비화재\t0.03608792758904432\t숫자\n비화재\t0.027741859644998236\t어미\n비화재\t0.023392500293875632\t용언\n화재\t0.6273516642547033\t체언\n화재\t0.1734804630969609\t부호\n화재\t0.07398697539797396\t숫자\n화재\t0.06023878437047757\t관계언\n화재\t0.016823444283646887\t어미\n화재\t0.015557163531114327\t용언\n"
       },
       "dateCreated": "Oct 9, 2016 10:40:22 AM",
-      "dateStarted": "Oct 9, 2016 11:16:05 AM",
-      "dateFinished": "Oct 9, 2016 11:16:06 AM",
+      "dateStarted": "Oct 13, 2016 9:37:02 PM",
+      "dateFinished": "Oct 13, 2016 9:37:03 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "title": "내용 단어 품사별 출현 확률 TOP 6",
-      "text": "%sql\nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio,\n    CASE pos\n        WHEN \u0027N\u0027 THEN \u0027체언\u0027\n        WHEN \u0027S\u0027 THEN \u0027부호\u0027\n        WHEN \u0027SN\u0027 THEN \u0027숫자\u0027\n        WHEN \u0027J\u0027 THEN \u0027관계언\u0027\n        WHEN \u0027E\u0027 THEN \u0027어미\u0027\n        WHEN \u0027V\u0027 THEN \u0027용언\u0027\n        ELSE pos\n    END AS pos\nFROM\n(\n    SELECT  label, origin, pos[0] AS pos, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin, pos\n) t1 JOIN (\n    SELECT  label, origin, COUNT(*) AS total\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin\n) t2 ON (t1.label \u003d t2.label AND t1.origin \u003d t2.origin)\nWHERE   t1.origin \u003d \u0027body\u0027\n    AND pos \u003c\u003e \u0027XS\u0027 AND pos \u003c\u003e \u0027M\u0027 AND pos \u003c\u003e \u0027SL\u0027 \n    AND pos \u003c\u003e \u0027XP\u0027AND pos \u003c\u003e \u0027SH\u0027 AND pos \u003c\u003e \u0027XR\u0027\n    AND pos \u003c\u003e \u0027UNK\u0027 AND pos \u003c\u003e \u0027VCP\u0027 AND pos \u003c\u003e \u0027EP\u0027 AND pos \u003c\u003e \u0027I\u0027\nORDER BY ratio DESC, pos",
-      "dateUpdated": "Oct 13, 2016 4:16:57 PM",
+      "title": "내용 품사 비율 TOP 6",
+      "text": "%sql\nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio,\n    CASE pos\n        WHEN \u0027N\u0027 THEN \u0027체언\u0027\n        WHEN \u0027S\u0027 THEN \u0027부호\u0027\n        WHEN \u0027SN\u0027 THEN \u0027숫자\u0027\n        WHEN \u0027J\u0027 THEN \u0027관계언\u0027\n        WHEN \u0027E\u0027 THEN \u0027어미\u0027\n        WHEN \u0027V\u0027 THEN \u0027용언\u0027\n        ELSE pos\n    END AS pos\nFROM\n(\n    SELECT  label, origin, pos[0] AS pos, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin, pos\n) t1 JOIN (\n    SELECT  label, origin, COUNT(*) AS total\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin\n) t2 ON (t1.label \u003d t2.label AND t1.origin \u003d t2.origin)\nWHERE   t1.origin \u003d \u0027body\u0027\n    AND pos \u003c\u003e \u0027XS\u0027 AND pos \u003c\u003e \u0027M\u0027 AND pos \u003c\u003e \u0027SL\u0027 \n    AND pos \u003c\u003e \u0027XP\u0027AND pos \u003c\u003e \u0027SH\u0027 AND pos \u003c\u003e \u0027XR\u0027\n    AND pos \u003c\u003e \u0027UNK\u0027 AND pos \u003c\u003e \u0027VCP\u0027 AND pos \u003c\u003e \u0027EP\u0027 AND pos \u003c\u003e \u0027I\u0027\nORDER BY label, ratio DESC, pos",
+      "dateUpdated": "Oct 14, 2016 1:41:52 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -615,18 +615,18 @@
       "result": {
         "code": "SUCCESS",
         "type": "TABLE",
-        "msg": "label\tratio\tpos\n비화재\t0.43151443448593696\t체언\n화재\t0.3867907374725921\t체언\n화재\t0.18167816460773303\t부호\n비화재\t0.16030980664598538\t관계언\n화재\t0.1547997219102626\t관계언\n비화재\t0.14908069142460156\t부호\n비화재\t0.07873793686932956\t어미\n화재\t0.0785389593026365\t어미\n화재\t0.051254077758168884\t숫자\n화재\t0.0436814802930638\t용언\n비화재\t0.04324155150948198\t용언\n비화재\t0.03873958770403285\t숫자\n"
+        "msg": "label\tratio\tpos\n비화재\t0.43151443448593696\t체언\n비화재\t0.16030980664598538\t관계언\n비화재\t0.14908069142460156\t부호\n비화재\t0.07873793686932956\t어미\n비화재\t0.04324155150948198\t용언\n비화재\t0.03873958770403285\t숫자\n화재\t0.3867907374725921\t체언\n화재\t0.18167816460773303\t부호\n화재\t0.1547997219102626\t관계언\n화재\t0.0785389593026365\t어미\n화재\t0.051254077758168884\t숫자\n화재\t0.0436814802930638\t용언\n"
       },
       "dateCreated": "Oct 9, 2016 11:11:07 AM",
-      "dateStarted": "Oct 9, 2016 11:16:20 AM",
-      "dateFinished": "Oct 9, 2016 11:16:21 AM",
+      "dateStarted": "Oct 13, 2016 9:36:54 PM",
+      "dateFinished": "Oct 13, 2016 9:36:56 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "제목 단어 품사별 출현 확률",
       "text": "%sql\nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio,\n    CASE pos\n        WHEN \u0027N\u0027 THEN \u0027체언\u0027\n        WHEN \u0027S\u0027 THEN \u0027부호\u0027\n        WHEN \u0027SN\u0027 THEN \u0027숫자\u0027\n        WHEN \u0027J\u0027 THEN \u0027관계언\u0027\n        WHEN \u0027E\u0027 THEN \u0027어미\u0027\n        WHEN \u0027V\u0027 THEN \u0027용언\u0027\n        ELSE pos\n    END AS pos\nFROM\n(\n    SELECT  label, origin, pos[0] AS pos, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin, pos\n) t1 JOIN (\n    SELECT  label, origin, COUNT(*) AS total\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin\n) t2 ON (t1.label \u003d t2.label AND t1.origin \u003d t2.origin)\nWHERE   t1.origin \u003d \u0027title\u0027\nORDER BY ratio DESC, pos",
-      "dateUpdated": "Oct 13, 2016 4:18:04 PM",
+      "dateUpdated": "Oct 13, 2016 4:18:04 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -689,16 +689,16 @@
         "type": "TABLE",
         "msg": "label\tratio\tpos\n화재\t0.6273516642547033\t체언\n비화재\t0.6159633243211473\t체언\n비화재\t0.18902080639473376\t부호\n화재\t0.1734804630969609\t부호\n화재\t0.07398697539797396\t숫자\n화재\t0.06023878437047757\t관계언\n비화재\t0.049136005642412134\t관계언\n비화재\t0.03608792758904432\t숫자\n비화재\t0.027741859644998236\t어미\n비화재\t0.023392500293875632\t용언\n비화재\t0.01775008816268955\tM\n화재\t0.016823444283646887\t어미\n화재\t0.015557163531114327\t용언\n비화재\t0.014811331844363465\tXS\n화재\t0.011034732272069464\tXS\n비화재\t0.010344422240507817\tSL\n화재\t0.008321273516642547\tM\n화재\t0.007959479015918957\tXP\n비화재\t0.004702010109321735\tXP\n비화재\t0.003644057834724345\tSH\n비화재\t0.0035265075819913014\tXR\n비화재\t0.0017632537909956507\tUNK\n화재\t0.0016280752532561505\tSH\n화재\t0.001447178002894356\tSL\n화재\t0.001085383502170767\tXR\n비화재\t8.228517691313037E-4\tEP\n비화재\t7.053015163982603E-4\tVCP\n비화재\t5.877512636652169E-4\tI\n화재\t5.426917510853835E-4\tUNK\n화재\t3.61794500723589E-4\tI\n화재\t1.808972503617945E-4\tVCP\n"
       },
-      "dateCreated": "Oct 13, 2016 4:15:29 PM",
-      "dateStarted": "Oct 13, 2016 4:17:34 PM",
-      "dateFinished": "Oct 13, 2016 4:17:35 PM",
+      "dateCreated": "Oct 13, 2016 4:15:29 AM",
+      "dateStarted": "Oct 13, 2016 4:17:34 AM",
+      "dateFinished": "Oct 13, 2016 4:17:35 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "본문 단어 품사별 출현 확률",
       "text": "%sql\nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio,\n    CASE pos\n        WHEN \u0027N\u0027 THEN \u0027체언\u0027\n        WHEN \u0027S\u0027 THEN \u0027부호\u0027\n        WHEN \u0027SN\u0027 THEN \u0027숫자\u0027\n        WHEN \u0027J\u0027 THEN \u0027관계언\u0027\n        WHEN \u0027E\u0027 THEN \u0027어미\u0027\n        WHEN \u0027V\u0027 THEN \u0027용언\u0027\n        ELSE pos\n    END AS pos\nFROM\n(\n    SELECT  label, origin, pos[0] AS pos, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin, pos\n) t1 JOIN (\n    SELECT  label, origin, COUNT(*) AS total\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin\n) t2 ON (t1.label \u003d t2.label AND t1.origin \u003d t2.origin)\nWHERE   t1.origin \u003d \u0027body\u0027\nORDER BY ratio DESC, pos",
-      "dateUpdated": "Oct 13, 2016 4:18:09 PM",
+      "dateUpdated": "Oct 13, 2016 4:18:09 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -762,9 +762,9 @@
         "type": "TABLE",
         "msg": "label\tratio\tpos\n비화재\t0.43151443448593696\t체언\n화재\t0.3867907374725921\t체언\n화재\t0.18167816460773303\t부호\n비화재\t0.16030980664598538\t관계언\n화재\t0.1547997219102626\t관계언\n비화재\t0.14908069142460156\t부호\n비화재\t0.07873793686932956\t어미\n화재\t0.0785389593026365\t어미\n화재\t0.051254077758168884\t숫자\n화재\t0.0436814802930638\t용언\n비화재\t0.04324155150948198\t용언\n화재\t0.041381892079790365\tSL\n비화재\t0.03873958770403285\t숫자\n비화재\t0.029993603015524724\tXS\n비화재\t0.027269725755084916\tM\n화재\t0.026001390448687097\tXS\n화재\t0.0238087598267287\tM\n비화재\t0.023245816165798832\tSL\n화재\t0.006171453018878015\tEP\n비화재\t0.0061356023139199755\tEP\n비화재\t0.004921550959203747\tVCP\n화재\t0.0029092464837691856\tVCP\n비화재\t0.0024487381432236675\tXR\n비화재\t0.002397149558745641\tXP\n화재\t0.00125140381838601\tXP\n화재\t8.66356489651853E-4\tXR\n비화재\t7.738287671704005E-4\tUNK\n비화재\t6.362592085623293E-4\tSH\n비화재\t5.537174733974866E-4\tI\n화재\t4.7061340178619176E-4\tUNK\n화재\t2.780897374191133E-4\tI\n화재\t1.1765335044654794E-4\tSH\n"
       },
-      "dateCreated": "Oct 13, 2016 4:17:06 PM",
-      "dateStarted": "Oct 13, 2016 4:17:27 PM",
-      "dateFinished": "Oct 13, 2016 4:17:28 PM",
+      "dateCreated": "Oct 13, 2016 4:17:06 AM",
+      "dateStarted": "Oct 13, 2016 4:17:27 AM",
+      "dateFinished": "Oct 13, 2016 4:17:28 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
