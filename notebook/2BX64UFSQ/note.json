@@ -1,0 +1,837 @@
+{
+  "paragraphs": [
+    {
+      "text": "val news \u003d spark.read.parquet(\"playdata/data/news-with-id.parquet\").persist\nval words \u003d spark.read.parquet(\"playdata/data/words.parquet\").persist\n\nnews.createOrReplaceTempView(\"news\")\nwords.createOrReplaceTempView(\"word\")",
+      "dateUpdated": "Oct 13, 2016 4:15:31 PM",
+      "config": {
+        "enabled": true,
+        "tableHide": false,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476020422415_-911042086",
+      "id": "20160824-145757_1680433710",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nnews: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [body: string, date: string ... 7 more fields]\n\nwords: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, word: string ... 5 more fields]\n"
+      },
+      "dateCreated": "Oct 9, 2016 10:40:22 AM",
+      "dateStarted": "Oct 13, 2016 4:15:31 PM",
+      "dateFinished": "Oct 13, 2016 4:15:34 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "\"말이 많냐 적냐!\": 뉴스 기사 제목, 내용 길이 (X\u003d내용글자수, Y\u003d제목글자수)",
+      "text": "%sql \nSELECT  LENGTH(body), LENGTH(title), CASE label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label \nFROM    news",
+      "dateUpdated": "Oct 13, 2016 4:14:27 PM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "scatterChart",
+          "height": 326.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "length(body)",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "length(title)",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "yAxis": {
+              "name": "length(title)",
+              "index": 1.0,
+              "aggr": "sum"
+            },
+            "xAxis": {
+              "name": "length(body)",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "group": {
+              "name": "label",
+              "index": 2.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/sql",
+        "helium": {},
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476020422418_-899884368",
+      "id": "20160901-002330_1307291091",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "length(body)\tlength(title)\tlabel\n508\t32\t화재\n425\t32\t비화재\n686\t38\t비화재\n803\t25\t화재\n224\t27\t화재\n741\t29\t비화재\n445\t15\t비화재\n1\t28\t비화재\n289\t25\t화재\n1308\t27\t화재\n718\t26\t화재\n945\t13\t화재\n2471\t16\t비화재\n1819\t40\t비화재\n781\t12\t비화재\n743\t12\t비화재\n861\t23\t화재\n798\t15\t비화재\n816\t17\t비화재\n457\t26\t비화재\n388\t20\t비화재\n901\t31\t비화재\n2593\t16\t비화재\n255\t20\t화재\n1623\t30\t비화재\n398\t27\t비화재\n391\t19\t비화재\n451\t24\t비화재\n434\t21\t비화재\n1170\t25\t비화재\n219\t19\t화재\n685\t18\t비화재\n332\t19\t비화재\n236\t20\t화재\n997\t27\t화재\n220\t21\t화재\n442\t14\t화재\n743\t35\t비화재\n720\t29\t비화재\n1075\t44\t비화재\n236\t17\t화재\n694\t24\t비화재\n1611\t27\t비화재\n864\t26\t비화재\n243\t19\t화재\n1740\t39\t비화재\n343\t20\t화재\n387\t24\t화재\n258\t18\t비화재\n1406\t23\t비화재\n259\t22\t화재\n832\t27\t비화재\n1490\t19\t비화재\n737\t27\t비화재\n942\t24\t비화재\n1108\t19\t비화재\n176\t25\t화재\n814\t23\t비화재\n351\t23\t화재\n968\t17\t화재\n210\t13\t화재\n300\t19\t화재\n1681\t29\t비화재\n516\t24\t화재\n713\t39\t비화재\n670\t27\t비화재\n631\t24\t비화재\n902\t21\t비화재\n293\t26\t화재\n280\t24\t화재\n273\t26\t화재\n2018\t28\t비화재\n369\t23\t화재\n338\t23\t비화재\n773\t25\t비화재\n775\t20\t비화재\n307\t22\t화재\n1226\t22\t화재\n210\t12\t화재\n790\t20\t비화재\n1162\t33\t비화재\n1117\t17\t화재\n1369\t25\t비화재\n294\t28\t화재\n329\t30\t화재\n1101\t19\t비화재\n244\t27\t화재\n933\t27\t비화재\n1\t29\t화재\n352\t22\t비화재\n1957\t41\t비화재\n2025\t17\t비화재\n568\t16\t화재\n157\t14\t비화재\n2539\t36\t비화재\n1988\t26\t비화재\n300\t24\t비화재\n702\t23\t비화재\n213\t18\t화재\n2293\t30\t비화재\n223\t21\t화재\n706\t28\t화재\n286\t21\t화재\n332\t24\t비화재\n774\t23\t화재\n466\t20\t비화재\n475\t35\t비화재\n207\t16\t화재\n352\t29\t비화재\n683\t28\t비화재\n575\t29\t비화재\n750\t27\t비화재\n594\t27\t비화재\n1238\t19\t비화재\n418\t23\t비화재\n1617\t38\t비화재\n861\t22\t화재\n626\t20\t화재\n221\t19\t화재\n430\t24\t비화재\n456\t18\t비화재\n1023\t28\t비화재\n397\t25\t화재\n636\t24\t비화재\n1207\t39\t비화재\n394\t24\t비화재\n568\t17\t비화재\n305\t24\t화재\n336\t18\t화재\n830\t22\t화재\n601\t21\t비화재\n283\t20\t비화재\n1159\t44\t비화재\n251\t22\t비화재\n564\t30\t화재\n526\t28\t화재\n339\t20\t비화재\n464\t21\t비화재\n766\t24\t비화재\n1706\t33\t비화재\n796\t34\t비화재\n1\t24\t비화재\n198\t15\t비화재\n220\t21\t비화재\n308\t25\t비화재\n388\t14\t비화재\n2177\t42\t비화재\n248\t25\t화재\n727\t20\t비화재\n1809\t25\t비화재\n1605\t22\t비화재\n1697\t30\t비화재\n254\t21\t화재\n1611\t36\t화재\n861\t17\t화재\n2352\t25\t비화재\n204\t25\t화재\n1186\t21\t비화재\n440\t23\t비화재\n1066\t26\t비화재\n231\t27\t화재\n978\t31\t비화재\n225\t23\t화재\n249\t22\t화재\n335\t22\t비화재\n253\t29\t화재\n294\t25\t화재\n401\t28\t비화재\n447\t30\t비화재\n211\t24\t화재\n799\t24\t비화재\n603\t25\t화재\n716\t17\t비화재\n333\t22\t화재\n2005\t25\t비화재\n693\t24\t화재\n274\t20\t화재\n382\t17\t비화재\n210\t11\t비화재\n270\t25\t비화재\n361\t22\t화재\n247\t23\t화재\n489\t17\t비화재\n674\t24\t비화재\n1569\t37\t비화재\n276\t26\t화재\n1145\t29\t비화재\n232\t23\t화재\n928\t22\t비화재\n512\t35\t비화재\n260\t20\t화재\n286\t23\t화재\n831\t29\t비화재\n2485\t29\t비화재\n242\t21\t화재\n945\t21\t비화재\n402\t32\t화재\n1449\t23\t비화재\n279\t22\t화재\n1622\t23\t비화재\n1046\t15\t비화재\n1017\t24\t비화재\n483\t27\t비화재\n234\t27\t화재\n1686\t38\t비화재\n1669\t27\t화재\n444\t33\t화재\n1787\t39\t비화재\n871\t21\t비화재\n627\t18\t비화재\n794\t20\t비화재\n826\t16\t비화재\n538\t30\t비화재\n405\t25\t화재\n740\t20\t비화재\n491\t25\t비화재\n789\t20\t비화재\n884\t32\t비화재\n609\t21\t비화재\n411\t32\t비화재\n1804\t38\t비화재\n221\t20\t화재\n975\t43\t비화재\n685\t29\t비화재\n2045\t25\t비화재\n968\t21\t화재\n269\t24\t화재\n673\t22\t화재\n401\t16\t비화재\n557\t23\t비화재\n593\t26\t비화재\n253\t28\t화재\n313\t26\t화재\n730\t16\t비화재\n336\t37\t화재\n816\t17\t비화재\n629\t26\t비화재\n361\t22\t화재\n451\t24\t화재\n1644\t23\t비화재\n1158\t21\t비화재\n1137\t26\t비화재\n284\t19\t화재\n1224\t18\t비화재\n847\t19\t비화재\n635\t20\t비화재\n741\t26\t비화재\n276\t15\t비화재\n162\t21\t화재\n498\t21\t비화재\n1702\t27\t비화재\n197\t20\t화재\n489\t21\t비화재\n578\t27\t비화재\n607\t24\t비화재\n391\t25\t화재\n777\t23\t비화재\n546\t21\t비화재\n723\t28\t비화재\n250\t14\t화재\n814\t23\t비화재\n290\t23\t화재\n334\t24\t비화재\n244\t24\t화재\n206\t24\t화재\n158\t22\t화재\n212\t22\t화재\n219\t27\t화재\n325\t18\t화재\n309\t17\t화재\n1243\t31\t화재\n577\t27\t비화재\n890\t18\t비화재\n259\t18\t비화재\n723\t20\t화재\n1744\t44\t화재\n479\t36\t비화재\n772\t29\t비화재\n2161\t36\t비화재\n198\t22\t비화재\n762\t24\t비화재\n725\t32\t비화재\n859\t33\t화재\n1158\t31\t비화재\n470\t17\t비화재\n434\t25\t비화재\n733\t24\t비화재\n489\t22\t비화재\n371\t20\t화재\n943\t26\t비화재\n653\t24\t비화재\n587\t18\t비화재\n639\t30\t비화재\n1139\t35\t비화재\n312\t12\t비화재\n430\t32\t화재\n743\t29\t비화재\n702\t28\t비화재\n439\t25\t비화재\n234\t9\t비화재\n855\t16\t비화재\n257\t22\t화재\n653\t21\t화재\n208\t27\t화재\n634\t17\t비화재\n634\t16\t화재\n2776\t24\t비화재\n281\t24\t화재\n389\t19\t비화재\n565\t30\t비화재\n388\t25\t비화재\n1005\t22\t화재\n672\t17\t비화재\n561\t20\t화재\n2373\t28\t비화재\n911\t23\t비화재\n649\t32\t비화재\n1448\t29\t비화재\n722\t24\t비화재\n176\t21\t화재\n200\t17\t비화재\n235\t26\t화재\n842\t19\t비화재\n970\t23\t비화재\n278\t20\t화재\n459\t31\t화재\n1591\t40\t비화재\n247\t23\t비화재\n317\t14\t화재\n2013\t24\t비화재\n329\t20\t화재\n700\t26\t비화재\n568\t26\t비화재\n616\t21\t화재\n166\t22\t화재\n461\t25\t비화재\n1051\t17\t비화재\n652\t25\t비화재\n208\t17\t화재\n942\t20\t비화재\n287\t22\t화재\n626\t34\t비화재\n611\t21\t비화재\n303\t25\t화재\n487\t21\t비화재\n213\t17\t화재\n204\t24\t비화재\n253\t24\t화재\n275\t28\t화재\n1195\t22\t비화재\n522\t19\t비화재\n639\t20\t비화재\n584\t21\t비화재\n491\t27\t비화재\n829\t31\t비화재\n757\t24\t비화재\n305\t22\t화재\n213\t25\t화재\n959\t18\t비화재\n245\t23\t화재\n594\t30\t비화재\n1574\t65\t비화재\n347\t27\t화재\n1\t30\t화재\n248\t30\t화재\n833\t12\t비화재\n404\t24\t화재\n1002\t20\t비화재\n272\t21\t비화재\n859\t29\t비화재\n1609\t37\t비화재\n184\t15\t화재\n600\t22\t비화재\n196\t17\t화재\n833\t18\t비화재\n800\t21\t비화재\n1018\t25\t비화재\n282\t18\t화재\n651\t26\t비화재\n200\t25\t화재\n823\t20\t화재\n296\t16\t화재\n279\t21\t화재\n370\t25\t화재\n1056\t31\t비화재\n285\t23\t비화재\n1675\t34\t비화재\n189\t24\t화재\n255\t19\t화재\n223\t23\t화재\n919\t18\t비화재\n927\t27\t비화재\n266\t20\t화재\n289\t25\t화재\n462\t26\t비화재\n1073\t43\t비화재\n2498\t37\t비화재\n311\t32\t화재\n340\t23\t비화재\n327\t25\t비화재\n1057\t32\t비화재\n1941\t33\t화재\n713\t14\t비화재\n1971\t39\t비화재\n445\t32\t비화재\n371\t27\t비화재\n865\t42\t비화재\n1646\t30\t비화재\n1052\t24\t비화재\n2053\t28\t비화재\n1214\t24\t비화재\n1146\t25\t비화재\n374\t26\t화재\n1716\t33\t화재\n172\t24\t화재\n226\t21\t화재\n1028\t34\t비화재\n408\t18\t비화재\n306\t24\t화재\n902\t37\t비화재\n247\t9\t화재\n316\t18\t화재\n278\t19\t화재\n1443\t23\t비화재\n237\t22\t화재\n869\t30\t비화재\n294\t24\t비화재\n505\t26\t화재\n908\t18\t비화재\n293\t30\t화재\n212\t24\t비화재\n861\t33\t비화재\n342\t19\t비화재\n238\t14\t비화재\n934\t42\t비화재\n1584\t26\t비화재\n350\t25\t비화재\n1906\t29\t비화재\n830\t24\t비화재\n1536\t27\t비화재\n2425\t24\t비화재\n190\t25\t비화재\n810\t22\t비화재\n484\t22\t화재\n452\t28\t비화재\n405\t28\t비화재\n765\t19\t비화재\n1442\t28\t비화재\n465\t27\t비화재\n214\t22\t화재\n180\t19\t화재\n502\t17\t화재\n312\t13\t화재\n2059\t25\t비화재\n931\t21\t화재\n249\t21\t화재\n1269\t27\t비화재\n546\t21\t비화재\n612\t33\t비화재\n989\t15\t비화재\n205\t22\t화재\n427\t18\t화재\n283\t23\t화재\n797\t33\t비화재\n229\t15\t화재\n498\t24\t비화재\n296\t20\t화재\n590\t35\t비화재\n384\t12\t비화재\n1080\t24\t비화재\n2294\t23\t비화재\n268\t25\t화재\n761\t25\t비화재\n400\t23\t화재\n1183\t23\t비화재\n202\t15\t화재\n228\t27\t화재\n460\t27\t화재\n576\t23\t비화재\n2574\t21\t비화재\n237\t26\t화재\n224\t21\t화재\n193\t22\t화재\n250\t22\t화재\n1788\t33\t비화재\n712\t16\t비화재\n609\t28\t비화재\n270\t25\t화재\n1406\t22\t비화재\n193\t6\t비화재\n596\t22\t비화재\n1089\t27\t비화재\n574\t23\t화재\n237\t14\t화재\n1163\t19\t화재\n639\t40\t화재\n861\t22\t비화재\n543\t22\t비화재\n228\t24\t화재\n178\t32\t비화재\n382\t18\t화재\n706\t27\t비화재\n238\t23\t화재\n1949\t47\t비화재\n1244\t36\t비화재\n212\t19\t화재\n908\t29\t화재\n645\t20\t비화재\n338\t25\t비화재\n1116\t28\t비화재\n1835\t41\t비화재\n938\t27\t화재\n314\t28\t화재\n1456\t30\t비화재\n1322\t20\t비화재\n578\t19\t화재\n374\t30\t비화재\n1620\t44\t비화재\n495\t20\t화재\n205\t16\t화재\n499\t21\t화재\n1086\t12\t비화재\n257\t22\t비화재\n981\t18\t비화재\n1064\t29\t화재\n670\t21\t비화재\n281\t11\t비화재\n131\t12\t화재\n712\t24\t비화재\n214\t22\t화재\n491\t28\t화재\n133\t17\t화재\n222\t25\t화재\n39\t24\t비화재\n959\t20\t비화재\n1079\t27\t비화재\n676\t26\t비화재\n308\t16\t비화재\n1160\t19\t비화재\n887\t19\t비화재\n958\t30\t비화재\n1654\t45\t화재\n254\t15\t화재\n620\t21\t비화재\n197\t18\t화재\n1018\t23\t비화재\n2169\t36\t비화재\n1231\t39\t비화재\n725\t32\t화재\n541\t34\t비화재\n376\t21\t비화재\n686\t26\t비화재\n230\t23\t화재\n507\t19\t비화재\n951\t29\t비화재\n715\t30\t비화재\n786\t19\t비화재\n488\t29\t화재\n507\t18\t비화재\n352\t23\t비화재\n239\t13\t화재\n632\t26\t화재\n1202\t21\t비화재\n241\t13\t화재\n661\t12\t비화재\n965\t28\t비화재\n299\t18\t화재\n443\t26\t비화재\n935\t26\t비화재\n1149\t26\t비화재\n177\t17\t화재\n300\t23\t화재\n535\t23\t비화재\n244\t21\t화재\n803\t25\t비화재\n409\t22\t비화재\n1606\t37\t비화재\n1225\t31\t비화재\n489\t34\t비화재\n815\t16\t비화재\n798\t17\t비화재\n1529\t34\t화재\n890\t27\t비화재\n206\t22\t화재\n639\t21\t비화재\n477\t27\t비화재\n735\t18\t비화재\n236\t27\t화재\n806\t16\t화재\n306\t27\t비화재\n1679\t33\t비화재\n948\t24\t비화재\n939\t38\t비화재\n1596\t27\t화재\n562\t23\t비화재\n611\t18\t비화재\n329\t17\t비화재\n648\t23\t비화재\n1208\t27\t비화재\n240\t17\t화재\n860\t26\t비화재\n741\t26\t비화재\n732\t39\t비화재\n373\t30\t화재\n1684\t32\t비화재\n539\t24\t비화재\n232\t23\t화재\n1653\t37\t비화재\n312\t26\t화재\n1049\t22\t비화재\n238\t28\t비화재\n1176\t23\t비화재\n1\t30\t비화재\n712\t23\t비화재\n354\t33\t비화재\n620\t20\t비화재\n965\t16\t비화재\n441\t14\t비화재\n452\t25\t비화재\n694\t21\t비화재\n336\t21\t비화재\n894\t20\t비화재\n536\t19\t비화재\n347\t27\t비화재\n293\t29\t화재\n558\t23\t비화재\n1437\t24\t비화재\n330\t25\t비화재\n714\t33\t비화재\n720\t22\t비화재\n806\t20\t비화재\n641\t24\t비화재\n2350\t31\t비화재\n283\t22\t화재\n949\t20\t비화재\n188\t24\t화재\n549\t16\t비화재\n313\t26\t화재\n1123\t31\t비화재\n729\t29\t비화재\n618\t25\t비화재\n436\t18\t비화재\n1699\t27\t비화재\n320\t23\t화재\n704\t25\t비화재\n1065\t31\t비화재\n233\t23\t화재\n826\t18\t비화재\n1157\t28\t비화재\n980\t26\t비화재\n848\t22\t비화재\n938\t15\t비화재\n799\t29\t비화재\n529\t18\t화재\n412\t30\t비화재\n217\t19\t화재\n1121\t23\t비화재\n292\t23\t화재\n241\t24\t화재\n326\t22\t비화재\n344\t31\t화재\n798\t26\t비화재\n920\t25\t비화재\n264\t22\t화재\n296\t23\t화재\n1100\t22\t비화재\n368\t22\t화재\n262\t24\t화재\n294\t20\t화재\n716\t25\t비화재\n397\t25\t비화재\n1131\t17\t비화재\n320\t25\t비화재\n671\t22\t비화재\n423\t18\t비화재\n932\t29\t비화재\n178\t11\t화재\n381\t19\t비화재\n370\t24\t비화재\n1946\t29\t비화재\n374\t15\t비화재\n737\t18\t비화재\n432\t17\t화재\n1448\t37\t비화재\n887\t30\t비화재\n834\t32\t비화재\n654\t27\t비화재\n547\t31\t비화재\n348\t21\t비화재\n1750\t16\t비화재\n637\t29\t비화재\n1600\t21\t비화재\n881\t20\t비화재\n584\t20\t비화재\n462\t27\t비화재\n1669\t39\t화재\n840\t19\t비화재\n487\t24\t비화재\n1473\t23\t화재\n245\t16\t화재\n550\t28\t비화재\n347\t22\t비화재\n888\t23\t비화재\n807\t17\t화재\n301\t16\t화재\n1281\t44\t화재\n308\t22\t화재\n184\t28\t비화재\n1551\t24\t비화재\n1110\t21\t비화재\n233\t16\t화재\n368\t16\t비화재\n1110\t26\t비화재\n315\t16\t화재\n804\t28\t화재\n565\t33\t비화재\n845\t15\t비화재\n406\t17\t비화재\n703\t18\t비화재\n91\t28\t비화재\n1190\t41\t비화재\n846\t23\t화재\n696\t23\t화재\n497\t28\t비화재\n253\t11\t비화재\n1617\t43\t비화재\n1827\t39\t비화재\n890\t17\t화재\n290\t22\t화재\n780\t22\t비화재\n294\t25\t화재\n308\t22\t화재\n262\t25\t화재\n462\t26\t비화재\n256\t22\t화재\n259\t6\t비화재\n2658\t25\t비화재\n490\t32\t화재\n662\t20\t비화재\n219\t18\t화재\n259\t15\t화재\n939\t34\t비화재\n212\t19\t화재\n383\t10\t화재\n643\t24\t비화재\n794\t14\t비화재\n197\t19\t화재\n804\t21\t비화재\n903\t26\t화재\n1494\t28\t비화재\n263\t21\t화재\n946\t24\t비화재\n809\t30\t화재\n227\t26\t화재\n214\t17\t비화재\n317\t20\t비화재\n465\t24\t비화재\n192\t24\t화재\n2190\t26\t비화재\n1828\t27\t비화재\n566\t16\t비화재\n205\t6\t비화재\n195\t24\t비화재\n322\t24\t화재\n721\t24\t화재\n1273\t19\t비화재\n606\t31\t비화재\n439\t26\t비화재\n216\t26\t화재\n825\t24\t화재\n234\t21\t화재\n894\t20\t비화재\n593\t25\t비화재\n866\t24\t비화재\n488\t22\t비화재\n609\t22\t비화재\n861\t19\t비화재\n2123\t33\t비화재\n580\t27\t비화재\n224\t23\t화재\n875\t25\t비화재\n295\t17\t화재\n649\t25\t비화재\n331\t29\t비화재\n234\t20\t화재\n610\t17\t비화재\n2011\t28\t비화재\n1964\t25\t비화재\n444\t13\t화재\n1210\t24\t비화재\n1150\t22\t비화재\n789\t35\t비화재\n1571\t27\t화재\n187\t24\t화재\n309\t13\t화재\n454\t22\t비화재\n280\t22\t화재\n935\t26\t비화재\n363\t22\t비화재\n770\t22\t비화재\n314\t22\t화재\n577\t20\t비화재\n204\t15\t화재\n1564\t36\t화재\n455\t25\t화재\n998\t42\t비화재\n259\t19\t화재\n553\t23\t화재\n207\t23\t화재\n1680\t28\t비화재\n297\t31\t화재\n477\t23\t비화재\n1958\t39\t화재\n183\t23\t화재\n264\t27\t화재\n315\t27\t비화재\n1045\t22\t비화재\n341\t14\t화재\n375\t26\t비화재\n1874\t27\t비화재\n194\t16\t화재\n185\t20\t화재\n722\t30\t비화재\n395\t25\t비화재\n931\t21\t비화재\n586\t17\t비화재\n483\t26\t비화재\n1289\t37\t비화재\n430\t39\t화재\n507\t18\t비화재\n1949\t26\t비화재\n588\t17\t화재\n598\t35\t비화재\n2206\t26\t비화재\n978\t17\t비화재\n1535\t12\t비화재\n802\t23\t비화재\n884\t36\t비화재\n953\t32\t비화재\n642\t20\t화재\n774\t40\t비화재\n212\t23\t화재\n132\t13\t화재\n1520\t32\t비화재\n536\t24\t비화재\n196\t22\t화재\n269\t20\t화재\n201\t11\t비화재\n591\t19\t비화재\n225\t16\t비화재\n871\t36\t비화재\n1066\t43\t비화재\n1558\t32\t비화재\n278\t18\t화재\n201\t10\t비화재\n201\t16\t비화재\n736\t20\t비화재\n195\t19\t화재\n374\t18\t화재\n853\t16\t화재\n1015\t30\t비화재\n426\t21\t화재\n355\t21\t화재\n1228\t15\t비화재\n257\t17\t화재\n422\t17\t비화재\n271\t24\t화재\n514\t22\t비화재\n237\t28\t화재\n757\t24\t비화재\n254\t25\t화재\n279\t20\t비화재\n383\t24\t화재\n220\t15\t화재\n676\t23\t비화재\n808\t26\t비화재\n691\t16\t비화재\n1403\t29\t비화재\n498\t20\t비화재\n203\t23\t화재\n637\t22\t비화재\n248\t21\t화재\n221\t13\t화재\n444\t19\t비화재\n764\t18\t비화재\n959\t26\t비화재\n1042\t27\t비화재\n460\t21\t비화재\n1\t31\t비화재\n431\t33\t비화재\n217\t19\t화재\n439\t16\t비화재\n2317\t38\t비화재\n1148\t29\t화재\n510\t18\t비화재\n717\t25\t비화재\n1500\t37\t비화재\n1616\t14\t비화재\n503\t20\t비화재\n2681\t25\t비화재\n1\t20\t화재\n471\t25\t화재\n221\t19\t비화재\n812\t20\t비화재\n190\t22\t화재\n961\t30\t비화재\n784\t22\t비화재\n194\t19\t화재\n747\t20\t비화재\n603\t24\t비화재\n207\t11\t화재\n789\t22\t비화재\n211\t21\t비화재\n259\t17\t화재\n771\t21\t비화재\n1056\t28\t화재\n293\t23\t화재\n412\t23\t화재\n464\t32\t화재\n0\t24\t비화재\n217\t27\t화재\n213\t25\t화재\n1649\t22\t비화재\n186\t16\t화재\n712\t35\t화재\n217\t14\t비화재\n221\t24\t화재\n203\t26\t화재\n1058\t21\t비화재\n343\t23\t화재\n1308\t23\t비화재\n397\t17\t화재\n255\t10\t화재\n833\t26\t비화재\n682\t13\t비화재\n791\t26\t비화재\n737\t29\t비화재\n291\t24\t화재\n777\t27\t비화재\n641\t19\t비화재\n229\t20\t비화재\n957\t26\t비화재\n907\t25\t비화재\n987\t17\t비화재\n544\t20\t비화재\n748\t21\t화재\n860\t24\t비화재\n568\t17\t비화재\n253\t23\t화재\n950\t34\t비화재\n985\t26\t비화재\n1154\t33\t비화재\n260\t30\t화재\n415\t24\t비화재\n549\t27\t화재\n815\t28\t비화재\n807\t31\t비화재\n420\t21\t화재\n196\t25\t화재\n420\t15\t비화재\n772\t30\t비화재\n1175\t18\t비화재\n250\t23\t비화재\n579\t28\t비화재\n379\t17\t화재\n746\t24\t비화재\n232\t17\t화재\n374\t25\t화재\n345\t20\t화재\n305\t21\t화재\n718\t23\t비화재\n936\t17\t비화재\n205\t13\t비화재\n233\t20\t화재\n336\t28\t화재\n428\t33\t비화재\n323\t26\t비화재\n359\t23\t비화재\n997\t18\t비화재\n1426\t29\t비화재\n267\t18\t화재\n919\t23\t비화재\n319\t25\t화재\n653\t25\t비화재\n888\t27\t비화재\n224\t20\t화재\n1166\t27\t비화재\n214\t22\t비화재\n685\t17\t화재\n685\t17\t비화재\n491\t17\t비화재\n1259\t36\t비화재\n978\t27\t비화재\n870\t29\t비화재\n430\t15\t화재\n507\t19\t비화재\n1618\t29\t비화재\n247\t22\t화재\n415\t16\t비화재\n215\t19\t화재\n244\t28\t화재\n294\t22\t화재\n241\t22\t화재\n262\t22\t화재\n388\t22\t화재\n217\t16\t화재\n296\t19\t화재\n491\t27\t비화재\n1688\t37\t비화재\n743\t24\t비화재\n1631\t22\t비화재\n177\t29\t비화재\n807\t15\t화재\n225\t19\t화재\n218\t23\t화재\n1942\t17\t비화재\n562\t22\t비화재\n723\t12\t비화재\n646\t19\t비화재\n621\t22\t화재\n281\t16\t화재\n1216\t36\t비화재\n273\t20\t비화재\n198\t19\t비화재\n1653\t39\t비화재\n559\t36\t비화재\n266\t31\t화재\n198\t25\t화재\n773\t22\t화재\n583\t23\t비화재\n1838\t35\t화재\n278\t29\t화재\n300\t21\t화재\n484\t25\t비화재\n319\t14\t비화재\n1144\t17\t비화재\n535\t25\t비화재\n212\t14\t화재\n722\t25\t비화재\n415\t10\t화재\n253\t20\t화재\n957\t25\t비화재\n197\t23\t화재\n905\t14\t화재\n1499\t28\t비화재\n233\t22\t화재\n191\t21\t화재\n829\t22\t비화재\n569\t21\t비화재\n522\t27\t비화재\n605\t23\t비화재\n173\t17\t화재\n848\t44\t비화재\n571\t21\t비화재\n276\t22\t화재\n552\t20\t비화재\n176\t19\t화재\n823\t18\t비화재\n156\t24\t화재\n627\t20\t비화재\n459\t19\t화재\n2234\t19\t비화재\n522\t24\t비화재\n1013\t18\t비화재\n1744\t40\t화재\n2472\t40\t비화재\n191\t8\t비화재\n301\t21\t화재\n1727\t22\t비화재\n239\t23\t화재\n309\t26\t비화재\n997\t27\t비화재\n181\t21\t화재\n1\t39\t비화재\n256\t19\t화재\n470\t17\t비화재\n243\t22\t비화재\n254\t27\t비화재\n190\t22\t화재\n870\t27\t비화재\n512\t10\t화재\n1049\t26\t화재\n635\t26\t비화재\n349\t22\t비화재\n339\t20\t화재\n1736\t24\t화재\n622\t26\t비화재\n146\t24\t화재\n583\t29\t화재\n231\t12\t비화재\n456\t26\t비화재\n241\t19\t화재\n223\t15\t화재\n779\t14\t비화재\n776\t21\t화재\n252\t28\t비화재\n249\t25\t화재\n879\t23\t비화재\n254\t17\t화재\n293\t23\t화재\n250\t21\t화재\n1096\t27\t비화재\n333\t14\t화재\n321\t24\t화재\n786\t18\t비화재\n1041\t37\t비화재\n297\t15\t화재\n1234\t26\t화재\n780\t22\t비화재\n194\t6\t비화재\n1128\t20\t비화재\n851\t17\t비화재\n630\t25\t화재\n917\t17\t비화재\n232\t9\t비화재\n210\t20\t화재\n495\t24\t비화재\n250\t12\t비화재\n488\t17\t비화재\n223\t18\t화재\n234\t20\t화재\n278\t22\t화재\n793\t22\t화재\n849\t16\t비화재\n612\t17\t비화재\n224\t23\t비화재\n611\t19\t비화재\n782\t10\t화재\n567\t18\t비화재\n903\t28\t화재\n1106\t27\t화재\n200\t13\t비화재\n354\t12\t화재\n1713\t35\t화재\n1054\t40\t비화재\n833\t28\t비화재\n1023\t33\t비화재\n343\t12\t화재\n257\t19\t화재\n2140\t30\t비화재\n309\t16\t화재\n306\t29\t비화재\n282\t17\t화재\n2253\t44\t비화재\n681\t19\t비화재\n990\t23\t화재\n992\t23\t화재\n775\t28\t화재\n220\t20\t화재\n173\t26\t화재\n236\t20\t화재\n875\t28\t비화재\n897\t25\t화재\n889\t18\t화재\n293\t26\t화재\n302\t25\t비화재\n905\t33\t비화재\n198\t11\t비화재\n151\t15\t화재\n217\t23\t화재\n244\t21\t화재\n244\t21\t화재\n1433\t38\t비화재\n379\t50\t비화재\n386\t24\t비화재\n198\t23\t화재\n219\t18\t화재\n212\t24\t화재\n624\t25\t비화재\n224\t24\t화재\n248\t20\t화재\n219\t22\t화재\n377\t20\t화재\n240\t21\t비화재\n317\t23\t비화재\n334\t24\t비화재\n729\t22\t비화재\n1255\t32\t비화재\n865\t23\t비화재\n735\t25\t비화재\n986\t30\t비화재\n1752\t26\t비화재\n781\t22\t비화재\n207\t24\t화재\n837\t15\t비화재\n161\t34\t비화재\n257\t10\t비화재\n680\t13\t화재\n267\t10\t화재\n342\t17\t비화재\n297\t30\t화재\n180\t23\t화재\n813\t25\t화재\n816\t37\t화재\n406\t29\t화재\n216\t24\t화재\n243\t16\t화재\n1192\t32\t비화재\n218\t16\t화재\n563\t36\t비화재\n1126\t28\t비화재\n167\t14\t화재\n189\t30\t화재\n236\t18\t화재\n906\t27\t비화재\n572\t19\t비화재\n161\t20\t화재\n259\t21\t화재\n215\t19\t화재\n2110\t43\t비화재\n563\t26\t비화재\n1245\t35\t비화재\n154\t19\t화재\n248\t16\t화재\n182\t18\t비화재\n845\t27\t비화재\n987\t23\t비화재\n712\t19\t화재\n675\t24\t비화재\n210\t22\t화재\n343\t21\t비화재\n634\t22\t비화재\n233\t24\t화재\n289\t24\t화재\n252\t26\t화재\n364\t24\t비화재\n629\t24\t비화재\n1728\t17\t비화재\n174\t25\t화재\n264\t21\t화재\n951\t17\t비화재\n230\t24\t화재\n858\t21\t비화재\n710\t16\t화재\n530\t20\t비화재\n255\t24\t화재\n288\t20\t화재\n922\t23\t비화재\n671\t23\t비화재\n360\t19\t화재\n258\t15\t비화재\n970\t21\t비화재\n763\t25\t비화재\n349\t17\t화재\n250\t19\t화재\n265\t19\t화재\n859\t18\t화재\n459\t19\t비화재\n834\t18\t비화재\n209\t20\t화재\n263\t21\t화재\n738\t17\t비화재\n821\t23\t화재\n300\t21\t화재\n210\t23\t화재\n952\t27\t비화재\n184\t21\t화재\n223\t22\t화재\n234\t22\t화재\n499\t20\t화재\n347\t22\t비화재\n251\t24\t화재\n222\t18\t화재\n895\t21\t비화재\n705\t26\t비화재\n930\t20\t비화재\n2061\t22\t비화재\n196\t25\t화재\n806\t28\t화재\n653\t24\t화재\n296\t30\t화재\n189\t23\t화재\n203\t18\t화재\n689\t28\t비화재\n861\t26\t화재\n399\t21\t비화재\n688\t33\t비화재\n230\t23\t화재\n607\t27\t비화재\n986\t28\t비화재\n1756\t22\t비화재\n1618\t33\t비화재\n292\t25\t화재\n251\t13\t화재\n223\t23\t화재\n262\t30\t화재\n676\t32\t비화재\n439\t40\t화재\n736\t26\t화재\n284\t21\t화재\n822\t25\t비화재\n229\t18\t화재\n1368\t20\t비화재\n234\t25\t화재\n289\t15\t화재\n205\t21\t비화재\n785\t23\t비화재\n321\t23\t화재\n157\t16\t화재\n317\t24\t비화재\n763\t18\t비화재\n292\t20\t화재\n193\t15\t화재\n830\t26\t비화재\n371\t26\t화재\n224\t14\t화재\n711\t16\t화재\n157\t24\t화재\n180\t27\t화재\n202\t21\t화재\n166\t18\t비화재\n624\t20\t비화재\n231\t30\t화재\n303\t26\t화재\n2553\t47\t비화재\n1544\t36\t비화재\n256\t25\t화재\n289\t17\t화재\n1819\t18\t비화재\n356\t23\t화재\n614\t17\t비화재\n298\t21\t화재\n198\t14\t화재\n284\t20\t화재\n413\t28\t화재\n188\t17\t화재\n"
+      },
+      "dateCreated": "Oct 9, 2016 10:40:22 AM",
+      "dateStarted": "Oct 9, 2016 10:41:50 AM",
+      "dateFinished": "Oct 9, 2016 10:41:50 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "평균 제목 길이",
+      "text": "%sql \nSELECT  CASE label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, AVG(LENGTH(title)) AS title_length\nFROM    news\nGROUP BY label\nORDER BY label",
+      "dateUpdated": "Oct 9, 2016 11:17:36 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "title_length",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "yAxis": {
+              "name": "title_length",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/sql",
+        "helium": {},
+        "editorHide": true,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476020422435_-918737064",
+      "id": "20160831-235812_1069431628",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "label\ttitle_length\n비화재\t24.568527918781726\n화재\t22.280669144981413\n"
+      },
+      "dateCreated": "Oct 9, 2016 10:40:22 AM",
+      "dateStarted": "Oct 9, 2016 11:06:17 AM",
+      "dateFinished": "Oct 9, 2016 11:06:17 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "제목에 지명이 나올 확률",
+      "text": "%sql \nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio\nFROM    (\n    SELECT  label, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   feature[1] \u003d \u0027지명\u0027 AND origin \u003d \u0027title\u0027\n    GROUP BY label\n) t1 JOIN (\n    SELECT label, COUNT(*) AS total FROM news GROUP BY label\n) t2 ON (t1.label \u003d t2.label)\nORDER BY t1.label",
+      "dateUpdated": "Oct 11, 2016 2:48:02 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "yAxis": {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            },
+            "xAxis": {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/sql",
+        "helium": {},
+        "editorHide": true,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476020422437_-921045557",
+      "id": "20160901-000248_2140651866",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "label\tratio\n비화재\t0.5291878172588832\n화재\t0.7100371747211895\n"
+      },
+      "dateCreated": "Oct 9, 2016 10:40:22 AM",
+      "dateStarted": "Oct 9, 2016 11:06:52 AM",
+      "dateFinished": "Oct 9, 2016 11:06:53 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "제목에 인명이 나올 확률",
+      "text": "%sql \nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio\nFROM    (\n    SELECT  label, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   feature[1] \u003d \u0027인명\u0027 AND origin \u003d \u0027title\u0027\n    GROUP BY label\n) t1 JOIN (\n    SELECT label, COUNT(*) AS total FROM news GROUP BY label\n) t2 ON (t1.label \u003d t2.label)\nORDER BY t1.label",
+      "dateUpdated": "Oct 9, 2016 11:17:39 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "tableHide": false,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/sql",
+        "helium": {},
+        "editorHide": true,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476020422439_-920276059",
+      "id": "20160901-001857_1408368264",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "label\tratio\n비화재\t0.12563451776649745\n화재\t0.04275092936802974\n"
+      },
+      "dateCreated": "Oct 9, 2016 10:40:22 AM",
+      "dateStarted": "Oct 9, 2016 11:08:00 AM",
+      "dateFinished": "Oct 9, 2016 11:08:01 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "평균 내용 길이",
+      "text": "%sql \nSELECT  CASE label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, AVG(LENGTH(body)) AS title_length\nFROM    news\nGROUP BY label\nORDER BY label",
+      "dateUpdated": "Oct 9, 2016 11:17:41 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "title_length",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/sql",
+        "helium": {},
+        "editorHide": true,
+        "colWidth": 4.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476020422442_-921430306",
+      "id": "20160901-000148_2113997494",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "label\ttitle_length\n비화재\t844.5266497461929\n화재\t409.1133828996283\n"
+      },
+      "dateCreated": "Oct 9, 2016 10:40:22 AM",
+      "dateStarted": "Oct 9, 2016 11:08:46 AM",
+      "dateFinished": "Oct 9, 2016 11:08:47 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "내용에 지명이 나올 확률",
+      "text": "%sql \nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio\nFROM    (\n    SELECT  label, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   feature[1] \u003d \u0027지명\u0027 AND origin \u003d \u0027body\u0027\n    GROUP BY label\n) t1 JOIN (\n    SELECT label, COUNT(*) AS total FROM news GROUP BY label\n) t2 ON (t1.label \u003d t2.label)\nORDER BY t1.label",
+      "dateUpdated": "Oct 9, 2016 11:17:42 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/sql",
+        "helium": {},
+        "colWidth": 4.0,
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476020422444_-923738799",
+      "id": "20160901-000828_2104645995",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "label\tratio\n비화재\t7.230964467005077\n화재\t4.382899628252788\n"
+      },
+      "dateCreated": "Oct 9, 2016 10:40:22 AM",
+      "dateStarted": "Oct 9, 2016 11:08:59 AM",
+      "dateFinished": "Oct 9, 2016 11:09:00 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "내용에 인명이 나올 확률",
+      "text": "%sql \nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio\nFROM    (\n    SELECT  label, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   feature[1] \u003d \u0027인명\u0027 AND origin \u003d \u0027body\u0027\n    GROUP BY label\n) t1 JOIN (\n    SELECT label, COUNT(*) AS total FROM news GROUP BY label\n) t2 ON (t1.label \u003d t2.label)\nORDER BY t1.label",
+      "dateUpdated": "Oct 9, 2016 11:17:44 AM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/sql",
+        "helium": {},
+        "colWidth": 4.0,
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476020422446_-922969302",
+      "id": "20160901-001911_961547111",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "label\tratio\n비화재\t3.918781725888325\n화재\t1.9144981412639406\n"
+      },
+      "dateCreated": "Oct 9, 2016 10:40:22 AM",
+      "dateStarted": "Oct 9, 2016 11:09:17 AM",
+      "dateFinished": "Oct 9, 2016 11:09:17 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "제목 단어 품사별 출현 확률 TOP 6",
+      "text": "%sql\nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio,\n    CASE pos\n        WHEN \u0027N\u0027 THEN \u0027체언\u0027\n        WHEN \u0027S\u0027 THEN \u0027부호\u0027\n        WHEN \u0027SN\u0027 THEN \u0027숫자\u0027\n        WHEN \u0027J\u0027 THEN \u0027관계언\u0027\n        WHEN \u0027E\u0027 THEN \u0027어미\u0027\n        WHEN \u0027V\u0027 THEN \u0027용언\u0027\n        ELSE pos\n    END AS pos\nFROM\n(\n    SELECT  label, origin, pos[0] AS pos, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin, pos\n) t1 JOIN (\n    SELECT  label, origin, COUNT(*) AS total\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin\n) t2 ON (t1.label \u003d t2.label AND t1.origin \u003d t2.origin)\nWHERE   t1.origin \u003d \u0027title\u0027\n    AND pos \u003c\u003e \u0027XS\u0027 AND pos \u003c\u003e \u0027M\u0027 AND pos \u003c\u003e \u0027SL\u0027 \n    AND pos \u003c\u003e \u0027XP\u0027AND pos \u003c\u003e \u0027SH\u0027 AND pos \u003c\u003e \u0027XR\u0027\n    AND pos \u003c\u003e \u0027UNK\u0027 AND pos \u003c\u003e \u0027VCP\u0027 AND pos \u003c\u003e \u0027EP\u0027 AND pos \u003c\u003e \u0027I\u0027\nORDER BY ratio DESC, pos",
+      "dateUpdated": "Oct 13, 2016 4:16:54 PM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "pos",
+              "index": 2.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [
+            {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "scatter": {
+            "yAxis": {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            },
+            "xAxis": {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/sql",
+        "helium": {},
+        "colWidth": 12.0,
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476020422448_-912965830",
+      "id": "20160824-185339_33680714",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "label\tratio\tpos\n화재\t0.6273516642547033\t체언\n비화재\t0.6159633243211473\t체언\n비화재\t0.18902080639473376\t부호\n화재\t0.1734804630969609\t부호\n화재\t0.07398697539797396\t숫자\n화재\t0.06023878437047757\t관계언\n비화재\t0.049136005642412134\t관계언\n비화재\t0.03608792758904432\t숫자\n비화재\t0.027741859644998236\t어미\n비화재\t0.023392500293875632\t용언\n화재\t0.016823444283646887\t어미\n화재\t0.015557163531114327\t용언\n"
+      },
+      "dateCreated": "Oct 9, 2016 10:40:22 AM",
+      "dateStarted": "Oct 9, 2016 11:16:05 AM",
+      "dateFinished": "Oct 9, 2016 11:16:06 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "내용 단어 품사별 출현 확률 TOP 6",
+      "text": "%sql\nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio,\n    CASE pos\n        WHEN \u0027N\u0027 THEN \u0027체언\u0027\n        WHEN \u0027S\u0027 THEN \u0027부호\u0027\n        WHEN \u0027SN\u0027 THEN \u0027숫자\u0027\n        WHEN \u0027J\u0027 THEN \u0027관계언\u0027\n        WHEN \u0027E\u0027 THEN \u0027어미\u0027\n        WHEN \u0027V\u0027 THEN \u0027용언\u0027\n        ELSE pos\n    END AS pos\nFROM\n(\n    SELECT  label, origin, pos[0] AS pos, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin, pos\n) t1 JOIN (\n    SELECT  label, origin, COUNT(*) AS total\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin\n) t2 ON (t1.label \u003d t2.label AND t1.origin \u003d t2.origin)\nWHERE   t1.origin \u003d \u0027body\u0027\n    AND pos \u003c\u003e \u0027XS\u0027 AND pos \u003c\u003e \u0027M\u0027 AND pos \u003c\u003e \u0027SL\u0027 \n    AND pos \u003c\u003e \u0027XP\u0027AND pos \u003c\u003e \u0027SH\u0027 AND pos \u003c\u003e \u0027XR\u0027\n    AND pos \u003c\u003e \u0027UNK\u0027 AND pos \u003c\u003e \u0027VCP\u0027 AND pos \u003c\u003e \u0027EP\u0027 AND pos \u003c\u003e \u0027I\u0027\nORDER BY ratio DESC, pos",
+      "dateUpdated": "Oct 13, 2016 4:16:57 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "pos",
+              "index": 2.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [
+            {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "scatter": {
+            "xAxis": {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/sql",
+        "helium": {},
+        "title": true,
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476022267386_-405262035",
+      "id": "20161009-231107_2055549053",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "label\tratio\tpos\n비화재\t0.43151443448593696\t체언\n화재\t0.3867907374725921\t체언\n화재\t0.18167816460773303\t부호\n비화재\t0.16030980664598538\t관계언\n화재\t0.1547997219102626\t관계언\n비화재\t0.14908069142460156\t부호\n비화재\t0.07873793686932956\t어미\n화재\t0.0785389593026365\t어미\n화재\t0.051254077758168884\t숫자\n화재\t0.0436814802930638\t용언\n비화재\t0.04324155150948198\t용언\n비화재\t0.03873958770403285\t숫자\n"
+      },
+      "dateCreated": "Oct 9, 2016 11:11:07 AM",
+      "dateStarted": "Oct 9, 2016 11:16:20 AM",
+      "dateFinished": "Oct 9, 2016 11:16:21 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "제목 단어 품사별 출현 확률",
+      "text": "%sql\nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio,\n    CASE pos\n        WHEN \u0027N\u0027 THEN \u0027체언\u0027\n        WHEN \u0027S\u0027 THEN \u0027부호\u0027\n        WHEN \u0027SN\u0027 THEN \u0027숫자\u0027\n        WHEN \u0027J\u0027 THEN \u0027관계언\u0027\n        WHEN \u0027E\u0027 THEN \u0027어미\u0027\n        WHEN \u0027V\u0027 THEN \u0027용언\u0027\n        ELSE pos\n    END AS pos\nFROM\n(\n    SELECT  label, origin, pos[0] AS pos, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin, pos\n) t1 JOIN (\n    SELECT  label, origin, COUNT(*) AS total\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin\n) t2 ON (t1.label \u003d t2.label AND t1.origin \u003d t2.origin)\nWHERE   t1.origin \u003d \u0027title\u0027\nORDER BY ratio DESC, pos",
+      "dateUpdated": "Oct 13, 2016 4:18:04 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "pos",
+              "index": 2.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [
+            {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "scatter": {
+            "xAxis": {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "helium": {},
+        "editorHide": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476342929977_337048264",
+      "id": "20161013-161529_1381498036",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "label\tratio\tpos\n화재\t0.6273516642547033\t체언\n비화재\t0.6159633243211473\t체언\n비화재\t0.18902080639473376\t부호\n화재\t0.1734804630969609\t부호\n화재\t0.07398697539797396\t숫자\n화재\t0.06023878437047757\t관계언\n비화재\t0.049136005642412134\t관계언\n비화재\t0.03608792758904432\t숫자\n비화재\t0.027741859644998236\t어미\n비화재\t0.023392500293875632\t용언\n비화재\t0.01775008816268955\tM\n화재\t0.016823444283646887\t어미\n화재\t0.015557163531114327\t용언\n비화재\t0.014811331844363465\tXS\n화재\t0.011034732272069464\tXS\n비화재\t0.010344422240507817\tSL\n화재\t0.008321273516642547\tM\n화재\t0.007959479015918957\tXP\n비화재\t0.004702010109321735\tXP\n비화재\t0.003644057834724345\tSH\n비화재\t0.0035265075819913014\tXR\n비화재\t0.0017632537909956507\tUNK\n화재\t0.0016280752532561505\tSH\n화재\t0.001447178002894356\tSL\n화재\t0.001085383502170767\tXR\n비화재\t8.228517691313037E-4\tEP\n비화재\t7.053015163982603E-4\tVCP\n비화재\t5.877512636652169E-4\tI\n화재\t5.426917510853835E-4\tUNK\n화재\t3.61794500723589E-4\tI\n화재\t1.808972503617945E-4\tVCP\n"
+      },
+      "dateCreated": "Oct 13, 2016 4:15:29 PM",
+      "dateStarted": "Oct 13, 2016 4:17:34 PM",
+      "dateFinished": "Oct 13, 2016 4:17:35 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "본문 단어 품사별 출현 확률",
+      "text": "%sql\nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio,\n    CASE pos\n        WHEN \u0027N\u0027 THEN \u0027체언\u0027\n        WHEN \u0027S\u0027 THEN \u0027부호\u0027\n        WHEN \u0027SN\u0027 THEN \u0027숫자\u0027\n        WHEN \u0027J\u0027 THEN \u0027관계언\u0027\n        WHEN \u0027E\u0027 THEN \u0027어미\u0027\n        WHEN \u0027V\u0027 THEN \u0027용언\u0027\n        ELSE pos\n    END AS pos\nFROM\n(\n    SELECT  label, origin, pos[0] AS pos, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin, pos\n) t1 JOIN (\n    SELECT  label, origin, COUNT(*) AS total\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   SIZE(pos) \u003d 1\n    GROUP BY label, origin\n) t2 ON (t1.label \u003d t2.label AND t1.origin \u003d t2.origin)\nWHERE   t1.origin \u003d \u0027body\u0027\nORDER BY ratio DESC, pos",
+      "dateUpdated": "Oct 13, 2016 4:18:09 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "pos",
+              "index": 2.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [
+            {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "scatter": {
+            "xAxis": {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "ratio",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/sql",
+        "editorHide": true,
+        "helium": {},
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476343026554_-653341377",
+      "id": "20161013-161706_607080285",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "label\tratio\tpos\n비화재\t0.43151443448593696\t체언\n화재\t0.3867907374725921\t체언\n화재\t0.18167816460773303\t부호\n비화재\t0.16030980664598538\t관계언\n화재\t0.1547997219102626\t관계언\n비화재\t0.14908069142460156\t부호\n비화재\t0.07873793686932956\t어미\n화재\t0.0785389593026365\t어미\n화재\t0.051254077758168884\t숫자\n화재\t0.0436814802930638\t용언\n비화재\t0.04324155150948198\t용언\n화재\t0.041381892079790365\tSL\n비화재\t0.03873958770403285\t숫자\n비화재\t0.029993603015524724\tXS\n비화재\t0.027269725755084916\tM\n화재\t0.026001390448687097\tXS\n화재\t0.0238087598267287\tM\n비화재\t0.023245816165798832\tSL\n화재\t0.006171453018878015\tEP\n비화재\t0.0061356023139199755\tEP\n비화재\t0.004921550959203747\tVCP\n화재\t0.0029092464837691856\tVCP\n비화재\t0.0024487381432236675\tXR\n비화재\t0.002397149558745641\tXP\n화재\t0.00125140381838601\tXP\n화재\t8.66356489651853E-4\tXR\n비화재\t7.738287671704005E-4\tUNK\n비화재\t6.362592085623293E-4\tSH\n비화재\t5.537174733974866E-4\tI\n화재\t4.7061340178619176E-4\tUNK\n화재\t2.780897374191133E-4\tI\n화재\t1.1765335044654794E-4\tSH\n"
+      },
+      "dateCreated": "Oct 13, 2016 4:17:06 PM",
+      "dateStarted": "Oct 13, 2016 4:17:27 PM",
+      "dateFinished": "Oct 13, 2016 4:17:28 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "dateUpdated": "Oct 9, 2016 10:40:22 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476020422453_-914889575",
+      "id": "20160831-174049_1486813469",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Oct 9, 2016 10:40:22 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "playdata/5.ExploratoryDataAnanlysis",
+  "id": "2BX64UFSQ",
+  "angularObjects": {
+    "2BXWMZ2JP:shared_process": [],
+    "2BYRGXC6E:shared_process": [],
+    "2BYEZ229C:shared_process": [],
+    "2BXUZ9JVT:shared_process": [],
+    "2BVKZDUFQ:shared_process": [],
+    "2BXBPMYB6:shared_process": [],
+    "2BZ4YFDFE:shared_process": [],
+    "2BWAJCG58:shared_process": [],
+    "2BXMASZWN:shared_process": [],
+    "2BVZ9R4MY:shared_process": [],
+    "2BVR2UN2E:shared_process": [],
+    "2BWP96UN6:shared_process": [],
+    "2BX3AASWA:shared_process": [],
+    "2BYG7DEAC:shared_process": [],
+    "2BX5Z4XGV:shared_process": [],
+    "2BY6S66XQ:shared_process": [],
+    "2BY6EMV6C:shared_process": [],
+    "2BYEYC4NP:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}

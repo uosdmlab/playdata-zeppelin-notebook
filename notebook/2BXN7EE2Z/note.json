@@ -1,0 +1,579 @@
+{
+  "paragraphs": [
+    {
+      "title": "데이터셋 다운로드, Spark로 읽기",
+      "text": "val rawJson \u003d scala.io.Source.fromURL(\"https://raw.githubusercontent.com/uosdmlab/playdata-zeppelin-notebook/master/data/fire-news.json\").mkString.split(\"\\n\")\nval rddJson \u003d sc.parallelize(rawJson)\nval news \u003d spark.read.json(rddJson)",
+      "dateUpdated": "Oct 12, 2016 10:30:03 PM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 92.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474649933720_-1462103693",
+      "id": "20160924-002415_650243526",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "rawJson: Array[String] \u003d Array({\"label\":1.0,\"split\":\"training\",\"body\":\"\u0027아모레퍼시픽\u0027 \u0027대전 대화동 화재\u0027대전 대덕구 대화동에 위치한 아모레퍼시픽 대전 공장에서 화재가 발생했다.28일 오후 3시 대화동 아모레퍼시픽 대전공장에서 화재가 발생했다. 이곳은 코스메틱 사업장과 물류센터 등이 있는 곳이다.이에 각종 SNS 이용자들은 \\\"아모레 대전공장 화재, 연기로 인해 시야 확보도 어려운 상태입니다. 인명 피해가 없길 바랍니다\\\" 등의 글을 올리며 상황을 실시간으로 전하고 있다.현재 아모레 퍼시픽 대전 대화동 화재로 인해 연기가 둔산동까지 치솟아 시야가 확보가 어려운 상태인 것으로 전해졌다.\u0027아모레퍼시픽\u0027 \u0027대전 대화동 화재\u0027현재 소방당국이 출동해 화재를 진압 중이며 화재 원인에 대해 조사하고 있다.이에 네티즌들은 \\\"대전 대화동 화재, 인명피해 없길\\\" \\\"대전 대화동 화재, 안타깝다\\\" \\\"대전 대화동 화재, 빨리 진화되길\\\" 등의 반응을 보였다.한국아이닷컴 뉴스부 reporter@hankooki.com[ⓒ 인터넷한국일보(www.hankooki.com), 무단 전재 및 재배포 금지]\",\"date\":\"2014-04-28\",\"host\":\"한국일보\",\"link\":\"http://v.media.daum.net/v/20140428175309190?f\u003do\",\"query\":\"화재 -삼성화재 -동부화재 -메리츠화재\",\"title\":\"대전 대화동 아모레퍼시픽 공장서 화재.. 시야 확보 어려워\"}, {\"label\":0.0,\"split\":\"training\",\"body\":\"...\nrddJson: org.apache.spark.rdd.RDD[String] \u003d ParallelCollectionRDD[3] at parallelize at \u003cconsole\u003e:29\n\nnews: org.apache.spark.sql.DataFrame \u003d [body: string, date: string ... 6 more fields]\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:58:53 AM",
+      "dateStarted": "Oct 8, 2016 1:03:23 AM",
+      "dateFinished": "Oct 8, 2016 1:03:28 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Parquet으로 저장",
+      "text": "news.write.parquet(\"playdata/data/news.parquet\")",
+      "dateUpdated": "Sep 24, 2016 12:38:30 PM",
+      "config": {
+        "enabled": true,
+        "title": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474649933720_-1462103693",
+      "id": "20160924-002532_220228577",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Sep 24, 2016 1:58:53 AM",
+      "dateStarted": "Sep 24, 2016 12:38:30 PM",
+      "dateFinished": "Sep 24, 2016 12:38:32 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "",
+      "text": "%md\n\u003e Raw dataset은 묻지도 따지지도 말고 일단 Parquet 형식으로 바꾸세요~\n성능 차이가 엄청납니다.",
+      "dateUpdated": "Oct 4, 2016 11:44:00 AM",
+      "config": {
+        "enabled": true,
+        "title": false,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474649933720_-1462103693",
+      "id": "20160924-015245_544621788",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cblockquote\u003e\u003cp\u003eRaw dataset은 묻지도 따지지도 말고 일단 Parquet 형식으로 바꾸세요~\n\u003cbr  /\u003e성능 차이가 엄청납니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:58:53 AM",
+      "dateStarted": "Oct 4, 2016 11:43:54 AM",
+      "dateFinished": "Oct 4, 2016 11:43:54 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Parquet 데이터 불러오기 \u0026 임시 테이블 생성",
+      "text": "val news \u003d spark.read.parquet(\"playdata/data/news.parquet\").persist\nnews.createOrReplaceTempView(\"news\")",
+      "dateUpdated": "Oct 9, 2016 2:59:46 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 12.0,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474649933721_-1462488442",
+      "id": "20160924-002850_881079062",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nnews: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [body: string, date: string ... 6 more fields]\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:58:53 AM",
+      "dateStarted": "Oct 9, 2016 2:59:46 AM",
+      "dateFinished": "Oct 9, 2016 2:59:46 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "총 데이터 수 확인",
+      "text": "news.rollup(\"label\", \"split\")\n    .agg(count(\"*\"))\n    .orderBy(\"label\", \"split\")\n    .show",
+      "dateUpdated": "Oct 9, 2016 1:06:39 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474650578219_-1002510251",
+      "id": "20160924-020938_1135780295",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+-----+--------+--------+\n|label|   split|count(1)|\n+-----+--------+--------+\n| null|    null|    1326|\n|  0.0|    null|     788|\n|  0.0|    test|     254|\n|  0.0|training|     534|\n|  1.0|    null|     538|\n|  1.0|    test|     158|\n|  1.0|training|     380|\n+-----+--------+--------+\n\n"
+      },
+      "dateCreated": "Sep 24, 2016 2:09:38 AM",
+      "dateStarted": "Oct 9, 2016 1:06:39 AM",
+      "dateFinished": "Oct 9, 2016 1:06:39 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "스키마 확인",
+      "text": "news.printSchema",
+      "dateUpdated": "Sep 24, 2016 12:39:17 PM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/scala",
+        "colWidth": 12.0,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474649933721_-1462488442",
+      "id": "20160924-003040_528345062",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "root\n |-- body: string (nullable \u003d true)\n |-- date: string (nullable \u003d true)\n |-- host: string (nullable \u003d true)\n |-- label: double (nullable \u003d true)\n |-- link: string (nullable \u003d true)\n |-- query: string (nullable \u003d true)\n |-- split: string (nullable \u003d true)\n |-- title: string (nullable \u003d true)\n\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:58:53 AM",
+      "dateStarted": "Sep 24, 2016 12:39:17 PM",
+      "dateFinished": "Sep 24, 2016 12:39:17 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "제플린으로 이쁘게 스키마 확인",
+      "text": "%sql \nDESCRIBE news",
+      "dateUpdated": "Oct 9, 2016 3:02:23 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 304.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "col_name",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "data_type",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "col_name",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "data_type",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "editorMode": "ace/mode/sql",
+        "colWidth": 12.0,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474649933722_-1461334196",
+      "id": "20160924-003000_147592620",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "col_name\tdata_type\tcomment\nbody\tstring\t\ndate\tstring\t\nhost\tstring\t\nlabel\tdouble\t\nlink\tstring\t\nquery\tstring\t\nsplit\tstring\t\ntitle\tstring\t\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:58:53 AM",
+      "dateStarted": "Sep 24, 2016 12:39:19 PM",
+      "dateFinished": "Sep 24, 2016 12:39:19 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "",
+      "text": "%md\n\u003e 다른 사람과 공유해야할때는 printSchema 보다는 SQL의 DESCRIBE 명령어를 권장합니다^^ (보기 좋을 수록 눈에 쏙쏙 박힙니다)\n\u003e Hive table일 경우 column별로 comment를 작성할 수도 있답니다.",
+      "dateUpdated": "Oct 4, 2016 11:45:18 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "title": false,
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474650399102_1957734107",
+      "id": "20160924-020639_1177443589",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cblockquote\u003e\u003cp\u003e다른 사람과 공유해야할때는 printSchema 보다는 SQL의 DESCRIBE 명령어를 권장합니다^^ (보기 좋을 수록 눈에 쏙쏙 박힙니다)\n\u003cbr  /\u003eHive table일 경우 column별로 comment를 작성할 수도 있답니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n"
+      },
+      "dateCreated": "Sep 24, 2016 2:06:39 AM",
+      "dateStarted": "Oct 4, 2016 11:45:14 AM",
+      "dateFinished": "Oct 4, 2016 11:45:14 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "데이터 모양 확인",
+      "text": "news.show",
+      "dateUpdated": "Oct 9, 2016 2:31:54 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475991074703_-1924759385",
+      "id": "20161009-143114_64643119",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+--------------------+----------+---------+-----+--------------------+--------------------+--------+--------------------+\n|                body|      date|     host|label|                link|               query|   split|               title|\n+--------------------+----------+---------+-----+--------------------+--------------------+--------+--------------------+\n|\u0027아모레퍼시픽\u0027 \u0027대전 대화동 ...|2014-04-28|     한국일보|  1.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|대전 대화동 아모레퍼시픽 공장서...|\n|\n전북 정읍시 내장동 내장사에서...|2012-10-31|      YTN|  0.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|[미공개 영상] 내장사 대웅전 ...|\n|\r\n               ...|2011-03-11|      뉴시스|  0.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|    test|[日 8.8 강진][종합2보]기...|\n|\n\n\n\n\n\n\n\n\n\n\n\n\r\n   ...|2013-02-18|     경향신문|  1.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|[경향포토]인사동 화재 살펴보는...|\n|\n\ngoogletag.displ...|2013-02-18|      MBN|  1.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|서울 상계동 가방공장 불…2천5...|\n|광주소방서·경안시장 상인회 등 ...|2014-05-30|연합뉴스 보도자료|  0.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|    test|광주시, 전통시장 재난사고 대비...|\n|우리 말도 떼지 못한 딸 아이가...|2011-03-15|     조선일보|  0.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|     [만물상] 일본인의 시민의식|\n|                   0|2013-01-15|      YTN|  0.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|중앙대 총장실 밤샘 점거...\"...|\n|\n부산 부전동 노래주점 화재와 ...|2012-05-06|      YTN|  1.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|부산 노래 주점 화재...합동 ...|\n|\n\t22일 오후 서울 강남 한복...|2010-11-23|     세계일보|  1.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|삼성동 화재, 하나뿐인 출구·좁...|\n|\n[앵커멘트]\n\r\n울산 울주군 ...|2013-03-10|      YTN|  1.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|울산 산불, 큰 불길 잡혀......|\n|\n[앵커멘트]\n\r\n경북 포항시 ...|2013-03-10|      YTN|  1.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|    test|       장난삼아 지른 불이...|\n|\n“이미 망한 세상에서 완전히 ...|2012-05-07|     경향신문|  0.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|    [별별시선]좋아요, 인천 축제|\n|\r\n일본은 단독주택 천국이다. ...|2011-11-09|     중앙일보|  0.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|    test|‘단독주택 천국’ 일본 기술력 ...|\n|\n▶ 청주서 불산 누출 사고…1...|2013-01-16|      MBN|  0.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|    test|        MBN 08시 주요뉴스|\n|\n▶ 북 \"다음 달 광명성 3호...|2012-03-16|      MBN|  0.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|        MBN 15시 주요뉴스|\n|\n[앵커멘트]\n\r\n어젯밤 충남 ...|2012-03-16|      YTN|  1.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|충남 보령화력발전소 불...정전...|\n|\n\n\n\n\n\n\n\n\n\n\n\n\r\n   ...|2012-08-14|     경향신문|  0.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|    test|     [경향포토]화재 유가족 입장|\n|\n\n\n\n\n\n\n\n\n\n\n\n\r\n   ...|2012-08-14|     경향신문|  0.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|training|   [경향포토]현대미술관 현장 감식|\n|\r\n               ...|2011-03-16|      뉴시스|  0.0|http://v.media.da...|화재 -삼성화재 -동부화재 -메...|    test|[일본 대지진]원전 4호기 또 ...|\n+--------------------+----------+---------+-----+--------------------+--------------------+--------+--------------------+\nonly showing top 20 rows\n\n"
+      },
+      "dateCreated": "Oct 9, 2016 2:31:14 AM",
+      "dateStarted": "Oct 9, 2016 2:31:25 AM",
+      "dateFinished": "Oct 9, 2016 2:31:26 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "제플린으로 이쁘게 데이터 모양 확인",
+      "text": "%sql \nSELECT label, title, `date`, host, link, query FROM news LIMIT 10",
+      "dateUpdated": "Oct 9, 2016 3:02:23 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 347.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "title",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "label",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "title",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475917267893_69692040",
+      "id": "20161008-180107_1229422009",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "label\ttitle\tdate\thost\tlink\tquery\n1.0\t대전 대화동 아모레퍼시픽 공장서 화재.. 시야 확보 어려워\t2014-04-28\t한국일보\thttp://v.media.daum.net/v/20140428175309190?f\u003do\t화재 -삼성화재 -동부화재 -메리츠화재\n0.0\t[미공개 영상] 내장사 대웅전 전소...화재 원인 조사 중\t2012-10-31\tYTN\thttp://v.media.daum.net/v/20121031095105847?f\u003do\t화재 -삼성화재 -동부화재 -메리츠화재\n0.0\t[日 8.8 강진][종합2보]기상청 \"국내 직·간접적 피해 없을 것\"\t2011-03-11\t뉴시스\thttp://v.media.daum.net/v/20110311182120582?f\u003do\t화재 -삼성화재 -동부화재 -메리츠화재\n1.0\t[경향포토]인사동 화재 살펴보는 합동현장감식반\t2013-02-18\t경향신문\thttp://v.media.daum.net/v/20130218143410085?f\u003do\t화재 -삼성화재 -동부화재 -메리츠화재\n1.0\t서울 상계동 가방공장 불…2천5백만 원 재산 피해\t2013-02-18\tMBN\thttp://v.media.daum.net/v/20130218052603248?f\u003do\t화재 -삼성화재 -동부화재 -메리츠화재\n0.0\t광주시, 전통시장 재난사고 대비 소방 모의 훈련 실시\t2014-05-30\t연합뉴스 보도자료\thttp://v.media.daum.net/v/20140530105213431?f\u003do\t화재 -삼성화재 -동부화재 -메리츠화재\n0.0\t[만물상] 일본인의 시민의식\t2011-03-15\t조선일보\thttp://v.media.daum.net/v/20110315112011971?f\u003do\t화재 -삼성화재 -동부화재 -메리츠화재\n0.0\t중앙대 총장실 밤샘 점거...\"합격 취소 철회하라\"\t2013-01-15\tYTN\thttp://v.media.daum.net/v/20130115051503906?f\u003do\t화재 -삼성화재 -동부화재 -메리츠화재\n1.0\t부산 노래 주점 화재...합동 현장 감식 열려\t2012-05-06\tYTN\thttp://v.media.daum.net/v/20120506120605080?f\u003do\t화재 -삼성화재 -동부화재 -메리츠화재\n1.0\t삼성동 화재, 하나뿐인 출구·좁은 창문이 화 키워\t2010-11-23\t세계일보\thttp://v.media.daum.net/v/20101123203410443?f\u003do\t화재 -삼성화재 -동부화재 -메리츠화재\n"
+      },
+      "dateCreated": "Oct 8, 2016 6:01:07 AM",
+      "dateStarted": "Oct 8, 2016 6:07:43 AM",
+      "dateFinished": "Oct 8, 2016 6:07:43 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "뉴스 기사 본문",
+      "text": "%sql \nSELECT body FROM news LIMIT 1",
+      "dateUpdated": "Oct 9, 2016 3:02:23 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 139.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "body",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "body",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475992766924_968884771",
+      "id": "20161009-145926_1898085454",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "body\n\u0027아모레퍼시픽\u0027 \u0027대전 대화동 화재\u0027대전 대덕구 대화동에 위치한 아모레퍼시픽 대전 공장에서 화재가 발생했다.28일 오후 3시 대화동 아모레퍼시픽 대전공장에서 화재가 발생했다. 이곳은 코스메틱 사업장과 물류센터 등이 있는 곳이다.이에 각종 SNS 이용자들은 \"아모레 대전공장 화재, 연기로 인해 시야 확보도 어려운 상태입니다. 인명 피해가 없길 바랍니다\" 등의 글을 올리며 상황을 실시간으로 전하고 있다.현재 아모레 퍼시픽 대전 대화동 화재로 인해 연기가 둔산동까지 치솟아 시야가 확보가 어려운 상태인 것으로 전해졌다.\u0027아모레퍼시픽\u0027 \u0027대전 대화동 화재\u0027현재 소방당국이 출동해 화재를 진압 중이며 화재 원인에 대해 조사하고 있다.이에 네티즌들은 \"대전 대화동 화재, 인명피해 없길\" \"대전 대화동 화재, 안타깝다\" \"대전 대화동 화재, 빨리 진화되길\" 등의 반응을 보였다.한국아이닷컴 뉴스부 reporter@hankooki.com[ⓒ 인터넷한국일보(www.hankooki.com), 무단 전재 및 재배포 금지]\n"
+      },
+      "dateCreated": "Oct 9, 2016 2:59:26 AM",
+      "dateStarted": "Oct 9, 2016 2:59:55 AM",
+      "dateFinished": "Oct 9, 2016 2:59:55 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "dateUpdated": "Sep 24, 2016 1:58:53 AM",
+      "config": {
+        "enabled": true,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "colWidth": 12.0
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474649933722_-1461334196",
+      "id": "20160924-001257_1481334572",
+      "dateCreated": "Sep 24, 2016 1:58:53 AM",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "playdata/1.Preprocessing/1.DownloadDataset",
+  "id": "2BXN7EE2Z",
+  "angularObjects": {
+    "2BXWMZ2JP:shared_process": [],
+    "2BYRGXC6E:shared_process": [],
+    "2BYEZ229C:shared_process": [],
+    "2BXUZ9JVT:shared_process": [],
+    "2BVKZDUFQ:shared_process": [],
+    "2BXBPMYB6:shared_process": [],
+    "2BZ4YFDFE:shared_process": [],
+    "2BWAJCG58:shared_process": [],
+    "2BXMASZWN:shared_process": [],
+    "2BVZ9R4MY:shared_process": [],
+    "2BVR2UN2E:shared_process": [],
+    "2BWP96UN6:shared_process": [],
+    "2BX3AASWA:shared_process": [],
+    "2BYG7DEAC:shared_process": [],
+    "2BX5Z4XGV:shared_process": [],
+    "2BY6S66XQ:shared_process": [],
+    "2BY6EMV6C:shared_process": [],
+    "2BYEYC4NP:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}

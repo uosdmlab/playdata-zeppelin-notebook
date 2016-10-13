@@ -1,0 +1,184 @@
+{
+  "paragraphs": [
+    {
+      "title": "시작하기 전에!",
+      "text": "%md\n[Interpreter 설정](#interpreter)에서 Spark dependency에 [은전한닢 프로젝트](http://eunjeon.blogspot.kr/)의 형태소 분석기 [seunjeon](https://bitbucket.org/eunjeon/seunjeon)을 추가합니다.\n\ndependency 추가란의 artifact와 exclude에 각각 다음과 같이 넣어주세요~\n\n##### artifact\n`org.bitbucket.eunjeon:seunjeon_2.11:1.1.0`\n##### exclude\n`org.scala-lang:scala-library,org.scala-lang:scala-reflect`\n\n\u003e 훌륭한 형태소 분석기 만들어주신 유영호님, 이용운님, 그리고 dependency 이슈 해결해주신 Zeppelin의 이민아님께 감사의 말씀 드립니다.\n\n혹시 개인 PC에서 돌리실때 메모리가 부족하면 `\u003cZEPPELIN_HOME\u003e/conf/zeppelin-env.sh` 파일을 열어 다음 라인을 추가하여 메모리를 늘려주세요!\n```sh\nexport SPARK_SUBMIT_OPTIONS\u003d\"--driver-memory 4G\"\n```\n\n수정 후에 재시작 잊지 마시구요!\n```sh\nbin/zeppelin-daemon.sh restart\n```",
+      "dateUpdated": "Oct 12, 2016 9:58:09 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474811707542_251819990",
+      "id": "20160925-225507_1702661135",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cp\u003e\u003ca href\u003d\"#interpreter\"\u003eInterpreter 설정\u003c/a\u003e에서 Spark dependency에 \u003ca href\u003d\"http://eunjeon.blogspot.kr/\"\u003e은전한닢 프로젝트\u003c/a\u003e의 형태소 분석기 \u003ca href\u003d\"https://bitbucket.org/eunjeon/seunjeon\"\u003eseunjeon\u003c/a\u003e을 추가합니다.\u003c/p\u003e\n\u003cp\u003edependency 추가란의 artifact와 exclude에 각각 다음과 같이 넣어주세요~\u003c/p\u003e\n\u003ch5\u003eartifact\u003c/h5\u003e\n\u003cp\u003e\u003ccode\u003eorg.bitbucket.eunjeon:seunjeon_2.11:1.1.0\u003c/code\u003e\u003c/p\u003e\n\u003ch5\u003eexclude\u003c/h5\u003e\n\u003cp\u003e\u003ccode\u003eorg.scala-lang:scala-library,org.scala-lang:scala-reflect\u003c/code\u003e\u003c/p\u003e\n\u003cblockquote\u003e\u003cp\u003e훌륭한 형태소 분석기 만들어주신 유영호님, 이용운님, 그리고 dependency 이슈 해결해주신 Zeppelin의 이민아님께 감사의 말씀 드립니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp\u003e혹시 개인 PC에서 돌리실때 메모리가 부족하면 \u003ccode\u003e\u0026lt;ZEPPELIN_HOME\u0026gt;/conf/zeppelin-env.sh\u003c/code\u003e 파일을 열어 다음 라인을 추가하여 메모리를 늘려주세요!\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"sh\"\u003eexport SPARK_SUBMIT_OPTIONS\u003d\"--driver-memory 4G\"\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e수정 후에 재시작 잊지 마시구요!\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"sh\"\u003ebin/zeppelin-daemon.sh restart\n\u003c/code\u003e\u003c/pre\u003e\n"
+      },
+      "dateCreated": "Sep 25, 2016 10:55:07 AM",
+      "dateStarted": "Oct 9, 2016 2:17:39 AM",
+      "dateFinished": "Oct 9, 2016 2:17:44 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Spark 인터프리터 동작 확인",
+      "text": "sc.version",
+      "dateUpdated": "Oct 4, 2016 11:39:44 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474643573465_-1290942910",
+      "id": "20160924-001253_1432720998",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres0: String \u003d 2.0.0\n"
+      },
+      "dateCreated": "Sep 24, 2016 12:12:53 PM",
+      "dateStarted": "Oct 4, 2016 11:39:44 AM",
+      "dateFinished": "Oct 4, 2016 11:40:00 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "형태소 분석기 seunjeon 동작 확인",
+      "text": "import org.bitbucket.eunjeon.seunjeon.Analyzer\n\n// 형태소 분석\nAnalyzer.parse(\"아버지가방에들어가신다.\").foreach(println)\n\n// 어절 분석\nAnalyzer.parseEojeol(\"아버지가방에들어가신다.\").foreach(println)\n// or\nAnalyzer.parseEojeol(Analyzer.parse(\"아버지가방에들어가신다.\")).foreach(println)\n\n/**\n  * 사용자 사전 추가\n  * surface,cost\n  *   surface: 단어\n  *   cost: 단어 출연 비용. 작을수록 출연할 확률이 높다.\n  */\nAnalyzer.setUserDict(Seq(\"덕후\", \"버카충,-100\", \"낄끼빠빠\").toIterator)\nAnalyzer.parse(\"덕후냄새가 난다.\").foreach(println)\n\n// 활용어 원형\nAnalyzer.parse(\"빨라짐\").flatMap(_.deInflect()).foreach(println)\n\n// 복합명사 분해\nAnalyzer.parse(\"삼성전자\").flatMap(_.deCompound()).foreach(println)",
+      "dateUpdated": "Oct 4, 2016 11:41:08 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 650.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "title": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474643650871_-730474321",
+      "id": "20160924-001410_1410715537",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nimport org.bitbucket.eunjeon.seunjeon.Analyzer\nLNode(Morpheme(아버지,1784,3536,2818,WrappedArray(NNG, *, F, 아버지, *, *, *, *),COMMON,WrappedArray(N)),0,3,-1135)\nLNode(Morpheme(가,490,1044,1501,WrappedArray(JKS, *, F, 가, *, *, *, *),COMMON,WrappedArray(J)),3,4,-738)\nLNode(Morpheme(방,1784,3537,2975,WrappedArray(NNG, *, T, 방, *, *, *, *),COMMON,WrappedArray(N)),4,5,660)\nLNode(Morpheme(에,356,307,1248,WrappedArray(JKB, *, F, 에, *, *, *, *),COMMON,WrappedArray(J)),5,6,203)\nLNode(Morpheme(들어가,2421,3574,1648,WrappedArray(VV, *, F, 들어가, *, *, *, *),COMMON,WrappedArray(V)),6,9,583)\nLNode(Morpheme(신다,5,6,3600,WrappedArray(EP+EF, *, F, 신다, Inflect, EP, EF, 시/EP/*+ᆫ다/EF/*),INFLECT,WrappedArray(EP, E)),9,11,-1256)\nLNode(Morpheme(.,1794,3555,3559,WrappedArray(SF, *, *, *, *, *, *, *),COMMON,WrappedArray(S)),11,12,325)\nEojeol(MutableList(LNode(Morpheme(아버지,1784,3536,2818,WrappedArray(NNG, *, F, 아버지, *, *, *, *),COMMON,WrappedArray(N)),0,3,-1135), LNode(Morpheme(가,490,1044,1501,WrappedArray(JKS, *, F, 가, *, *, *, *),COMMON,WrappedArray(J)),3,4,-738)))\nEojeol(MutableList(LNode(Morpheme(방,1784,3537,2975,WrappedArray(NNG, *, T, 방, *, *, *, *),COMMON,WrappedArray(N)),4,5,660), LNode(Morpheme(에,356,307,1248,WrappedArray(JKB, *, F, 에, *, *, *, *),COMMON,WrappedArray(J)),5,6,203)))\nEojeol(MutableList(LNode(Morpheme(들어가,2421,3574,1648,WrappedArray(VV, *, F, 들어가, *, *, *, *),COMMON,WrappedArray(V)),6,9,583), LNode(Morpheme(신다,5,6,3600,WrappedArray(EP+EF, *, F, 신다, Inflect, EP, EF, 시/EP/*+ᆫ다/EF/*),INFLECT,WrappedArray(EP, E)),9,11,-1256)))\nEojeol(MutableList(LNode(Morpheme(.,1794,3555,3559,WrappedArray(SF, *, *, *, *, *, *, *),COMMON,WrappedArray(S)),11,12,325)))\nEojeol(MutableList(LNode(Morpheme(아버지,1784,3536,2818,WrappedArray(NNG, *, F, 아버지, *, *, *, *),COMMON,WrappedArray(N)),0,3,-1135), LNode(Morpheme(가,490,1044,1501,WrappedArray(JKS, *, F, 가, *, *, *, *),COMMON,WrappedArray(J)),3,4,-738)))\nEojeol(MutableList(LNode(Morpheme(방,1784,3537,2975,WrappedArray(NNG, *, T, 방, *, *, *, *),COMMON,WrappedArray(N)),4,5,660), LNode(Morpheme(에,356,307,1248,WrappedArray(JKB, *, F, 에, *, *, *, *),COMMON,WrappedArray(J)),5,6,203)))\nEojeol(MutableList(LNode(Morpheme(들어가,2421,3574,1648,WrappedArray(VV, *, F, 들어가, *, *, *, *),COMMON,WrappedArray(V)),6,9,583), LNode(Morpheme(신다,5,6,3600,WrappedArray(EP+EF, *, F, 신다, Inflect, EP, EF, 시/EP/*+ᆫ다/EF/*),INFLECT,WrappedArray(EP, E)),9,11,-1256)))\nEojeol(MutableList(LNode(Morpheme(.,1794,3555,3559,WrappedArray(SF, *, *, *, *, *, *, *),COMMON,WrappedArray(S)),11,12,325)))\nLNode(Morpheme(덕후,1784,3535,800,WrappedArray(NNG, *, F, 덕후, *, *, *, *),COMMON,WrappedArray(N)),0,2,-1135)\nLNode(Morpheme(냄새,1784,3536,2123,WrappedArray(NNG, *, F, 냄새, *, *, *, *),COMMON,WrappedArray(N)),2,4,-139)\nLNode(Morpheme(가,490,1044,1501,WrappedArray(JKS, *, F, 가, *, *, *, *),COMMON,WrappedArray(J)),4,5,-437)\nLNode(Morpheme(난다,2421,6,1277,WrappedArray(VV+EF, *, F, 난다, Inflect, VV, EF, 나/VV/*+ᆫ다/EF/*),INFLECT,WrappedArray(V, E)),6,8,348)\nLNode(Morpheme(.,1794,3555,3559,WrappedArray(SF, *, *, *, *, *, *, *),COMMON,WrappedArray(S)),8,9,-394)\nLNode(Morpheme(빠르,-1,-1,0,WrappedArray(VA),COMMON,WrappedArray(V)),0,2,-1092)\nLNode(Morpheme(지,-1,-1,0,WrappedArray(VX),COMMON,WrappedArray(V)),2,3,-1092)\nLNode(Morpheme(ᄆ,-1,-1,0,WrappedArray(ETN),COMMON,WrappedArray(E)),2,3,-1092)\nLNode(Morpheme(삼성,-1,-1,0,WrappedArray(NNG),COMMON,WrappedArray(N)),0,2,-2008)\nLNode(Morpheme(전자,-1,-1,0,WrappedArray(NNG),COMMON,WrappedArray(N)),2,4,-2008)\n"
+      },
+      "dateCreated": "Sep 24, 2016 12:14:10 PM",
+      "dateStarted": "Oct 4, 2016 11:41:08 AM",
+      "dateFinished": "Oct 4, 2016 11:41:09 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "dateUpdated": "Sep 24, 2016 12:13:08 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {}
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474643577994_-1901139341",
+      "id": "20160924-001257_1481334572",
+      "dateCreated": "Sep 24, 2016 12:12:57 PM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "playdata/0.ZeppelinSetting",
+  "id": "2BVPGP948",
+  "angularObjects": {
+    "2BXWMZ2JP:shared_process": [],
+    "2BYRGXC6E:shared_process": [],
+    "2BYEZ229C:shared_process": [],
+    "2BXUZ9JVT:shared_process": [],
+    "2BVKZDUFQ:shared_process": [],
+    "2BXBPMYB6:shared_process": [],
+    "2BZ4YFDFE:shared_process": [],
+    "2BWAJCG58:shared_process": [],
+    "2BXMASZWN:shared_process": [],
+    "2BVZ9R4MY:shared_process": [],
+    "2BVR2UN2E:shared_process": [],
+    "2BWP96UN6:shared_process": [],
+    "2BX3AASWA:shared_process": [],
+    "2BYG7DEAC:shared_process": [],
+    "2BX5Z4XGV:shared_process": [],
+    "2BY6S66XQ:shared_process": [],
+    "2BY6EMV6C:shared_process": [],
+    "2BYEYC4NP:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}

@@ -1,0 +1,276 @@
+{
+  "paragraphs": [
+    {
+      "text": "val features \u003d spark.read.parquet(\"playdata/feature/tf.parquet\").persist\nval news \u003d spark.read.parquet(\"playdata/data/news-with-id.parquet\").persist",
+      "dateUpdated": "Oct 11, 2016 10:22:39 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474693622547_-287980482",
+      "id": "20160924-140702_1447972081",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nfeatures: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, features: vector]\n\nnews: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [body: string, date: string ... 7 more fields]\n"
+      },
+      "dateCreated": "Sep 24, 2016 2:07:02 AM",
+      "dateStarted": "Oct 11, 2016 10:22:39 AM",
+      "dateFinished": "Oct 11, 2016 10:22:41 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Training, test 데이터셋 분리",
+      "text": "val train \u003d news.where(\"split \u003d \u0027training\u0027\")\n    .join(features, \"id\")\n    .select(\"id\", \"features\", \"label\")",
+      "dateUpdated": "Oct 13, 2016 3:20:31 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474693780074_1709649487",
+      "id": "20160924-140940_1610590633",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ntrain: org.apache.spark.sql.DataFrame \u003d [id: bigint, features: vector ... 1 more field]\n"
+      },
+      "dateCreated": "Sep 24, 2016 2:09:40 AM",
+      "dateStarted": "Oct 11, 2016 10:22:42 AM",
+      "dateFinished": "Oct 11, 2016 10:22:42 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\u003e 머신러닝 결과는 데이터를 어떻게 나누냐에 따라 결과가 달라집니다.\n\n\u003e 때문에 모두 동일한 결과를 얻으실 수 있게 제가 미리 나누었습니다.\n\n\u003e 실제로는 보통 다음과 같이 나눕니다.\n\n```scala\nval Array(train, test) \u003d data.randomSplit(Array(0.7, 0.3))\n```",
+      "dateUpdated": "Oct 6, 2016 1:06:46 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474715381855_48439560",
+      "id": "20160924-200941_1693803282",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cblockquote\u003e\u003cp\u003e머신러닝 결과는 데이터를 어떻게 나누냐에 따라 결과가 달라집니다.\u003c/p\u003e\n\u003cp\u003e때문에 모두 동일한 결과를 얻으실 수 있게 제가 미리 나누었습니다.\u003c/p\u003e\n\u003cp\u003e실제로는 보통 다음과 같이 나눕니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cpre\u003e\u003ccode class\u003d\"scala\"\u003eval Array(train, test) \u003d data.randomSplit(Array(0.7, 0.3))\n\u003c/code\u003e\u003c/pre\u003e\n"
+      },
+      "dateCreated": "Sep 24, 2016 8:09:41 AM",
+      "dateStarted": "Oct 6, 2016 1:06:37 AM",
+      "dateFinished": "Oct 6, 2016 1:06:43 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "학습",
+      "text": "import org.apache.spark.ml.classification.{NaiveBayes, NaiveBayesModel}\n\nval model: NaiveBayesModel \u003d new NaiveBayes().fit(train)",
+      "dateUpdated": "Oct 13, 2016 3:20:45 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474715494513_295199878",
+      "id": "20160924-201134_1892770485",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nimport org.apache.spark.ml.classification.{NaiveBayes, NaiveBayesModel}\n\nmodel: org.apache.spark.ml.classification.NaiveBayesModel \u003d NaiveBayesModel (uid\u003dnb_1925f7993424) with 2 classes\n"
+      },
+      "dateCreated": "Sep 24, 2016 8:11:34 AM",
+      "dateStarted": "Oct 11, 2016 10:22:44 AM",
+      "dateFinished": "Oct 11, 2016 10:22:44 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "모델 저장",
+      "text": "model.save(\"playdata/model/nb-tf\")",
+      "dateUpdated": "Oct 13, 2016 3:20:49 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474802512343_1813397665",
+      "id": "20160925-202152_1935396507",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Sep 25, 2016 8:21:52 AM",
+      "dateStarted": "Sep 25, 2016 8:22:23 AM",
+      "dateFinished": "Sep 25, 2016 8:22:24 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "dateUpdated": "Sep 25, 2016 8:22:05 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474693805897_559665673",
+      "id": "20160924-141005_739182958",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Sep 24, 2016 2:10:05 AM",
+      "dateStarted": "Sep 25, 2016 8:22:10 AM",
+      "dateFinished": "Sep 25, 2016 8:22:10 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "playdata/3.Training/1.NaiveBayesTF",
+  "id": "2BYR3QYMP",
+  "angularObjects": {
+    "2BXWMZ2JP:shared_process": [],
+    "2BYRGXC6E:shared_process": [],
+    "2BYEZ229C:shared_process": [],
+    "2BXUZ9JVT:shared_process": [],
+    "2BVKZDUFQ:shared_process": [],
+    "2BXBPMYB6:shared_process": [],
+    "2BZ4YFDFE:shared_process": [],
+    "2BWAJCG58:shared_process": [],
+    "2BXMASZWN:shared_process": [],
+    "2BVZ9R4MY:shared_process": [],
+    "2BVR2UN2E:shared_process": [],
+    "2BWP96UN6:shared_process": [],
+    "2BX3AASWA:shared_process": [],
+    "2BYG7DEAC:shared_process": [],
+    "2BX5Z4XGV:shared_process": [],
+    "2BY6S66XQ:shared_process": [],
+    "2BY6EMV6C:shared_process": [],
+    "2BYEYC4NP:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}

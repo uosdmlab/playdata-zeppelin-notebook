@@ -1,0 +1,834 @@
+{
+  "paragraphs": [
+    {
+      "text": "val words \u003d spark.read.parquet(\"playdata/data/words-nv.parquet\").persist",
+      "dateUpdated": "Oct 11, 2016 9:27:19 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474690977976_1353376939",
+      "id": "20160924-132257_1123557928",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nwords: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, word: string ... 5 more fields]\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:22:57 AM",
+      "dateStarted": "Oct 11, 2016 9:27:19 AM",
+      "dateFinished": "Oct 11, 2016 9:27:43 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n# Term Frequency(TF) 구하기\n\u003e 단어 빈도수는 텍스트 문서를 설명하는 간단하고도 강력한 방법입니다.\n\n\u003e Spark에서는 TF 구하는 알고리즘을 [CountVectorizer](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.feature.CountVectorizer)라는 이름으로 구현했습니다.\n\n#### `참고`\nTF를 구하는 알고리즘 중 [HashingTF](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.feature.HashingTF)도 있으나, 이는 hash 함수를 이용한 것이기 때문에 속도는 빠르지만 CountVectorizer에 비해 부정확합니다. (다른 두 단어의 hashing 값이 같을 수 있으니까요!)\n\n또한, 변환된 TF vector를 다시 단어로 돌릴 수 없다는 단점도 있습니다.",
+      "dateUpdated": "Oct 12, 2016 12:36:16 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "title": false,
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475166285569_1059185375",
+      "id": "20160930-012445_1835704050",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch1\u003eTerm Frequency(TF) 구하기\u003c/h1\u003e\n\u003cblockquote\u003e\u003cp\u003e단어 빈도수는 텍스트 문서를 설명하는 간단하고도 강력한 방법입니다.\u003c/p\u003e\n\u003cp\u003eSpark에서는 TF 구하는 알고리즘을 \u003ca href\u003d\"http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.feature.CountVectorizer\"\u003eCountVectorizer\u003c/a\u003e라는 이름으로 구현했습니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003ch4\u003e\u003ccode\u003e참고\u003c/code\u003e\u003c/h4\u003e\n\u003cp\u003eTF를 구하는 알고리즘 중 \u003ca href\u003d\"http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.feature.HashingTF\"\u003eHashingTF\u003c/a\u003e도 있으나, 이는 hash 함수를 이용한 것이기 때문에 속도는 빠르지만 CountVectorizer에 비해 부정확합니다. (다른 두 단어의 hashing 값이 같을 수 있으니까요!)\u003c/p\u003e\n\u003cp\u003e또한, 변환된 TF vector를 다시 단어로 돌릴 수 없다는 단점도 있습니다.\u003c/p\u003e\n"
+      },
+      "dateCreated": "Sep 30, 2016 1:24:45 AM",
+      "dateStarted": "Oct 5, 2016 8:39:48 AM",
+      "dateFinished": "Oct 5, 2016 8:39:48 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "CountVectorizer의 input으로 넣기 위해, 단어들을 배열로 모아줍니다",
+      "text": "import org.apache.spark.sql.functions._\n\nval wordList \u003d words.groupBy(\"id\")\n    .agg(collect_list(\"word\").as(\"words\"))\n    .orderBy(\"id\")",
+      "dateUpdated": "Oct 11, 2016 9:27:22 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474690995778_-1310224372",
+      "id": "20160924-132315_833208657",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nimport org.apache.spark.sql.functions._\n\nwordList: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, words: array\u003cstring\u003e]\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:23:15 AM",
+      "dateStarted": "Oct 11, 2016 9:27:25 AM",
+      "dateFinished": "Oct 11, 2016 9:27:44 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\u003e `collect_list` 함수에 대한 설명은 [API 문서](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.functions$)를 참고하세요!",
+      "dateUpdated": "Oct 5, 2016 8:41:34 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475667660394_-1429435093",
+      "id": "20161005-204100_1564258401",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cblockquote\u003e\u003cp\u003e\u003ccode\u003ecollect_list\u003c/code\u003e 함수에 대한 설명은 \u003ca href\u003d\"http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.functions$\"\u003eAPI 문서\u003c/a\u003e를 참고하세요!\u003c/p\u003e\n\u003c/blockquote\u003e\n"
+      },
+      "dateCreated": "Oct 5, 2016 8:41:00 AM",
+      "dateStarted": "Oct 5, 2016 8:41:32 AM",
+      "dateFinished": "Oct 5, 2016 8:41:32 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "wordList.show",
+      "dateUpdated": "Oct 9, 2016 11:04:22 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474691468720_-437142630",
+      "id": "20160924-133108_325572118",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+---+--------------------+\n| id|               words|\n+---+--------------------+\n|  0|[아모레, 퍼시픽, 대전, 대화...|\n|  1|[전북, 정읍시, 내장동, 내장...|\n|  2|[서울, 뉴시스, 배, 민욱, ...|\n|  3|[일, 오전, 서울, 종로구, ...|\n|  4|[어젯밤, 일, 시, 분, 서울...|\n|  5|[광주, 소방서, 경안, 시장,...|\n|  6|[우리, 말, 떼, 딸, 아이,...|\n|  7|[중앙, 장실, 밤샘, 점거, ...|\n|  8|[부산, 부전동, 노래, 주점,...|\n|  9|[일, 오후, 서울, 강남, 복...|\n| 10|[앵, 커멘트, 울산, 울주군,...|\n| 11|[앵, 커멘트, 경북, 포항시,...|\n| 12|[세상, 다르, 상상, 원점, ...|\n| 13|[일본, 단독, 주택, 천국, ...|\n| 14|[청주서, 산, 누출, 사, 명...|\n| 15|[북, 다음, 달, 광명, 호,...|\n| 16|[앵, 커멘트, 어젯밤, 충남,...|\n| 17|[일, 화재, 근로자, 명, 서...|\n| 18|[일, 화재, 근로자, 명, 서...|\n| 19|[서울, 뉴시스, 유세진, 기자...|\n+---+--------------------+\nonly showing top 20 rows\n\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:31:08 AM",
+      "dateStarted": "Oct 9, 2016 11:04:22 AM",
+      "dateFinished": "Oct 9, 2016 11:04:23 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\u003e이제 CountVectorizer를 이용하여 단어들을 TF vector로 변환( *transform* )합니다!\n\n\u003e 학습( *fit* )으로 얻은 모델 CountVectorizerModel은 모든 단어에 대한 정보들을 갖고 있습니다.\n\n\u003e CountVectorizerModel의 멤버 `vocabulary`를 통해 각 단어가 벡터의 몇 번째 차원으로 할당되었는지 알 수 있습니다.",
+      "dateUpdated": "Oct 5, 2016 8:52:36 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475667735822_277619156",
+      "id": "20161005-204215_909653681",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cblockquote\u003e\u003cp\u003e이제 CountVectorizer를 이용하여 단어들을 TF vector로 변환( \u003cem\u003etransform\u003c/em\u003e )합니다!\u003c/p\u003e\n\u003cp\u003e학습( \u003cem\u003efit\u003c/em\u003e )으로 얻은 모델 CountVectorizerModel은 모든 단어에 대한 정보들을 갖고 있습니다.\u003c/p\u003e\n\u003cp\u003eCountVectorizerModel의 멤버 \u003ccode\u003evocabulary\u003c/code\u003e를 통해 각 단어가 벡터의 몇 번째 차원으로 할당되었는지 알 수 있습니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n"
+      },
+      "dateCreated": "Oct 5, 2016 8:42:15 AM",
+      "dateStarted": "Oct 5, 2016 8:50:58 AM",
+      "dateFinished": "Oct 5, 2016 8:50:58 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Fit",
+      "text": "import org.apache.spark.ml.feature.{CountVectorizer, CountVectorizerModel}\n\nval cvModel: CountVectorizerModel \u003d new CountVectorizer()\n    .setInputCol(\"words\")\n    .setOutputCol(\"features\")\n    .fit(wordList)",
+      "dateUpdated": "Oct 11, 2016 9:27:28 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474691648217_1243668784",
+      "id": "20160924-133408_880152787",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nimport org.apache.spark.ml.feature.{CountVectorizer, CountVectorizerModel}\n\ncvModel: org.apache.spark.ml.feature.CountVectorizerModel \u003d cntVec_27c45fd1c1b4\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:34:08 AM",
+      "dateStarted": "Oct 11, 2016 9:27:44 AM",
+      "dateFinished": "Oct 11, 2016 9:27:54 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Transform",
+      "text": "val features \u003d cvModel.transform(wordList)",
+      "dateUpdated": "Oct 11, 2016 9:27:31 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474691926417_667898895",
+      "id": "20160924-133846_642475212",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nfeatures: org.apache.spark.sql.DataFrame \u003d [id: bigint, words: array\u003cstring\u003e ... 1 more field]\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:38:46 AM",
+      "dateStarted": "Oct 11, 2016 9:27:44 AM",
+      "dateFinished": "Oct 11, 2016 9:27:54 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "변형 결과 확인",
+      "text": "features.show",
+      "dateUpdated": "Oct 9, 2016 11:04:48 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474691950673_-370122989",
+      "id": "20160924-133910_899744397",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+---+--------------------+--------------------+\n| id|               words|            features|\n+---+--------------------+--------------------+\n|  0|[아모레, 퍼시픽, 대전, 대화...|(15363,[0,1,2,3,5...|\n|  1|[전북, 정읍시, 내장동, 내장...|(15363,[0,1,2,3,4...|\n|  2|[서울, 뉴시스, 배, 민욱, ...|(15363,[0,1,2,3,5...|\n|  3|[일, 오전, 서울, 종로구, ...|(15363,[0,1,2,3,1...|\n|  4|[어젯밤, 일, 시, 분, 서울...|(15363,[0,1,2,3,4...|\n|  5|[광주, 소방서, 경안, 시장,...|(15363,[1,2,3,6,7...|\n|  6|[우리, 말, 떼, 딸, 아이,...|(15363,[0,26,29,3...|\n|  7|[중앙, 장실, 밤샘, 점거, ...|(15363,[291,2104,...|\n|  8|[부산, 부전동, 노래, 주점,...|(15363,[0,1,2,6,7...|\n|  9|[일, 오후, 서울, 강남, 복...|(15363,[0,1,2,3,4...|\n| 10|[앵, 커멘트, 울산, 울주군,...|(15363,[0,1,2,4,5...|\n| 11|[앵, 커멘트, 경북, 포항시,...|(15363,[0,1,2,3,4...|\n| 12|[세상, 다르, 상상, 원점, ...|(15363,[0,1,2,3,5...|\n| 13|[일본, 단독, 주택, 천국, ...|(15363,[0,1,3,4,5...|\n| 14|[청주서, 산, 누출, 사, 명...|(15363,[0,1,2,3,5...|\n| 15|[북, 다음, 달, 광명, 호,...|(15363,[0,1,3,5,7...|\n| 16|[앵, 커멘트, 어젯밤, 충남,...|(15363,[0,1,4,5,8...|\n| 17|[일, 화재, 근로자, 명, 서...|(15363,[0,1,3,7,1...|\n| 18|[일, 화재, 근로자, 명, 서...|(15363,[0,1,3,7,1...|\n| 19|[서울, 뉴시스, 유세진, 기자...|(15363,[0,1,2,3,4...|\n+---+--------------------+--------------------+\nonly showing top 20 rows\n\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:39:10 AM",
+      "dateStarted": "Oct 9, 2016 11:04:48 AM",
+      "dateFinished": "Oct 9, 2016 11:04:49 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "천 번째 뉴스 기사의 TF vector",
+      "text": "features.select(\"features\").first",
+      "dateUpdated": "Oct 11, 2016 9:33:53 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476189186591_353340301",
+      "id": "20161011-213306_899029439",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres10: org.apache.spark.sql.Row \u003d [(15363,[0,1,2,3,5,8,9,10,13,22,23,24,28,32,36,44,53,56,57,60,68,72,93,105,128,132,162,185,195,205,211,293,319,336,355,375,418,477,716,825,838,879,959,1199,1250,1418,1541,1862,2152,2696,2746,2790,3076,3133,3244,3451,3697,3764,3867,9210,14320],[3.0,12.0,3.0,1.0,1.0,1.0,2.0,1.0,2.0,2.0,1.0,1.0,1.0,2.0,1.0,1.0,1.0,4.0,2.0,1.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,11.0,2.0,1.0,1.0,1.0,1.0,3.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,9.0,3.0,1.0,7.0,1.0,6.0,1.0,1.0,1.0,1.0])]\n"
+      },
+      "dateCreated": "Oct 11, 2016 9:33:06 AM",
+      "dateStarted": "Oct 11, 2016 9:33:32 AM",
+      "dateFinished": "Oct 11, 2016 9:33:33 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\u003e 변형 결과로 얻는 TF vector는 [SparseVector](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.linalg.SparseVector)입니다.",
+      "dateUpdated": "Oct 5, 2016 8:56:07 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475668434794_-254311784",
+      "id": "20161005-205354_314026482",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cblockquote\u003e\u003cp\u003e변형 결과로 얻는 TF vector는 \u003ca href\u003d\"http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.linalg.SparseVector\"\u003eSparseVector\u003c/a\u003e입니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n"
+      },
+      "dateCreated": "Oct 5, 2016 8:53:54 AM",
+      "dateStarted": "Oct 5, 2016 8:55:39 AM",
+      "dateFinished": "Oct 5, 2016 8:55:39 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "총 단어의 수 확인",
+      "text": "cvModel.vocabulary.length",
+      "dateUpdated": "Oct 9, 2016 11:05:01 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474691862043_481772372",
+      "id": "20160924-133742_404624610",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres3: Int \u003d 15363\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:37:42 AM",
+      "dateStarted": "Oct 9, 2016 11:05:01 AM",
+      "dateFinished": "Oct 9, 2016 11:05:01 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "vocabulary를 통해 각 단어가 벡터의 몇 번째 차원인지 알 수 있습니다",
+      "text": "cvModel.vocabulary",
+      "dateUpdated": "Oct 9, 2016 11:05:04 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475668617764_122032292",
+      "id": "20161005-205657_1876527840",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res4: Array[String] \u003d Array(있, 화재, 등, 일, 불, 것, 안전, 명, 시, 피해, 소방, 만, 사고, 발생, 분, 원, 수, 년, 기자, 서울, 씨, 경찰, 없, 조사, 중, 소방서, 하, 월, 원인, 않, 뉴시스, 말, 이, 도, 받, 보, 당국, 현장, 지역, 층, 재산, 대, 시설, 개, 오후, 훈련, 시간, 재난, 관리, 건물, 실시, 정확, 나, 진화, 점검, 오전, 공장, 인명, 예방, 살, 상황, 주택, 차량, 대피, 주, 관계자, 이번, 주민, 연기, 구조, 건, 활동, 곳, 집, 부산, 병원, 안, 억, 추산, 대응, 모, 시작, 기관, 내, 많, 뒤, 지, 이날, 설치, 보도, 전기, 불로, 시민, 한국, 김, 사람, 폭발, 교육, 지원, 가능, 운영, 시장, 관련, 대책, 전국, 낮, 진압, 기온, 확인, 사건, 작업, 아파트, 대구, 도로, 내부, 계획, 사용, 사, 대상, 생활, 때, 되, 위험, 사업, 가스, 같, 당시, 자료, 출동, 사회, 예정, 센터, 이상, 입, 진행, 가운데, 대비, 경우, 일부, 인근, 추진, 차, 높, 긴급, 대형, 오, 체험, 본부, 때문, 호, 보험, 소방관, 산불, 신고, 제공, 지방, 불길, 앞, 국민, 전, 창고, 천, 뉴스, 경기도, 직원, 문화재, 강화, 인천, 공사, 노인, 추정, 군, 가구, 우리, 타, 새벽, 데, 반, 이용, 날씨, 종합, 밤, 시스템, 건조, 문화, 대전, 남, 장, 지난해, 회장, 영하, 일본, 정보, 아니, 간, 상태, 사망, 규모, 경북, 마련, 복지, 출처, 주변, 크, 수사, 배..."
+      },
+      "dateCreated": "Oct 5, 2016 8:56:57 AM",
+      "dateStarted": "Oct 9, 2016 11:05:04 AM",
+      "dateFinished": "Oct 9, 2016 11:05:04 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "첫 번째 뉴스 기사의 TF 추출",
+      "text": "import org.apache.spark.ml.linalg.Vector\n\nval tfArray \u003d features.select(\"features\").first.getAs[Vector](0).toArray\nval wordTF \u003d cvModel.vocabulary zip tfArray\n\nspark.createDataFrame(wordTF)\n    .toDF(\"word\", \"TF\")\n    .createOrReplaceTempView(\"tf\")",
+      "dateUpdated": "Oct 13, 2016 3:10:19 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 93.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "title": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476188864044_-148263351",
+      "id": "20161011-212744_1275463240",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nimport org.apache.spark.ml.linalg.Vector\ntfArray: Array[Double] \u003d Array(3.0, 12.0, 3.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 2.0, 1.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 4.0, 2.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...wordTF: Array[(String, Double)] \u003d Array((있,3.0), (화재,12.0), (등,3.0), (일,1.0), (불,0.0), (것,1.0), (안전,0.0), (명,0.0), (시,1.0), (피해,2.0), (소방,1.0), (만,0.0), (사고,0.0), (발생,2.0), (분,0.0), (원,0.0), (수,0.0), (년,0.0), (기자,0.0), (서울,0.0), (씨,0.0), (경찰,0.0), (없,2.0), (조사,1.0), (중,1.0), (소방서,0.0), (하,0.0), (월,0.0), (원인,1.0), (않,0.0), (뉴시스,0.0), (말,0.0), (이,2.0), (도,0.0), (받,0.0), (보,0.0), (당국,1.0), (현장,0.0), (지역,0.0), (층,0.0), (재산,0.0), (대,0.0), (시설,0.0), (개,0.0), (오후,1.0), (훈련,0.0), (시간,0.0), (재난,0.0), (관리,0.0), (건물,0.0), (실시,0.0), (정확,0.0), (나,0.0), (진화,1.0), (점검,0.0), (오전,0.0), (공장,4.0), (인명,2.0), (예방,0.0), (살,0.0), (상황,1.0), (주택,0.0), (차량,0.0), (대피,0.0), (주,0.0), (관계자,0.0), (이번,0.0), (주민,0.0), (연기,2.0), (구조,0.0), (건,0.0), (활동,0.0), (곳,1.0), (집,0.0), (부산,0.0), (병원,0.0), (안,0.0), (억,0.0), (추산,0.0..."
+      },
+      "dateCreated": "Oct 11, 2016 9:27:44 AM",
+      "dateStarted": "Oct 11, 2016 9:33:31 AM",
+      "dateFinished": "Oct 11, 2016 9:33:32 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "첫 번째 뉴스 기사의 TF",
+      "text": "%sql \nSELECT  * \nFROM    tf \nWHERE   tf \u003c\u003e 0 \nORDER BY tf DESC",
+      "dateUpdated": "Oct 11, 2016 9:32:34 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "word",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "TF",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "word",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "TF",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/sql",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476188861348_-391424656",
+      "id": "20161011-212741_1425621999",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "word\tTF\n화재\t12.0\n대전\t11.0\n대화동\t9.0\n아모레\t7.0\n퍼시픽\t6.0\n공장\t4.0\n있\t3.0\n확보\t3.0\n시야\t3.0\n등\t3.0\n피해\t2.0\n발생\t2.0\n상태\t2.0\n연기\t2.0\n없\t2.0\n이\t2.0\n인명\t2.0\n닷컴\t1.0\n스메\t1.0\n한국일보\t1.0\n네티즌\t1.0\n이용자\t1.0\n올리\t1.0\n글\t1.0\n소방\t1.0\n대덕구\t1.0\n부\t1.0\n당국\t1.0\n곳\t1.0\n일\t1.0\n시\t1.0\n것\t1.0\n실시간\t1.0\n원인\t1.0\n상황\t1.0\n출동\t1.0\n조사\t1.0\n오후\t1.0\n무단\t1.0\n한국\t1.0\n센터\t1.0\n뉴스\t1.0\n각종\t1.0\n위치\t1.0\n아이\t1.0\n중\t1.0\n이곳\t1.0\n반응\t1.0\n진화\t1.0\n안타깝\t1.0\n진압\t1.0\n배포\t1.0\n금지\t1.0\n전재\t1.0\n치솟\t1.0\n인터넷\t1.0\n물류\t1.0\n전하\t1.0\n사업장\t1.0\n코\t1.0\n둔산동\t1.0\n"
+      },
+      "dateCreated": "Oct 11, 2016 9:27:41 AM",
+      "dateStarted": "Oct 11, 2016 9:31:36 AM",
+      "dateFinished": "Oct 11, 2016 9:31:36 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "모델과 TF vector 저장",
+      "text": "cvModel.save(\"playdata/model/cntVec\")\nfeatures.drop(\"words\").write.parquet(\"playdata/feature/tf.parquet\")",
+      "dateUpdated": "Oct 5, 2016 8:58:57 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474692056073_-1780826995",
+      "id": "20160924-134056_555534140",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Sep 24, 2016 1:40:56 AM",
+      "dateStarted": "Sep 24, 2016 1:50:28 AM",
+      "dateFinished": "Sep 24, 2016 1:50:31 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "저장한 모델 불러오는 법",
+      "text": "import org.apache.spark.ml.feature.CountVectorizerModel\n\nval sameModel \u003d CountVectorizerModel.load(\"playdata/model/cntVec\")",
+      "dateUpdated": "Oct 5, 2016 8:59:16 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474692232847_678503822",
+      "id": "20160924-134352_366137022",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nimport org.apache.spark.ml.feature.CountVectorizerModel\n\nsameModel: org.apache.spark.ml.feature.CountVectorizerModel \u003d cntVec_e870b64b4d64\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:43:52 AM",
+      "dateStarted": "Oct 5, 2016 8:59:16 AM",
+      "dateFinished": "Oct 5, 2016 8:59:17 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "후에 vocabulary도 다시 사용할 수 있습니다",
+      "text": "sameModel.vocabulary",
+      "dateUpdated": "Oct 5, 2016 8:59:44 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475668749334_-1165521418",
+      "id": "20161005-205909_1545310145",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "res6: Array[String] \u003d Array(있, 화재, 등, 일, 불, 것, 안전, 명, 시, 피해, 소방, 만, 사고, 발생, 분, 원, 수, 년, 기자, 서울, 씨, 경찰, 없, 조사, 중, 소방서, 하, 월, 원인, 않, 뉴시스, 말, 이, 도, 받, 보, 당국, 현장, 지역, 층, 재산, 대, 시설, 개, 오후, 훈련, 시간, 재난, 관리, 건물, 실시, 정확, 나, 진화, 점검, 오전, 공장, 인명, 예방, 살, 상황, 주택, 차량, 대피, 주, 관계자, 이번, 주민, 연기, 구조, 건, 활동, 곳, 부산, 집, 병원, 안, 억, 추산, 대응, 모, 시작, 기관, 내, 많, 지, 뒤, 이날, 설치, 보도, 전기, 불로, 시민, 한국, 김, 사람, 폭발, 교육, 지원, 가능, 운영, 시장, 대책, 관련, 전국, 진압, 낮, 기온, 확인, 사건, 작업, 아파트, 대구, 도로, 내부, 계획, 사용, 사, 대상, 생활, 때, 되, 위험, 사업, 가스, 같, 당시, 자료, 출동, 사회, 예정, 이상, 센터, 입, 진행, 가운데, 대비, 경우, 일부, 추진, 인근, 차, 긴급, 높, 대형, 오, 체험, 본부, 때문, 보험, 호, 소방관, 산불, 신고, 제공, 지방, 불길, 앞, 국민, 전, 천, 창고, 뉴스, 경기도, 직원, 문화재, 강화, 인천, 공사, 노인, 군, 추정, 가구, 우리, 타, 새벽, 데, 반, 이용, 날씨, 종합, 밤, 시스템, 건조, 문화, 대전, 장, 남, 지난해, 회장, 영하, 일본, 정보, 아니, 간, 상태, 사망, 규모, 경북, 마련, 복지, 출처, 주변, 크, 수사, 배..."
+      },
+      "dateCreated": "Oct 5, 2016 8:59:09 AM",
+      "dateStarted": "Oct 5, 2016 8:59:19 AM",
+      "dateFinished": "Oct 5, 2016 8:59:20 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "dateUpdated": "Sep 24, 2016 1:31:24 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474691474286_31112106",
+      "id": "20160924-133114_1194001497",
+      "dateCreated": "Sep 24, 2016 1:31:14 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "playdata/2.Featurize/1.TF",
+  "id": "2BX8HQKXD",
+  "angularObjects": {
+    "2BXWMZ2JP:shared_process": [],
+    "2BYRGXC6E:shared_process": [],
+    "2BYEZ229C:shared_process": [],
+    "2BXUZ9JVT:shared_process": [],
+    "2BVKZDUFQ:shared_process": [],
+    "2BXBPMYB6:shared_process": [],
+    "2BZ4YFDFE:shared_process": [],
+    "2BWAJCG58:shared_process": [],
+    "2BXMASZWN:shared_process": [],
+    "2BVZ9R4MY:shared_process": [],
+    "2BVR2UN2E:shared_process": [],
+    "2BWP96UN6:shared_process": [],
+    "2BX3AASWA:shared_process": [],
+    "2BYG7DEAC:shared_process": [],
+    "2BX5Z4XGV:shared_process": [],
+    "2BY6S66XQ:shared_process": [],
+    "2BY6EMV6C:shared_process": [],
+    "2BYEYC4NP:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}

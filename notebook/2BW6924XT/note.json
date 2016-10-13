@@ -1,0 +1,352 @@
+{
+  "paragraphs": [
+    {
+      "title": "Load dataset",
+      "text": "val news \u003d spark.read.parquet(\"playdata/data/news-with-id.parquet\").persist",
+      "dateUpdated": "Oct 9, 2016 10:52:38 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474688592338_-1275428928",
+      "id": "20160924-124312_698286257",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nnews: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [body: string, date: string ... 7 more fields]\n"
+      },
+      "dateCreated": "Sep 24, 2016 12:43:12 PM",
+      "dateStarted": "Oct 9, 2016 10:52:38 PM",
+      "dateFinished": "Oct 9, 2016 10:52:41 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n# 형태소 분석\n은전한닢 형태소 분석기를 이용해 뉴스 기사의 제목과 내용을 분석합니다.\n분석 결과로 얻는 DataFrame은다음과 같은 열들을 갖습니다:\n- 뉴스 기사 ID (id)\n- 단어명 (word)\n- 형태소 (pos; part of speech)\n- 특징 (feature)\n- 시작 위치 (start)\n- 끝 위치(end)",
+      "dateUpdated": "Oct 5, 2016 8:18:41 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475135880535_-1834519554",
+      "id": "20160929-165800_1084497064",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003ch1\u003e형태소 분석\u003c/h1\u003e\n\u003cp\u003e은전한닢 형태소 분석기를 이용해 뉴스 기사의 제목과 내용을 분석합니다.\n\u003cbr  /\u003e분석 결과로 얻는 DataFrame은다음과 같은 열들을 갖습니다:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e뉴스 기사 ID (id)\u003c/li\u003e\n\u003cli\u003e단어명 (word)\u003c/li\u003e\n\u003cli\u003e형태소 (pos; part of speech)\u003c/li\u003e\n\u003cli\u003e특징 (feature)\u003c/li\u003e\n\u003cli\u003e시작 위치 (start)\u003c/li\u003e\n\u003cli\u003e끝 위치(end)\u003c/li\u003e\n\u003c/ul\u003e\n"
+      },
+      "dateCreated": "Sep 29, 2016 4:58:00 AM",
+      "dateStarted": "Oct 5, 2016 8:13:19 AM",
+      "dateFinished": "Oct 5, 2016 8:13:19 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "import org.apache.spark.sql.Row\nimport org.apache.spark.sql.functions._\nimport org.bitbucket.eunjeon.seunjeon.{Analyzer, Pos, LNode, Morpheme}\n\nval extractWords \u003d (row: Row) \u003d\u003e row match { \n        case Row(id: Long, text: String) \u003d\u003e\n            // Parse text\n            val parsed: Seq[LNode] \u003d Analyzer.parse(text)\n            \n            parsed.map { lNode: LNode \u003d\u003e \n                val start \u003d lNode.startPos  // start position\n                val end \u003d lNode.endPos      // end position\n                val mor \u003d lNode.morpheme    // 형태소\n                \n    \t\t    (id, mor.surface, mor.poses.map(_.toString), mor.feature, start, end)\n            }\n    }",
+      "dateUpdated": "Oct 9, 2016 10:56:18 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476021258622_-616700955",
+      "id": "20161009-225418_1655312342",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nimport org.apache.spark.sql.Row\n\nimport org.apache.spark.sql.functions._\n\nimport org.bitbucket.eunjeon.seunjeon.{Analyzer, Pos, LNode, Morpheme}\n\nextractWords: org.apache.spark.sql.Row \u003d\u003e Seq[(Long, String, scala.collection.mutable.WrappedArray[String], scala.collection.mutable.WrappedArray[String], Int, Int)] \u003d \u003cfunction1\u003e\n"
+      },
+      "dateCreated": "Oct 9, 2016 10:54:18 PM",
+      "dateStarted": "Oct 9, 2016 10:56:18 PM",
+      "dateFinished": "Oct 9, 2016 10:56:19 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "형태소 분석 및 단어 추출",
+      "text": "val titleWords \u003d news.select(\"id\", \"title\")\n    .flatMap(extractWords)\n    .toDF(\"id\", \"word\", \"pos\", \"feature\", \"start\", \"end\")\n    .withColumn(\"origin\", lit(\"title\"))\n\nval bodyWords \u003d news.select(\"id\", \"body\")\n    .flatMap(extractWords)\n    .toDF(\"id\", \"word\", \"pos\", \"feature\", \"start\", \"end\")\n    .withColumn(\"origin\", lit(\"body\"))\n    \nval words \u003d titleWords union bodyWords",
+      "dateUpdated": "Oct 9, 2016 10:59:36 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "title": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474689825489_1313488413",
+      "id": "20160924-130345_1731370200",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ntitleWords: org.apache.spark.sql.DataFrame \u003d [id: bigint, word: string ... 5 more fields]\n\nbodyWords: org.apache.spark.sql.DataFrame \u003d [id: bigint, word: string ... 5 more fields]\n\nwords: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, word: string ... 5 more fields]\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:03:45 AM",
+      "dateStarted": "Oct 9, 2016 10:59:36 PM",
+      "dateFinished": "Oct 9, 2016 10:59:37 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\u003e seunjeon에 대한 자세한 사용법은 \u003chttps://bitbucket.org/eunjeon/seunjeon\u003e을 참고하세요.\n\u003e 품사태그는 [여기](https://docs.google.com/spreadsheets/d/1-9blXKjtjeKZqsf4NzHeYJCrr49-nXeRF6D80udfcwY/edit#gid\u003d589544265)를 참고하세요.",
+      "dateUpdated": "Oct 5, 2016 8:16:48 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475665964913_353118073",
+      "id": "20161005-201244_1603817582",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cblockquote\u003e\u003cp\u003eseunjeon에 대한 자세한 사용법은 \u003ca href\u003d\"https://bitbucket.org/eunjeon/seunjeon\"\u003ehttps://bitbucket.org/eunjeon/seunjeon\u003c/a\u003e을 참고하세요.\n\u003cbr  /\u003e품사태그는 \u003ca href\u003d\"https://docs.google.com/spreadsheets/d/1-9blXKjtjeKZqsf4NzHeYJCrr49-nXeRF6D80udfcwY/edit#gid\u003d589544265\"\u003e여기\u003c/a\u003e를 참고하세요.\u003c/p\u003e\n\u003c/blockquote\u003e\n"
+      },
+      "dateCreated": "Oct 5, 2016 8:12:44 AM",
+      "dateStarted": "Oct 5, 2016 8:16:44 AM",
+      "dateFinished": "Oct 5, 2016 8:16:44 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "형태소 분석 결과 확인",
+      "text": "words.show(200, false)",
+      "dateUpdated": "Oct 9, 2016 11:01:24 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474689956086_387983418",
+      "id": "20160924-130556_1177625956",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+---+----+--------+------------------------------------------------------+-----+---+------+\n|id |word|pos     |feature                                               |start|end|origin|\n+---+----+--------+------------------------------------------------------+-----+---+------+\n|0  |대전  |[N]     |[NNP, 지명, T, 대전, *, *, *, *]                          |0    |2  |title |\n|0  |대화동 |[N]     |[NNP, 지명, T, 대화동, Compound, *, *, 대화/NNP/지명+동/NNG/*]  |3    |6  |title |\n|0  |아모레 |[N]     |[NNG, *, F, 아모레, *, *, *, *]                          |7    |10 |title |\n|0  |퍼시픽 |[N]     |[NNG, *, T, 퍼시픽, *, *, *, *]                          |10   |13 |title |\n|0  |공장  |[N]     |[NNG, *, T, 공장, *, *, *, *]                           |14   |16 |title |\n|0  |서   |[J]     |[JKB, *, F, 서, *, *, *, *]                            |16   |17 |title |\n|0  |화재  |[N]     |[NNG, *, F, 화재, *, *, *, *]                           |18   |20 |title |\n|0  |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |20   |21 |title |\n|0  |.   |[S]     |[SF, *, *, *, *, *, *, *]                             |21   |22 |title |\n|0  |시야  |[N]     |[NNG, *, F, 시야, *, *, *, *]                           |23   |25 |title |\n|0  |확보  |[N]     |[NNG, *, F, 확보, *, *, *, *]                           |26   |28 |title |\n|0  |어려워 |[V, E]  |[VA+EC, *, F, 어려워, Inflect, VA, EC, 어렵/VA/*+어/EC/*]   |29   |32 |title |\n|1  |[   |[S]     |[SSO, *, *, *, *, *, *, *]                            |0    |1  |title |\n|1  |미   |[N]     |[NNP, 지명, F, 미, *, *, *, *]                           |1    |2  |title |\n|1  |공개  |[N]     |[NNG, *, F, 공개, *, *, *, *]                           |2    |4  |title |\n|1  |영상  |[N]     |[NNG, *, T, 영상, *, *, *, *]                           |5    |7  |title |\n|1  |]   |[S]     |[SSC, *, *, *, *, *, *, *]                            |7    |8  |title |\n|1  |내장사 |[N]     |[NNG, *, F, 내장사, Compound, *, *, 내장/NNG/*+사/NNG/*]    |9    |12 |title |\n|1  |대웅전 |[N]     |[NNG, *, T, 대웅전, Compound, *, *, 대웅/NNG/*+전/NNG/*]    |13   |16 |title |\n|1  |전소  |[N]     |[NNG, *, F, 전소, *, *, *, *]                           |17   |19 |title |\n|1  |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |19   |20 |title |\n|1  |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |20   |21 |title |\n|1  |.   |[S]     |[SF, *, *, *, *, *, *, *]                             |21   |22 |title |\n|1  |화재  |[N]     |[NNG, *, F, 화재, *, *, *, *]                           |22   |24 |title |\n|1  |원인  |[N]     |[NNG, *, T, 원인, *, *, *, *]                           |25   |27 |title |\n|1  |조사  |[N]     |[NNG, *, F, 조사, *, *, *, *]                           |28   |30 |title |\n|1  |중   |[N]     |[NNB, *, T, 중, *, *, *, *]                            |31   |32 |title |\n|2  |[   |[S]     |[SSO, *, *, *, *, *, *, *]                            |0    |1  |title |\n|2  |日   |[SH]    |[SH, *, *, *, *, *, *, *]                             |1    |2  |title |\n|2  |8   |[SN]    |[SN, *, *, *, *, *, *, *]                             |3    |4  |title |\n|2  |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |4    |5  |title |\n|2  |8   |[SN]    |[SN, *, *, *, *, *, *, *]                             |5    |6  |title |\n|2  |강진  |[N]     |[NNG, *, T, 강진, Compound, *, *, 강/NNG/*+진/NNG/*]      |7    |9  |title |\n|2  |]   |[S]     |[SSC, *, *, *, *, *, *, *]                            |9    |10 |title |\n|2  |[   |[S]     |[SSO, *, *, *, *, *, *, *]                            |10   |11 |title |\n|2  |종합  |[N]     |[NNG, *, T, 종합, *, *, *, *]                           |11   |13 |title |\n|2  |2   |[SN]    |[SN, *, *, *, *, *, *, *]                             |13   |14 |title |\n|2  |보   |[N]     |[NNBC, *, F, 보, *, *, *, *]                           |14   |15 |title |\n|2  |]   |[S]     |[SSC, *, *, *, *, *, *, *]                            |15   |16 |title |\n|2  |기상청 |[N]     |[NNG, *, T, 기상청, Compound, *, *, 기상/NNG/*+청/NNG/*]    |16   |19 |title |\n|2  |\"   |[S]     |[SY, *, *, *, *, *, *, *]                             |20   |21 |title |\n|2  |국내  |[N]     |[NNG, *, F, 국내, *, *, *, *]                           |21   |23 |title |\n|2  |직   |[N]     |[NNG, *, T, 직, *, *, *, *]                            |24   |25 |title |\n|2  |·   |[S]     |[SC, *, *, *, *, *, *, *]                             |25   |26 |title |\n|2  |간접  |[N]     |[NNG, *, T, 간접, *, *, *, *]                           |26   |28 |title |\n|2  |적   |[XS]    |[XSN, *, T, 적, *, *, *, *]                            |28   |29 |title |\n|2  |피해  |[N]     |[NNG, *, F, 피해, *, *, *, *]                           |30   |32 |title |\n|2  |없   |[V]     |[VA, *, T, 없, *, *, *, *]                             |33   |34 |title |\n|2  |을   |[E]     |[ETM, *, T, 을, *, *, *, *]                            |34   |35 |title |\n|2  |것   |[N]     |[NNB, *, T, 것, *, *, *, *]                            |36   |37 |title |\n|2  |\"   |[S]     |[SY, *, *, *, *, *, *, *]                             |37   |38 |title |\n|3  |[   |[S]     |[SSO, *, *, *, *, *, *, *]                            |0    |1  |title |\n|3  |경향  |[N]     |[NNG, *, T, 경향, *, *, *, *]                           |1    |3  |title |\n|3  |포토  |[N]     |[NNG, *, F, 포토, *, *, *, *]                           |3    |5  |title |\n|3  |]   |[S]     |[SSC, *, *, *, *, *, *, *]                            |5    |6  |title |\n|3  |인사동 |[N]     |[NNP, 지명, T, 인사동, Compound, *, *, 인사/NNP/지명+동/NNG/*]  |6    |9  |title |\n|3  |화재  |[N]     |[NNG, *, F, 화재, *, *, *, *]                           |10   |12 |title |\n|3  |살펴보 |[V]     |[VV, *, F, 살펴보, *, *, *, *]                           |13   |16 |title |\n|3  |는   |[E]     |[ETM, *, T, 는, *, *, *, *]                            |16   |17 |title |\n|3  |합동  |[N]     |[NNG, *, T, 합동, *, *, *, *]                           |18   |20 |title |\n|3  |현장감 |[N]     |[NNG, *, T, 현장감, Compound, *, *, 현장/NNG/*+감/NNG/*]    |20   |23 |title |\n|3  |식반  |[N]     |[NNG, *, T, 식반, *, *, *, *]                           |23   |25 |title |\n|4  |서울  |[N]     |[NNP, 지명, T, 서울, *, *, *, *]                          |0    |2  |title |\n|4  |상계동 |[N]     |[NNP, 지명, T, 상계동, Compound, *, *, 상계/NNP/지명+동/NNG/*]  |3    |6  |title |\n|4  |가방  |[N]     |[NNG, *, T, 가방, *, *, *, *]                           |7    |9  |title |\n|4  |공장  |[N]     |[NNG, *, T, 공장, *, *, *, *]                           |9    |11 |title |\n|4  |불   |[N]     |[NNG, *, T, 불, *, *, *, *]                            |12   |13 |title |\n|4  |…   |[S]     |[SE, *, *, *, *, *, *, *]                             |13   |14 |title |\n|4  |2   |[SN]    |[SN, *, *, *, *, *, *, *]                             |14   |15 |title |\n|4  |천   |[N]     |[NR, *, T, 천, *, *, *, *]                             |15   |16 |title |\n|4  |5   |[SN]    |[SN, *, *, *, *, *, *, *]                             |16   |17 |title |\n|4  |백만  |[N]     |[NR, *, T, 백만, *, *, *, *]                            |17   |19 |title |\n|4  |원   |[N]     |[NNBC, *, T, 원, *, *, *, *]                           |20   |21 |title |\n|4  |재산  |[N]     |[NNG, *, T, 재산, *, *, *, *]                           |22   |24 |title |\n|4  |피해  |[N]     |[NNG, *, F, 피해, *, *, *, *]                           |25   |27 |title |\n|5  |광주시 |[N]     |[NNP, 지명, F, 광주시, Compound, *, *, 광주/NNP/지명+시/NNG/*]  |0    |3  |title |\n|5  |,   |[S]     |[SC, *, *, *, *, *, *, *]                             |3    |4  |title |\n|5  |전통  |[N]     |[NNG, *, T, 전통, *, *, *, *]                           |5    |7  |title |\n|5  |시장  |[N]     |[NNG, *, T, 시장, *, *, *, *]                           |7    |9  |title |\n|5  |재난  |[N]     |[NNG, *, T, 재난, *, *, *, *]                           |10   |12 |title |\n|5  |사고  |[N]     |[NNG, *, F, 사고, *, *, *, *]                           |12   |14 |title |\n|5  |대비  |[N]     |[NNG, *, F, 대비, *, *, *, *]                           |15   |17 |title |\n|5  |소방  |[N]     |[NNG, *, T, 소방, *, *, *, *]                           |18   |20 |title |\n|5  |모의  |[N]     |[NNG, *, F, 모의, *, *, *, *]                           |21   |23 |title |\n|5  |훈련  |[N]     |[NNG, *, T, 훈련, *, *, *, *]                           |24   |26 |title |\n|5  |실시  |[N]     |[NNG, *, F, 실시, *, *, *, *]                           |27   |29 |title |\n|6  |[   |[S]     |[SSO, *, *, *, *, *, *, *]                            |0    |1  |title |\n|6  |만물상 |[N]     |[NNP, 지명, T, 만물상, Compound, *, *, 만물/NNG/*+상/NNG/*]   |1    |4  |title |\n|6  |]   |[S]     |[SSC, *, *, *, *, *, *, *]                            |4    |5  |title |\n|6  |일본인 |[N]     |[NNG, *, T, 일본인, Compound, *, *, 일본/NNG/*+인/NNG/*]    |6    |9  |title |\n|6  |의   |[J]     |[JKG, *, F, 의, *, *, *, *]                            |9    |10 |title |\n|6  |시민  |[N]     |[NNG, *, T, 시민, *, *, *, *]                           |11   |13 |title |\n|6  |의식  |[N]     |[NNG, *, T, 의식, *, *, *, *]                           |13   |15 |title |\n|7  |중앙  |[N]     |[NNG, *, T, 중앙, *, *, *, *]                           |0    |2  |title |\n|7  |대   |[XS]    |[XSN, *, F, 대, *, *, *, *]                            |2    |3  |title |\n|7  |총   |[M]     |[MM, ~수표현, T, 총, *, *, *, *]                          |4    |5  |title |\n|7  |장실  |[N]     |[NNG, *, T, 장실, *, *, *, *]                           |5    |7  |title |\n|7  |밤샘  |[N]     |[NNG, *, T, 밤샘, Compound, *, *, 밤/NNG/*+샘/NNG/*]      |8    |10 |title |\n|7  |점거  |[N]     |[NNG, *, F, 점거, *, *, *, *]                           |11   |13 |title |\n|7  |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |13   |14 |title |\n|7  |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |14   |15 |title |\n|7  |.   |[S]     |[SF, *, *, *, *, *, *, *]                             |15   |16 |title |\n|7  |\"   |[S]     |[SY, *, *, *, *, *, *, *]                             |16   |17 |title |\n|7  |합격  |[N]     |[NNG, *, T, 합격, *, *, *, *]                           |17   |19 |title |\n|7  |취소  |[N]     |[NNG, *, F, 취소, *, *, *, *]                           |20   |22 |title |\n|7  |철회  |[N]     |[NNG, *, F, 철회, *, *, *, *]                           |23   |25 |title |\n|7  |하   |[XS]    |[XSV, *, F, 하, *, *, *, *]                            |25   |26 |title |\n|7  |라   |[E]     |[EC, *, F, 라, *, *, *, *]                             |26   |27 |title |\n|7  |\"   |[S]     |[SY, *, *, *, *, *, *, *]                             |27   |28 |title |\n|8  |부산  |[N]     |[NNP, 지명, T, 부산, *, *, *, *]                          |0    |2  |title |\n|8  |노래  |[N]     |[NNG, *, F, 노래, *, *, *, *]                           |3    |5  |title |\n|8  |주점  |[N]     |[NNG, *, T, 주점, *, *, *, *]                           |6    |8  |title |\n|8  |화재  |[N]     |[NNG, *, F, 화재, *, *, *, *]                           |9    |11 |title |\n|8  |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |11   |12 |title |\n|8  |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |12   |13 |title |\n|8  |.   |[S]     |[SF, *, *, *, *, *, *, *]                             |13   |14 |title |\n|8  |합동  |[N]     |[NNG, *, T, 합동, *, *, *, *]                           |14   |16 |title |\n|8  |현장  |[N]     |[NNG, *, T, 현장, *, *, *, *]                           |17   |19 |title |\n|8  |감식  |[N]     |[NNG, *, T, 감식, *, *, *, *]                           |20   |22 |title |\n|8  |열려  |[V, E]  |[VV+EC, *, F, 열려, Inflect, VV, EC, 열리/VV/*+어/EC/*]    |23   |25 |title |\n|9  |삼성동 |[N]     |[NNP, 지명, T, 삼성동, Compound, *, *, 삼성/NNP/지명+동/NNG/*]  |0    |3  |title |\n|9  |화재  |[N]     |[NNG, *, F, 화재, *, *, *, *]                           |4    |6  |title |\n|9  |,   |[S]     |[SC, *, *, *, *, *, *, *]                             |6    |7  |title |\n|9  |하나  |[N]     |[NR, *, F, 하나, *, *, *, *]                            |8    |10 |title |\n|9  |뿐   |[J]     |[JX, *, T, 뿐, *, *, *, *]                             |10   |11 |title |\n|9  |인   |[VCP, E]|[VCP+ETM, *, T, 인, Inflect, VCP, ETM, 이/VCP/*+ᆫ/ETM/*]|11   |12 |title |\n|9  |출구  |[N]     |[NNG, *, F, 출구, *, *, *, *]                           |13   |15 |title |\n|9  |·   |[S]     |[SC, *, *, *, *, *, *, *]                             |15   |16 |title |\n|9  |좁   |[V]     |[VA, *, T, 좁, *, *, *, *]                             |16   |17 |title |\n|9  |은   |[E]     |[ETM, *, T, 은, *, *, *, *]                            |17   |18 |title |\n|9  |창문  |[N]     |[NNG, *, T, 창문, *, *, *, *]                           |19   |21 |title |\n|9  |이   |[J]     |[JKS, *, F, 이, *, *, *, *]                            |21   |22 |title |\n|9  |화   |[N]     |[NNG, *, F, 화, *, *, *, *]                            |23   |24 |title |\n|9  |키워  |[V, E]  |[VV+EC, *, F, 키워, Inflect, VV, EC, 키우/VV/*+어/EC/*]    |25   |27 |title |\n|10 |울산  |[N]     |[NNP, 지명, T, 울산, *, *, *, *]                          |0    |2  |title |\n|10 |산불  |[N]     |[NNG, *, T, 산불, Compound, *, *, 산/NNG/*+불/NNG/*]      |3    |5  |title |\n|10 |,   |[S]     |[SC, *, *, *, *, *, *, *]                             |5    |6  |title |\n|10 |큰   |[V, E]  |[VA+ETM, *, T, 큰, Inflect, VA, ETM, 크/VA/*+ᆫ/ETM/*]   |7    |8  |title |\n|10 |불길  |[N]     |[NNG, *, T, 불길, Compound, *, *, 불/NNG/*+길/NNG/*]      |9    |11 |title |\n|10 |잡혀  |[V, E]  |[VV+EF, *, F, 잡혀, Inflect, VV, EF, 잡히/VV/*+ㅓ/EF/*]    |12   |14 |title |\n|10 |.   |[S]     |[SF, *, *, *, *, *, *, *]                             |14   |15 |title |\n|10 |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |15   |16 |title |\n|10 |.   |[S]     |[SF, *, *, *, *, *, *, *]                             |16   |17 |title |\n|10 |피해  |[V, E]  |[VV+EC, *, F, 피해, Inflect, VV, EC, 피하/VV/*+아/EC/*]    |17   |19 |title |\n|10 |속속  |[M]     |[MAG, 성분부사/시간부사, T, 속속, *, *, *, *]                   |20   |22 |title |\n|10 |드러나 |[V, E]  |[VV+EC, *, F, 드러나, Inflect, VV, EC, 드러나/VV/*+아/EC/*]  |23   |26 |title |\n|11 |장난삼 |[V]     |[VV, *, T, 장난삼, *, *, *, *]                           |0    |3  |title |\n|11 |아   |[E]     |[EC, *, F, 아, *, *, *, *]                             |3    |4  |title |\n|11 |지른  |[V, E]  |[VV+ETM, *, T, 지른, Inflect, VV, ETM, 지르/VV/*+ᆫ/ETM/*] |5    |7  |title |\n|11 |불   |[N]     |[NNG, *, T, 불, *, *, *, *]                            |8    |9  |title |\n|11 |이   |[J]     |[JKS, *, F, 이, *, *, *, *]                            |9    |10 |title |\n|11 |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |10   |11 |title |\n|11 |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |11   |12 |title |\n|11 |.   |[S]     |[SF, *, *, *, *, *, *, *]                             |12   |13 |title |\n|12 |[   |[S]     |[SSO, *, *, *, *, *, *, *]                            |0    |1  |title |\n|12 |별별  |[M]     |[MM, ~명사, T, 별별, *, *, *, *]                          |1    |3  |title |\n|12 |시선  |[N]     |[NNG, *, T, 시선, *, *, *, *]                           |3    |5  |title |\n|12 |]   |[S]     |[SSC, *, *, *, *, *, *, *]                            |5    |6  |title |\n|12 |좋   |[V]     |[VA, *, T, 좋, *, *, *, *]                             |6    |7  |title |\n|12 |아요  |[E]     |[EF, *, F, 아요, *, *, *, *]                            |7    |9  |title |\n|12 |,   |[S]     |[SC, *, *, *, *, *, *, *]                             |9    |10 |title |\n|12 |인천  |[N]     |[NNP, 지명, T, 인천, *, *, *, *]                          |11   |13 |title |\n|12 |축제  |[N]     |[NNG, *, F, 축제, *, *, *, *]                           |14   |16 |title |\n|13 |‘   |[S]     |[SY, *, *, *, *, *, *, *]                             |0    |1  |title |\n|13 |단독  |[N]     |[NNG, *, T, 단독, *, *, *, *]                           |1    |3  |title |\n|13 |주택  |[N]     |[NNG, *, T, 주택, *, *, *, *]                           |3    |5  |title |\n|13 |천국  |[N]     |[NNG, *, T, 천국, *, *, *, *]                           |6    |8  |title |\n|13 |’   |[S]     |[SY, *, *, *, *, *, *, *]                             |8    |9  |title |\n|13 |일본  |[N]     |[NNP, 지명, T, 일본, *, *, *, *]                          |10   |12 |title |\n|13 |기술력 |[N]     |[NNG, *, T, 기술력, Compound, *, *, 기술/NNG/*+력/NNG/*]    |13   |16 |title |\n|13 |…   |[S]     |[SE, *, *, *, *, *, *, *]                             |17   |18 |title |\n|13 |“   |[S]     |[SSO, *, *, *, *, *, *, *]                            |19   |20 |title |\n|13 |목조  |[N]     |[NNG, *, F, 목조, *, *, *, *]                           |20   |22 |title |\n|13 |가   |[J]     |[JKS, *, F, 가, *, *, *, *]                            |22   |23 |title |\n|13 |콘크리트|[N]     |[NNG, *, F, 콘크리트, *, *, *, *]                         |24   |28 |title |\n|13 |보다  |[J]     |[JKB, *, F, 보다, *, *, *, *]                           |28   |30 |title |\n|13 |화재  |[N]     |[NNG, *, F, 화재, *, *, *, *]                           |31   |33 |title |\n|13 |피해  |[N]     |[NNG, *, F, 피해, *, *, *, *]                           |34   |36 |title |\n|13 |작   |[V]     |[VA, *, T, 작, *, *, *, *]                             |37   |38 |title |\n|13 |다   |[E]     |[EC, *, F, 다, *, *, *, *]                             |38   |39 |title |\n|13 |”   |[S]     |[SSC, *, *, *, *, *, *, *]                            |39   |40 |title |\n|14 |MBN |[SL]    |[SL, *, *, *, *, *, *, *]                             |0    |3  |title |\n|14 |08  |[SN]    |[SN, *, *, *, *, *, *, *]                             |4    |6  |title |\n|14 |시   |[N]     |[NNBC, *, F, 시, *, *, *, *]                           |6    |7  |title |\n|14 |주요  |[N]     |[NNG, *, F, 주요, *, *, *, *]                           |8    |10 |title |\n|14 |뉴스  |[N]     |[NNG, *, F, 뉴스, *, *, *, *]                           |10   |12 |title |\n|15 |MBN |[SL]    |[SL, *, *, *, *, *, *, *]                             |0    |3  |title |\n|15 |15  |[SN]    |[SN, *, *, *, *, *, *, *]                             |4    |6  |title |\n|15 |시   |[N]     |[NNBC, *, F, 시, *, *, *, *]                           |6    |7  |title |\n|15 |주요  |[N]     |[NNG, *, F, 주요, *, *, *, *]                           |8    |10 |title |\n|15 |뉴스  |[N]     |[NNG, *, F, 뉴스, *, *, *, *]                           |10   |12 |title |\n|16 |충남  |[N]     |[NNP, 지명, T, 충남, *, *, *, *]                          |0    |2  |title |\n|16 |보령  |[N]     |[NNG, *, T, 보령, *, *, *, *]                           |3    |5  |title |\n|16 |화력  |[N]     |[NNG, *, T, 화력, *, *, *, *]                           |5    |7  |title |\n|16 |발전소 |[N]     |[NNG, *, F, 발전소, Compound, *, *, 발전/NNG/*+소/NNG/*]    |7    |10 |title |\n|16 |불   |[N]     |[NNG, *, T, 불, *, *, *, *]                            |11   |12 |title |\n|16 |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |12   |13 |title |\n|16 |.   |[S]     |[SY, *, *, *, *, *, *, *]                             |13   |14 |title |\n|16 |.   |[S]     |[SF, *, *, *, *, *, *, *]                             |14   |15 |title |\n|16 |정전  |[N]     |[NNG, *, T, 정전, *, *, *, *]                           |15   |17 |title |\n+---+----+--------+------------------------------------------------------+-----+---+------+\nonly showing top 200 rows\n\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:05:56 AM",
+      "dateStarted": "Oct 9, 2016 11:01:24 PM",
+      "dateFinished": "Oct 9, 2016 11:01:24 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "모든 단어들을 저장",
+      "text": "words.write.parquet(\"playdata/data/words.parquet\")",
+      "dateUpdated": "Oct 9, 2016 11:02:44 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474690327811_1551001601",
+      "id": "20160924-131207_2044419934",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Sep 24, 2016 1:12:07 AM",
+      "dateStarted": "Oct 9, 2016 11:02:32 PM",
+      "dateFinished": "Oct 9, 2016 11:02:34 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "dateUpdated": "Sep 24, 2016 1:05:43 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474689919677_-1641997752",
+      "id": "20160924-130519_1877204983",
+      "dateCreated": "Sep 24, 2016 1:05:19 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "playdata/1.Preprocessing/3.WordExtraction",
+  "id": "2BW6924XT",
+  "angularObjects": {
+    "2BXWMZ2JP:shared_process": [],
+    "2BYRGXC6E:shared_process": [],
+    "2BYEZ229C:shared_process": [],
+    "2BXUZ9JVT:shared_process": [],
+    "2BVKZDUFQ:shared_process": [],
+    "2BXBPMYB6:shared_process": [],
+    "2BZ4YFDFE:shared_process": [],
+    "2BWAJCG58:shared_process": [],
+    "2BXMASZWN:shared_process": [],
+    "2BVZ9R4MY:shared_process": [],
+    "2BVR2UN2E:shared_process": [],
+    "2BWP96UN6:shared_process": [],
+    "2BX3AASWA:shared_process": [],
+    "2BYG7DEAC:shared_process": [],
+    "2BX5Z4XGV:shared_process": [],
+    "2BY6S66XQ:shared_process": [],
+    "2BY6EMV6C:shared_process": [],
+    "2BYEYC4NP:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}

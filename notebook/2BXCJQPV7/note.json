@@ -1,0 +1,575 @@
+{
+  "paragraphs": [
+    {
+      "text": "val tf \u003d spark.read.parquet(\"playdata/feature/tf.parquet\")\n    .withColumnRenamed(\"features\", \"tf\")\n    .persist",
+      "dateUpdated": "Oct 10, 2016 12:19:29 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474692395652_-722737993",
+      "id": "20160924-134635_101958960",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\ntf: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, tf: vector]\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:46:35 AM",
+      "dateStarted": "Oct 10, 2016 12:19:29 PM",
+      "dateFinished": "Oct 10, 2016 12:19:42 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\u003e 어떤 단어가 한 문서에 자주 나온다면, 그 문서를 대표한다고 볼 수 있습니다.\n\n\u003e 하지만, 다른 문서에도 자주 나오는 단어라면, 해당 문서만의 특징이 아니게되죠.\n\n\u003e 이러한 아이디어로 다른 문서에도 많이 나오는 단어의 TF 값은 줄여주는 알고리즘이 `IDF(Inverse Document Frequency)` 입니다.\n\n\u003e Spark에 [IDF](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.feature.IDF)라는 이름의 클래스로 구현되어 있습니다.",
+      "dateUpdated": "Oct 5, 2016 9:03:56 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475668837436_904766441",
+      "id": "20161005-210037_1646933749",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cblockquote\u003e\u003cp\u003e어떤 단어가 한 문서에 자주 나온다면, 그 문서를 대표한다고 볼 수 있습니다.\u003c/p\u003e\n\u003cp\u003e하지만, 다른 문서에도 자주 나오는 단어라면, 해당 문서만의 특징이 아니게되죠.\u003c/p\u003e\n\u003cp\u003e이러한 아이디어로 다른 문서에도 많이 나오는 단어의 TF 값은 줄여주는 알고리즘이 \u003ccode\u003eIDF(Inverse Document Frequency)\u003c/code\u003e 입니다.\u003c/p\u003e\n\u003cp\u003eSpark에 \u003ca href\u003d\"http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.feature.IDF\"\u003eIDF\u003c/a\u003e라는 이름의 클래스로 구현되어 있습니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n"
+      },
+      "dateCreated": "Oct 5, 2016 9:00:37 AM",
+      "dateStarted": "Oct 5, 2016 9:03:53 AM",
+      "dateFinished": "Oct 5, 2016 9:03:53 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "import org.apache.spark.ml.feature.{IDF, IDFModel}\n\nval idf \u003d new IDF()\n    .setInputCol(\"tf\")\n    .setOutputCol(\"features\")\n    \nval idfModel: IDFModel \u003d idf.fit(tf)\n\nval tfidf \u003d idfModel.transform(tf)",
+      "dateUpdated": "Oct 10, 2016 12:19:32 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474692418976_1809340492",
+      "id": "20160924-134658_1147231135",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nimport org.apache.spark.ml.feature.{IDF, IDFModel}\n\nidf: org.apache.spark.ml.feature.IDF \u003d idf_a41b9eae91bc\n\nidfModel: org.apache.spark.ml.feature.IDFModel \u003d idf_a41b9eae91bc\n\ntfidf: org.apache.spark.sql.DataFrame \u003d [id: bigint, tf: vector ... 1 more field]\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:46:58 AM",
+      "dateStarted": "Oct 10, 2016 12:19:40 PM",
+      "dateFinished": "Oct 10, 2016 12:19:45 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "변형된 TF/IDF 확인",
+      "text": "tfidf.show",
+      "dateUpdated": "Oct 5, 2016 9:13:39 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474693058996_-255870655",
+      "id": "20160924-135738_1681519857",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+-----------+--------------------+--------------------+\n|         id|                  tf|            features|\n+-----------+--------------------+--------------------+\n|42949672961|(15363,[0,1,2,3,4...|(15363,[0,1,2,3,4...|\n|42949672962|(15363,[0,1,2,3,5...|(15363,[0,1,2,3,5...|\n|42949672963|(15363,[0,1,4,5,7...|(15363,[0,1,4,5,7...|\n|42949672964|(15363,[0,1,6,7,1...|(15363,[0,1,6,7,1...|\n|42949672965|(15363,[1,2,3,6,7...|(15363,[1,2,3,6,7...|\n|42949672966|(15363,[0,1,5,8,1...|(15363,[0,1,5,8,1...|\n|42949672967|(15363,[1,6,15,40...|(15363,[1,6,15,40...|\n|17179869258|(15363,[0,1,3,4,5...|(15363,[0,1,3,4,5...|\n|17179869259|(15363,[0,1,2,3,4...|(15363,[0,1,2,3,4...|\n|17179869260|(15363,[0,1,2,3,4...|(15363,[0,1,2,3,4...|\n|17179869261|(15363,[0,1,2,3,6...|(15363,[0,1,2,3,6...|\n|17179869262|(15363,[0,1,2,3,5...|(15363,[0,1,2,3,5...|\n|17179869263|(15363,[0,1,3,5,8...|(15363,[0,1,3,5,8...|\n|17179869264|(15363,[0,1,2,3,5...|(15363,[0,1,2,3,5...|\n|51539607619|(15363,[0,1,2,5,6...|(15363,[0,1,2,5,6...|\n|51539607620|(15363,[1,2,3,6,7...|(15363,[1,2,3,6,7...|\n|51539607621|(15363,[0,2,3,5,1...|(15363,[0,2,3,5,1...|\n|51539607622|(15363,[0,1,2,3,7...|(15363,[0,1,2,3,7...|\n|51539607623|(15363,[0,1,2,3,4...|(15363,[0,1,2,3,4...|\n|51539607624|(15363,[0,1,19,25...|(15363,[0,1,19,25...|\n+-----------+--------------------+--------------------+\nonly showing top 20 rows\n\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:57:38 AM",
+      "dateStarted": "Oct 5, 2016 9:12:29 AM",
+      "dateFinished": "Oct 5, 2016 9:12:29 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\u003e 다음 노트들에서 첫 번째 뉴스 기사의 `TF`값이 `IDF`로 인해 어떻게 변했는지 살펴봅니다.",
+      "dateUpdated": "Oct 11, 2016 9:56:16 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476190515558_-1821573021",
+      "id": "20161011-215515_1662569796",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cblockquote\u003e\u003cp\u003e다음 노트들에서 첫 번째 뉴스 기사의 \u003ccode\u003eTF\u003c/code\u003e값이 \u003ccode\u003eIDF\u003c/code\u003e로 인해 어떻게 변했는지 살펴봅니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n"
+      },
+      "dateCreated": "Oct 11, 2016 9:55:15 PM",
+      "dateStarted": "Oct 11, 2016 9:56:14 PM",
+      "dateFinished": "Oct 11, 2016 9:56:14 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "첫 번째 뉴스 기사의 제목",
+      "text": "val news \u003d spark.read.parquet(\"playdata/data/news-with-id.parquet\").persist\nval firstNewsTitle \u003d news.where(s\"id \u003d ${tfidf.first.getLong(0)}\").select(\"title\").first.getString(0)\n\nprintln(s\"첫 번째 뉴스 기사 제목: $firstNewsTitle\")",
+      "dateUpdated": "Oct 11, 2016 9:56:31 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476069834406_-121319728",
+      "id": "20161010-122354_2117987395",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nnews: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [body: string, date: string ... 7 more fields]\n\nfirstNewsTitle: String \u003d 청주시청 화재 ‘전산 일시 마비’\n첫 번째 뉴스 기사 제목: 청주시청 화재 ‘전산 일시 마비’\n"
+      },
+      "dateCreated": "Oct 10, 2016 12:23:54 PM",
+      "dateStarted": "Oct 10, 2016 12:27:50 PM",
+      "dateFinished": "Oct 10, 2016 12:27:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "첫 번째 뉴스 기사의 TF, TF-IDF 값 추출",
+      "text": "import org.apache.spark.ml.linalg.Vector\n\nval tfArray \u003d tfidf.select(\"tf\").first.getAs[Vector](0).toArray\nval tfidfArray \u003d tfidf.select(\"features\").first.getAs[Vector](0).toArray",
+      "dateUpdated": "Oct 11, 2016 9:56:50 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 84.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475669193350_-614749816",
+      "id": "20161005-210633_1378898712",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nimport org.apache.spark.ml.linalg.Vector\ntfArray: Array[Double] \u003d Array(2.0, 1.0, 3.0, 3.0, 6.0, 0.0, 2.0, 1.0, 5.0, 1.0, 0.0, 1.0, 0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 5.0, 1.0, 0.0, 0.0, 0.0, 3.0, 0.0, 0.0, 3.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0...tfidfArray: Array[Double] \u003d Array(0.32317694036509115, 0.034499396851592264, 1.1416007526512126, 1.0794053990580843, 4.181533166883128, 0.0, 2.7000687539176185, 0.8450396735036116, 2.26854538165176, 0.8037967149695626, 0.0, 0.8207750515039803, 0.0, 0.0, 2.658681695730679, 0.0, 0.0, 0.0, 0.6072668121734428, 0.0, 0.0, 0.0, 0.9962706432275351, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.3625753954084607, 0.0, 0.0, 0.0, 0.0, 1.409932518539878, 0.0, 1.5070962669935257, 11.245168058614517, 1.9866693472554122, 0.0, 0.0, 0.0, 4.678392757532525, 0.0, 0.0, 4.635687410066909, 0.0, 1.6223315305711106, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.6732231378674998, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.145364443830904, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.10927166934..."
+      },
+      "dateCreated": "Oct 5, 2016 9:06:33 AM",
+      "dateStarted": "Oct 10, 2016 12:19:43 PM",
+      "dateFinished": "Oct 10, 2016 12:19:46 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "TF, TF-IDF 값을 단어와 매핑",
+      "text": "import org.apache.spark.ml.feature.CountVectorizerModel\n\nval cvModel \u003d CountVectorizerModel.load(\"playdata/model/cntVec\")\n\nval wordsAndFeatures \u003d (cvModel.vocabulary, tfArray, tfidfArray).zipped.toArray\n\nspark.createDataFrame(wordsAndFeatures)\n    .toDF(\"word\", \"TF\", \"TFIDF\")\n    .createOrReplaceTempView(\"tfidf\")",
+      "dateUpdated": "Oct 11, 2016 9:57:20 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 85.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475670440925_-550298657",
+      "id": "20161005-212720_221494361",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nimport org.apache.spark.ml.feature.CountVectorizerModel\n\ncvModel: org.apache.spark.ml.feature.CountVectorizerModel \u003d cntVec_e870b64b4d64\nwordsAndFeatures: Array[(String, Double, Double)] \u003d Array((있,2.0,0.32317694036509115), (화재,1.0,0.034499396851592264), (등,3.0,1.1416007526512126), (일,3.0,1.0794053990580843), (불,6.0,4.181533166883128), (것,0.0,0.0), (안전,2.0,2.7000687539176185), (명,1.0,0.8450396735036116), (시,5.0,2.26854538165176), (피해,1.0,0.8037967149695626), (소방,0.0,0.0), (만,1.0,0.8207750515039803), (사고,0.0,0.0), (발생,0.0,0.0), (분,3.0,2.658681695730679), (원,0.0,0.0), (수,0.0,0.0), (년,0.0,0.0), (기자,1.0,0.6072668121734428), (서울,0.0,0.0), (씨,0.0,0.0), (경찰,0.0,0.0), (없,1.0,0.9962706432275351), (조사,0.0,0.0), (중,0.0,0.0), (소방서,0.0,0.0), (하,0.0,0.0), (월,0.0,0.0), (원인,0.0,0.0), (않,0.0,0.0), (뉴시스,0.0,0.0), (말,0.0,0.0), (이,0.0,0.0), (도,0.0,0.0), (받,0.0,0.0), (보,0.0,0.0), (당국,0.0,0.0), (현장,0.0,0.0), (지역,0.0,0.0), (층,2.0,3.36257539540..."
+      },
+      "dateCreated": "Oct 5, 2016 9:27:20 AM",
+      "dateStarted": "Oct 10, 2016 12:19:46 PM",
+      "dateFinished": "Oct 10, 2016 12:19:50 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "뉴스 기사 [청주시청 화재 ‘전산 일시 마비’]의 TF-TDF TOP 10",
+      "text": "%sql\nSELECT  * \nFROM    tfidf \nWHERE   TF \u003c\u003e 0 \nORDER BY TFIDF DESC\nLIMIT 10",
+      "dateUpdated": "Oct 11, 2016 9:58:58 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "word",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "TF",
+              "index": 1.0,
+              "aggr": "sum"
+            },
+            {
+              "name": "TFIDF",
+              "index": 2.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "word",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "TF",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/sql",
+        "helium": {},
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475670767271_-588734676",
+      "id": "20161005-213247_1484913207",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "word\tTF\tTFIDF\n시청\t5.0\t14.570049576580761\n청주\t4.0\t14.108457552810245\n청주시\t3.0\t13.447877499689993\n곤욕\t2.0\t12.184127491328196\n재난\t5.0\t11.245168058614517\n전산\t2.0\t10.48953177055379\n구호\t2.0\t8.836174624184853\n서류\t2.0\t8.600608552872085\n흘러내리\t1.0\t6.497528853772263\n북문\t1.0\t6.497528853772263\n"
+      },
+      "dateCreated": "Oct 5, 2016 9:32:47 AM",
+      "dateStarted": "Oct 10, 2016 12:20:52 PM",
+      "dateFinished": "Oct 10, 2016 12:20:52 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "뉴스 기사 [청주시청 화재 ‘전산 일시 마비’]의 TF TOP 10",
+      "text": "%sql\nSELECT  * \nFROM    tfidf \nWHERE   TF \u003c\u003e 0 \nORDER BY TF DESC\nLIMIT 10",
+      "dateUpdated": "Oct 11, 2016 9:59:01 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "multiBarChart",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [
+            {
+              "name": "word",
+              "index": 0.0,
+              "aggr": "sum"
+            }
+          ],
+          "values": [
+            {
+              "name": "TF",
+              "index": 1.0,
+              "aggr": "sum"
+            },
+            {
+              "name": "TFIDF",
+              "index": 2.0,
+              "aggr": "sum"
+            }
+          ],
+          "groups": [],
+          "scatter": {
+            "xAxis": {
+              "name": "word",
+              "index": 0.0,
+              "aggr": "sum"
+            },
+            "yAxis": {
+              "name": "TF",
+              "index": 1.0,
+              "aggr": "sum"
+            }
+          },
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/sql",
+        "helium": {},
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1476069539999_-2123382793",
+      "id": "20161010-121859_766926527",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TABLE",
+        "msg": "word\tTF\tTFIDF\n불\t6.0\t4.181533166883128\n재난\t5.0\t11.245168058614517\n시\t5.0\t2.26854538165176\n시청\t5.0\t14.570049576580761\n청주\t4.0\t14.108457552810245\n일\t3.0\t1.0794053990580843\n나\t3.0\t4.678392757532525\n오전\t3.0\t4.635687410066909\n분\t3.0\t2.658681695730679\n등\t3.0\t1.1416007526512126\n"
+      },
+      "dateCreated": "Oct 10, 2016 12:18:59 PM",
+      "dateStarted": "Oct 10, 2016 12:19:55 PM",
+      "dateFinished": "Oct 10, 2016 12:19:56 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "IDF 모델과 TF-IDF vector 저장",
+      "text": "idfModel.save(\"playdata/model/idf\")\ntfIdf.drop(\"tf\").write.parquet(\"playdata/feature/tf-idf.parquet\")",
+      "dateUpdated": "Oct 11, 2016 9:59:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474692571786_-845580161",
+      "id": "20160924-134931_393785723",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Sep 24, 2016 1:49:31 AM",
+      "dateStarted": "Sep 24, 2016 1:57:53 AM",
+      "dateFinished": "Sep 24, 2016 1:57:54 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "dateUpdated": "Sep 24, 2016 1:58:03 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474693073614_926108614",
+      "id": "20160924-135753_1878086857",
+      "dateCreated": "Sep 24, 2016 1:57:53 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "playdata/2.Featurize/2.IDF",
+  "id": "2BXCJQPV7",
+  "angularObjects": {
+    "2BXWMZ2JP:shared_process": [],
+    "2BYRGXC6E:shared_process": [],
+    "2BYEZ229C:shared_process": [],
+    "2BXUZ9JVT:shared_process": [],
+    "2BVKZDUFQ:shared_process": [],
+    "2BXBPMYB6:shared_process": [],
+    "2BZ4YFDFE:shared_process": [],
+    "2BWAJCG58:shared_process": [],
+    "2BXMASZWN:shared_process": [],
+    "2BVZ9R4MY:shared_process": [],
+    "2BVR2UN2E:shared_process": [],
+    "2BWP96UN6:shared_process": [],
+    "2BX3AASWA:shared_process": [],
+    "2BYG7DEAC:shared_process": [],
+    "2BX5Z4XGV:shared_process": [],
+    "2BY6S66XQ:shared_process": [],
+    "2BY6EMV6C:shared_process": [],
+    "2BYEYC4NP:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}

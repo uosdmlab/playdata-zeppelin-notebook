@@ -1,0 +1,394 @@
+{
+  "paragraphs": [
+    {
+      "text": "val words \u003d spark.read.parquet(\"playdata/data/words.parquet\").persist",
+      "dateUpdated": "Oct 9, 2016 11:02:46 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474690425476_309571787",
+      "id": "20160924-131345_858152264",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nwords: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, word: string ... 5 more fields]\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:13:45 AM",
+      "dateStarted": "Oct 9, 2016 11:02:46 AM",
+      "dateFinished": "Oct 9, 2016 11:02:49 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "총 단어 수",
+      "text": "words.count",
+      "dateUpdated": "Oct 11, 2016 9:19:19 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474690473613_-598389645",
+      "id": "20160924-131433_1777369561",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres0: Long \u003d 425303\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:14:33 AM",
+      "dateStarted": "Oct 9, 2016 11:02:51 AM",
+      "dateFinished": "Oct 9, 2016 11:02:52 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\u003e 단어의 수가 너무 많으면 차원이 지나치게 커지게 되고, 차원의 저주(curse of dimensionality)가 발생할 확률이 높아집니다.\n\n\u003e 따라서, 각각의 뉴스 기사를 가장 잘 표현할 수 있는 체언과 용언만을 feature로 사용합니다.\n체언(N)과 용언(V) 선택체언(N)과 용언(V) 선택\n\u003e 체언과 용언은 쉽게 생각하면 명사와 동사로 생각하시면 됩니다.",
+      "dateUpdated": "Oct 5, 2016 8:21:46 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475136214265_265681841",
+      "id": "20160929-170334_753809394",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cblockquote\u003e\u003cp\u003e단어의 수가 너무 많으면 차원이 지나치게 커지게 되고, 차원의 저주(curse of dimensionality)가 발생할 확률이 높아집니다.\u003c/p\u003e\n\u003cp\u003e따라서, 각각의 뉴스 기사를 가장 잘 표현할 수 있는 체언과 용언만을 feature로 사용합니다.\u003c/p\u003e\n\u003cp\u003e체언과 용언은 쉽게 생각하면 명사와 동사로 생각하시면 됩니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n"
+      },
+      "dateCreated": "Sep 29, 2016 5:03:34 AM",
+      "dateStarted": "Oct 5, 2016 8:20:46 AM",
+      "dateFinished": "Oct 5, 2016 8:20:46 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "체언(N)과 용언(V) 선택",
+      "text": "val nvWords \u003d words.filter(\"SIZE(pos) \u003d 1\")\n    .selectExpr(\"id\", \"word\", \"pos[0] AS pos\", \"feature\", \"start\", \"end\", \"origin\")\n    .where(\"pos \u003d \u0027N\u0027 OR pos \u003d \u0027V\u0027\")",
+      "dateUpdated": "Oct 9, 2016 11:03:42 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474690671050_1622856056",
+      "id": "20160924-131751_76211105",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nnvWords: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, word: string ... 5 more fields]\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:17:51 AM",
+      "dateStarted": "Oct 9, 2016 11:03:42 AM",
+      "dateFinished": "Oct 9, 2016 11:03:42 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "선택된 총 단어 수",
+      "text": "nvWords.count",
+      "dateUpdated": "Oct 11, 2016 9:20:00 PM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475136197548_-1707725916",
+      "id": "20160929-170317_281274606",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "\nres1: Long \u003d 187281\n"
+      },
+      "dateCreated": "Sep 29, 2016 5:03:17 AM",
+      "dateStarted": "Oct 9, 2016 11:03:05 AM",
+      "dateFinished": "Oct 9, 2016 11:03:06 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n\u003e총 단어의 수가 `425303`에서 `187281`로 줄었습니다.",
+      "dateUpdated": "Oct 5, 2016 8:22:48 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1475666524815_1179904065",
+      "id": "20161005-202204_803249760",
+      "result": {
+        "code": "SUCCESS",
+        "type": "HTML",
+        "msg": "\u003cblockquote\u003e\u003cp\u003e총 단어의 수가 \u003ccode\u003e425303\u003c/code\u003e에서 \u003ccode\u003e187281\u003c/code\u003e로 줄었습니다.\u003c/p\u003e\n\u003c/blockquote\u003e\n"
+      },
+      "dateCreated": "Oct 5, 2016 8:22:04 AM",
+      "dateStarted": "Oct 5, 2016 8:22:45 AM",
+      "dateFinished": "Oct 5, 2016 8:22:45 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "선택된 단어 확인",
+      "text": "nvWords.show(200, false)",
+      "dateUpdated": "Oct 9, 2016 11:03:48 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 360.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474690826789_-1650204482",
+      "id": "20160924-132026_945157155",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": "+---+----+---+-----------------------------------------------------+-----+---+------+\n|id |word|pos|feature                                              |start|end|origin|\n+---+----+---+-----------------------------------------------------+-----+---+------+\n|0  |아모레 |N  |[NNG, *, F, 아모레, *, *, *, *]                         |1    |4  |body  |\n|0  |퍼시픽 |N  |[NNG, *, T, 퍼시픽, *, *, *, *]                         |4    |7  |body  |\n|0  |대전  |N  |[NNP, 지명, T, 대전, *, *, *, *]                         |10   |12 |body  |\n|0  |대화동 |N  |[NNP, 지명, T, 대화동, Compound, *, *, 대화/NNP/지명+동/NNG/*] |13   |16 |body  |\n|0  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |17   |19 |body  |\n|0  |대전  |N  |[NNP, 지명, T, 대전, *, *, *, *]                         |20   |22 |body  |\n|0  |대덕구 |N  |[NNP, 지명, F, 대덕구, Compound, *, *, 대덕/NNP/지명+구/NNG/*] |23   |26 |body  |\n|0  |대화동 |N  |[NNP, 지명, T, 대화동, Compound, *, *, 대화/NNP/지명+동/NNG/*] |27   |30 |body  |\n|0  |위치  |N  |[NNG, *, F, 위치, *, *, *, *]                          |32   |34 |body  |\n|0  |아모레 |N  |[NNG, *, F, 아모레, *, *, *, *]                         |36   |39 |body  |\n|0  |퍼시픽 |N  |[NNG, *, T, 퍼시픽, *, *, *, *]                         |39   |42 |body  |\n|0  |대전  |N  |[NNG, *, T, 대전, *, *, *, *]                          |43   |45 |body  |\n|0  |공장  |N  |[NNG, *, T, 공장, *, *, *, *]                          |46   |48 |body  |\n|0  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |51   |53 |body  |\n|0  |발생  |N  |[NNG, *, T, 발생, *, *, *, *]                          |55   |57 |body  |\n|0  |일   |N  |[NNBC, *, T, 일, *, *, *, *]                          |62   |63 |body  |\n|0  |오후  |N  |[NNG, *, F, 오후, *, *, *, *]                          |64   |66 |body  |\n|0  |시   |N  |[NNBC, *, F, 시, *, *, *, *]                          |68   |69 |body  |\n|0  |대화동 |N  |[NNP, 지명, T, 대화동, Compound, *, *, 대화/NNP/지명+동/NNG/*] |70   |73 |body  |\n|0  |아모레 |N  |[NNG, *, F, 아모레, *, *, *, *]                         |74   |77 |body  |\n|0  |퍼시픽 |N  |[NNG, *, T, 퍼시픽, *, *, *, *]                         |77   |80 |body  |\n|0  |대전  |N  |[NNG, *, T, 대전, *, *, *, *]                          |81   |83 |body  |\n|0  |공장  |N  |[NNG, *, T, 공장, *, *, *, *]                          |83   |85 |body  |\n|0  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |88   |90 |body  |\n|0  |발생  |N  |[NNG, *, T, 발생, *, *, *, *]                          |92   |94 |body  |\n|0  |이곳  |N  |[NP, *, T, 이곳, *, *, *, *]                           |98   |100|body  |\n|0  |코   |N  |[NNG, *, F, 코, *, *, *, *]                           |102  |103|body  |\n|0  |스메  |N  |[NNG, *, F, 스메, *, *, *, *]                          |103  |105|body  |\n|0  |사업장 |N  |[NNG, *, T, 사업장, Compound, *, *, 사업/NNG/*+장/NNG/*]   |107  |110|body  |\n|0  |물류  |N  |[NNP, *, F, 물류, *, *, *, *]                          |112  |114|body  |\n|0  |센터  |N  |[NNG, *, F, 센터, *, *, *, *]                          |114  |116|body  |\n|0  |등   |N  |[NNB, *, T, 등, *, *, *, *]                           |117  |118|body  |\n|0  |있   |V  |[VA, *, T, 있, *, *, *, *]                            |120  |121|body  |\n|0  |곳   |N  |[NNG, *, T, 곳, *, *, *, *]                           |123  |124|body  |\n|0  |이   |N  |[NP, *, F, 이, *, *, *, *]                            |127  |128|body  |\n|0  |각종  |N  |[NNG, *, T, 각종, *, *, *, *]                          |130  |132|body  |\n|0  |이용자 |N  |[NNG, *, F, 이용자, Compound, *, *, 이용/NNG/*+자/NNG/*]   |137  |140|body  |\n|0  |아모레 |N  |[NNG, *, F, 아모레, *, *, *, *]                         |144  |147|body  |\n|0  |대전  |N  |[NNG, *, T, 대전, *, *, *, *]                          |148  |150|body  |\n|0  |공장  |N  |[NNG, *, T, 공장, *, *, *, *]                          |150  |152|body  |\n|0  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |153  |155|body  |\n|0  |연기  |N  |[NNG, *, F, 연기, *, *, *, *]                          |157  |159|body  |\n|0  |시야  |N  |[NNG, *, F, 시야, *, *, *, *]                          |164  |166|body  |\n|0  |확보  |N  |[NNG, *, F, 확보, *, *, *, *]                          |167  |169|body  |\n|0  |상태  |N  |[NNG, *, F, 상태, *, *, *, *]                          |175  |177|body  |\n|0  |인명  |N  |[NNG, *, T, 인명, *, *, *, *]                          |182  |184|body  |\n|0  |피해  |N  |[NNG, *, F, 피해, *, *, *, *]                          |185  |187|body  |\n|0  |없   |V  |[VA, *, T, 없, *, *, *, *]                            |189  |190|body  |\n|0  |등   |N  |[NNB, *, T, 등, *, *, *, *]                           |198  |199|body  |\n|0  |글   |N  |[NNG, *, T, 글, *, *, *, *]                           |201  |202|body  |\n|0  |올리  |V  |[VV, *, F, 올리, *, *, *, *]                           |204  |206|body  |\n|0  |상황  |N  |[NNG, *, T, 상황, *, *, *, *]                          |208  |210|body  |\n|0  |실시간 |N  |[NNG, *, T, 실시간, Compound, *, *, 실/NNG/*+시간/NNG/*]   |212  |215|body  |\n|0  |전하  |V  |[VV, *, F, 전하, *, *, *, *]                           |218  |220|body  |\n|0  |있   |V  |[VX, *, T, 있, *, *, *, *]                            |222  |223|body  |\n|0  |아모레 |N  |[NNG, *, F, 아모레, *, *, *, *]                         |228  |231|body  |\n|0  |퍼시픽 |N  |[NNG, *, T, 퍼시픽, *, *, *, *]                         |232  |235|body  |\n|0  |대전  |N  |[NNP, 지명, T, 대전, *, *, *, *]                         |236  |238|body  |\n|0  |대화동 |N  |[NNP, 지명, T, 대화동, Compound, *, *, 대화/NNP/지명+동/NNG/*] |239  |242|body  |\n|0  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |243  |245|body  |\n|0  |연기  |N  |[NNG, *, F, 연기, *, *, *, *]                          |250  |252|body  |\n|0  |둔산동 |N  |[NNP, 지명, T, 둔산동, Compound, *, *, 둔산/NNP/지명+동/NNG/*] |254  |257|body  |\n|0  |치솟  |V  |[VV, *, T, 치솟, *, *, *, *]                           |260  |262|body  |\n|0  |시야  |N  |[NNG, *, F, 시야, *, *, *, *]                          |264  |266|body  |\n|0  |확보  |N  |[NNG, *, F, 확보, *, *, *, *]                          |268  |270|body  |\n|0  |상태  |N  |[NNG, *, F, 상태, *, *, *, *]                          |276  |278|body  |\n|0  |것   |N  |[NNB, *, T, 것, *, *, *, *]                           |280  |281|body  |\n|0  |아모레 |N  |[NNG, *, F, 아모레, *, *, *, *]                         |290  |293|body  |\n|0  |퍼시픽 |N  |[NNG, *, T, 퍼시픽, *, *, *, *]                         |293  |296|body  |\n|0  |대전  |N  |[NNP, 지명, T, 대전, *, *, *, *]                         |299  |301|body  |\n|0  |대화동 |N  |[NNP, 지명, T, 대화동, Compound, *, *, 대화/NNP/지명+동/NNG/*] |302  |305|body  |\n|0  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |306  |308|body  |\n|0  |소방  |N  |[NNG, *, T, 소방, *, *, *, *]                          |312  |314|body  |\n|0  |당국  |N  |[NNG, *, T, 당국, *, *, *, *]                          |314  |316|body  |\n|0  |출동  |N  |[NNG, *, T, 출동, *, *, *, *]                          |318  |320|body  |\n|0  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |322  |324|body  |\n|0  |진압  |N  |[NNG, *, T, 진압, *, *, *, *]                          |326  |328|body  |\n|0  |중   |N  |[NNB, *, T, 중, *, *, *, *]                           |329  |330|body  |\n|0  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |333  |335|body  |\n|0  |원인  |N  |[NNG, *, T, 원인, *, *, *, *]                          |336  |338|body  |\n|0  |조사  |N  |[NNG, *, F, 조사, *, *, *, *]                          |343  |345|body  |\n|0  |있   |V  |[VX, *, T, 있, *, *, *, *]                            |348  |349|body  |\n|0  |이   |N  |[NP, *, F, 이, *, *, *, *]                            |351  |352|body  |\n|0  |네티즌 |N  |[NNG, *, T, 네티즌, *, *, *, *]                         |354  |357|body  |\n|0  |대전  |N  |[NNP, 지명, T, 대전, *, *, *, *]                         |361  |363|body  |\n|0  |대화동 |N  |[NNP, 지명, T, 대화동, Compound, *, *, 대화/NNP/지명+동/NNG/*] |364  |367|body  |\n|0  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |368  |370|body  |\n|0  |인명  |N  |[NNG, *, T, 인명, *, *, *, *]                          |372  |374|body  |\n|0  |피해  |N  |[NNG, *, F, 피해, *, *, *, *]                          |374  |376|body  |\n|0  |없   |V  |[VA, *, T, 없, *, *, *, *]                            |377  |378|body  |\n|0  |대전  |N  |[NNP, 지명, T, 대전, *, *, *, *]                         |382  |384|body  |\n|0  |대화동 |N  |[NNP, 지명, T, 대화동, Compound, *, *, 대화/NNP/지명+동/NNG/*] |385  |388|body  |\n|0  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |389  |391|body  |\n|0  |안타깝 |V  |[VA, *, T, 안타깝, *, *, *, *]                          |393  |396|body  |\n|0  |대전  |N  |[NNP, 지명, T, 대전, *, *, *, *]                         |400  |402|body  |\n|0  |대화동 |N  |[NNP, 지명, T, 대화동, Compound, *, *, 대화/NNP/지명+동/NNG/*] |403  |406|body  |\n|0  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |407  |409|body  |\n|0  |진화  |N  |[NNG, *, F, 진화, *, *, *, *]                          |414  |416|body  |\n|0  |등   |N  |[NNB, *, T, 등, *, *, *, *]                           |420  |421|body  |\n|0  |반응  |N  |[NNG, *, T, 반응, *, *, *, *]                          |423  |425|body  |\n|0  |한국  |N  |[NNP, 지명, T, 한국, *, *, *, *]                         |431  |433|body  |\n|0  |아이  |N  |[NNG, *, F, 아이, *, *, *, *]                          |433  |435|body  |\n|0  |닷컴  |N  |[NNP, *, T, 닷컴, *, *, *, *]                          |435  |437|body  |\n|0  |뉴스  |N  |[NNG, *, F, 뉴스, *, *, *, *]                          |438  |440|body  |\n|0  |부   |N  |[NNG, *, F, 부, *, *, *, *]                           |440  |441|body  |\n|0  |인터넷 |N  |[NNG, *, T, 인터넷, *, *, *, *]                         |466  |469|body  |\n|0  |한국일보|N  |[NNP, *, F, 한국일보, Compound, *, *, 한국/NNG/*+일보/NNG/*] |469  |473|body  |\n|0  |무단  |N  |[NNG, *, T, 무단, *, *, *, *]                          |493  |495|body  |\n|0  |전재  |N  |[NNG, *, F, 전재, *, *, *, *]                          |496  |498|body  |\n|0  |배포  |N  |[NNG, *, F, 배포, *, *, *, *]                          |502  |504|body  |\n|0  |금지  |N  |[NNG, *, F, 금지, *, *, *, *]                          |505  |507|body  |\n|1  |전북  |N  |[NNP, 지명, T, 전북, *, *, *, *]                         |1    |3  |body  |\n|1  |정읍시 |N  |[NNP, 지명, F, 정읍시, Compound, *, *, 정읍/NNP/지명+시/NNG/*] |4    |7  |body  |\n|1  |내장동 |N  |[NNP, 지명, T, 내장동, Compound, *, *, 내장/NNP/지명+동/NNG/*] |8    |11 |body  |\n|1  |내장사 |N  |[NNG, *, F, 내장사, Compound, *, *, 내장/NNG/*+사/NNG/*]   |12   |15 |body  |\n|1  |일   |N  |[NNBC, *, T, 일, *, *, *, *]                          |20   |21 |body  |\n|1  |새벽  |N  |[NNG, *, T, 새벽, *, *, *, *]                          |22   |24 |body  |\n|1  |불   |N  |[NNG, *, T, 불, *, *, *, *]                           |25   |26 |body  |\n|1  |나   |N  |[NP, *, F, 나, *, *, *, *]                            |28   |29 |body  |\n|1  |목조  |N  |[NNG, *, F, 목조, *, *, *, *]                          |30   |32 |body  |\n|1  |건물  |N  |[NNG, *, T, 건물, *, *, *, *]                          |32   |34 |body  |\n|1  |대웅전 |N  |[NNG, *, T, 대웅전, Compound, *, *, 대웅/NNG/*+전/NNG/*]   |36   |39 |body  |\n|1  |불   |N  |[NNG, *, T, 불, *, *, *, *]                           |45   |46 |body  |\n|1  |넓이  |N  |[NNG, *, F, 넓이, *, *, *, *]                          |67   |69 |body  |\n|1  |대웅전 |N  |[NNG, *, T, 대웅전, Compound, *, *, 대웅/NNG/*+전/NNG/*]   |71   |74 |body  |\n|1  |안   |N  |[NNG, *, T, 안, *, *, *, *]                           |75   |76 |body  |\n|1  |있   |V  |[VV, *, T, 있, *, *, *, *]                            |78   |79 |body  |\n|1  |불상  |N  |[NNG, *, T, 불상, *, *, *, *]                          |81   |83 |body  |\n|1  |점   |N  |[NNBC, *, T, 점, *, *, *, *]                          |85   |86 |body  |\n|1  |불화  |N  |[NNG, *, F, 불화, *, *, *, *]                          |88   |90 |body  |\n|1  |점   |N  |[NNBC, *, T, 점, *, *, *, *]                          |92   |93 |body  |\n|1  |동종  |N  |[NNG, *, T, 동종, *, *, *, *]                          |95   |97 |body  |\n|1  |점   |N  |[NNBC, *, T, 점, *, *, *, *]                          |99   |100|body  |\n|1  |이번  |N  |[NNG, *, T, 이번, Compound, *, *, 이/NNG/*+번/NNG/*]     |102  |104|body  |\n|1  |불로  |N  |[NNG, *, F, 불로, *, *, *, *]                          |105  |107|body  |\n|1  |소실  |N  |[NNG, *, T, 소실, *, *, *, *]                          |111  |113|body  |\n|1  |대웅전 |N  |[NNG, *, T, 대웅전, Compound, *, *, 대웅/NNG/*+전/NNG/*]   |118  |121|body  |\n|1  |편   |N  |[NNB, *, T, 편, *, *, *, *]                           |126  |127|body  |\n|1  |내장산 |N  |[NNP, 지명, T, 내장산, Compound, *, *, 내장/NNG/*+산/NNG/*]  |129  |132|body  |\n|1  |이어지 |V  |[VV, *, F, 이어지, *, *, *, *]                          |135  |138|body  |\n|1  |야산  |N  |[NNG, *, T, 야산, *, *, *, *]                          |140  |142|body  |\n|1  |불   |N  |[NNG, *, T, 불, *, *, *, *]                           |145  |146|body  |\n|1  |붙   |V  |[VV, *, T, 붙, *, *, *, *]                            |151  |152|body  |\n|1  |정도  |N  |[NNG, *, F, 정도, *, *, *, *]                          |159  |161|body  |\n|1  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |171  |173|body  |\n|1  |나자  |N  |[NNG, *, F, 나자, *, *, *, *]                          |175  |177|body  |\n|1  |소방차 |N  |[NNG, *, F, 소방차, Compound, *, *, 소방/NNG/*+차/NNG/*]   |178  |181|body  |\n|1  |대   |N  |[NNBC, *, F, 대, *, *, *, *]                          |184  |185|body  |\n|1  |경찰  |N  |[NNG, *, T, 경찰, *, *, *, *]                          |187  |189|body  |\n|1  |소방관 |N  |[NNG, *, T, 소방관, Compound, *, *, 소방/NNG/*+관/NNG/*]   |191  |194|body  |\n|1  |명   |N  |[NNBC, *, T, 명, *, *, *, *]                          |199  |200|body  |\n|1  |출동  |N  |[NNG, *, T, 출동, *, *, *, *]                          |202  |204|body  |\n|1  |불길  |N  |[NNG, *, T, 불길, Compound, *, *, 불/NNG/*+길/NNG/*]     |206  |208|body  |\n|1  |잡   |V  |[VV, *, T, 잡, *, *, *, *]                            |210  |211|body  |\n|1  |경찰  |N  |[NNG, *, T, 경찰, *, *, *, *]                          |219  |221|body  |\n|1  |소방  |N  |[NNG, *, T, 소방, *, *, *, *]                          |223  |225|body  |\n|1  |당국  |N  |[NNG, *, T, 당국, *, *, *, *]                          |225  |227|body  |\n|1  |사찰  |N  |[NNG, *, T, 사찰, *, *, *, *]                          |229  |231|body  |\n|1  |내   |N  |[NNB, *, F, 내, *, *, *, *]                           |232  |233|body  |\n|1  |설치  |N  |[NNG, *, F, 설치, *, *, *, *]                          |234  |236|body  |\n|1  |있   |V  |[VX, *, T, 있, *, *, *, *]                            |238  |239|body  |\n|1  |목격자 |N  |[NNG, *, F, 목격자, Compound, *, *, 목격/NNG/*+자/NNG/*]   |247  |250|body  |\n|1  |등   |N  |[NNB, *, T, 등, *, *, *, *]                           |251  |252|body  |\n|1  |상대  |N  |[NNG, *, F, 상대, *, *, *, *]                          |254  |256|body  |\n|1  |정확  |N  |[NNG, *, T, 정확, *, *, *, *]                          |258  |260|body  |\n|1  |화재  |N  |[NNG, *, F, 화재, *, *, *, *]                          |262  |264|body  |\n|1  |원인  |N  |[NNG, *, T, 원인, *, *, *, *]                          |265  |267|body  |\n|1  |조사  |N  |[NNG, *, F, 조사, *, *, *, *]                          |269  |271|body  |\n|1  |있   |V  |[VX, *, T, 있, *, *, *, *]                            |274  |275|body  |\n|1  |내장사 |N  |[NNG, *, F, 내장사, Compound, *, *, 내장/NNG/*+사/NNG/*]   |283  |286|body  |\n|1  |년   |N  |[NNB, *, T, 년, *, *, *, *]                           |295  |296|body  |\n|1  |전   |N  |[NNG, *, T, 전, *, *, *, *]                           |297  |298|body  |\n|1  |백제  |N  |[NNG, *, F, 백제, *, *, *, *]                          |300  |302|body  |\n|1  |무왕  |N  |[NNG, *, T, 무왕, *, *, *, *]                          |303  |305|body  |\n|1  |때   |N  |[NNG, *, F, 때, *, *, *, *]                           |306  |307|body  |\n|1  |지   |V  |[VV, *, F, 지, *, *, *, *]                            |308  |309|body  |\n|1  |영은사 |N  |[NNP, *, F, 영은사, *, *, *, *]                         |312  |315|body  |\n|1  |있   |V  |[VA, *, T, 있, *, *, *, *]                            |317  |318|body  |\n|1  |절터  |N  |[NNG, *, F, 절터, Compound, *, *, 절/NNG/*+터/NNG/*]     |320  |322|body  |\n|1  |년   |N  |[NNBC, *, T, 년, *, *, *, *]                          |329  |330|body  |\n|1  |대웅전 |N  |[NNG, *, T, 대웅전, Compound, *, *, 대웅/NNG/*+전/NNG/*]   |331  |334|body  |\n|1  |등   |N  |[NNB, *, T, 등, *, *, *, *]                           |335  |336|body  |\n|1  |건축  |N  |[NNG, *, T, 건축, *, *, *, *]                          |341  |343|body  |\n|1  |사찰  |N  |[NNG, *, T, 사찰, *, *, *, *]                          |345  |347|body  |\n|1  |절터  |N  |[NNG, *, F, 절터, Compound, *, *, 절/NNG/*+터/NNG/*]     |355  |357|body  |\n|1  |전라북도|N  |[NNP, 지명, F, 전라북도, Compound, *, *, 전라/NNG/*+북도/NNG/*]|359  |363|body  |\n|1  |기념물 |N  |[NNG, *, T, 기념물, Compound, *, *, 기념/NNG/*+물/NNG/*]   |364  |367|body  |\n|1  |호   |N  |[NNBC, *, F, 호, *, *, *, *]                          |370  |371|body  |\n|1  |지정  |N  |[NNG, *, T, 지정, *, *, *, *]                          |373  |375|body  |\n|1  |있   |V  |[VX, *, T, 있, *, *, *, *]                            |377  |378|body  |\n|1  |동영상 |N  |[NNG, *, T, 동영상, Compound, *, *, 동/NNG/*+영상/NNG/*]   |385  |388|body  |\n|1  |보   |V  |[VV, *, F, 보, *, *, *, *]                            |389  |390|body  |\n|1  |클릭  |N  |[NNG, *, T, 클릭, *, *, *, *]                          |393  |395|body  |\n|1  |관련  |N  |[NNG, *, T, 관련, *, *, *, *]                          |399  |401|body  |\n|1  |영상  |N  |[NNG, *, T, 영상, *, *, *, *]                          |402  |404|body  |\n|1  |보   |V  |[VV, *, F, 보, *, *, *, *]                            |406  |407|body  |\n|1  |수   |N  |[NNB, *, F, 수, *, *, *, *]                           |409  |410|body  |\n|1  |있   |V  |[VV, *, T, 있, *, *, *, *]                            |411  |412|body  |\n|2  |서울  |N  |[NNP, 지명, T, 서울, *, *, *, *]                         |44   |46 |body  |\n|2  |뉴시스 |N  |[NNP, *, F, 뉴시스, *, *, *, *]                         |47   |50 |body  |\n+---+----+---+-----------------------------------------------------+-----+---+------+\nonly showing top 200 rows\n\n"
+      },
+      "dateCreated": "Sep 24, 2016 1:20:26 AM",
+      "dateStarted": "Oct 9, 2016 11:03:48 AM",
+      "dateFinished": "Oct 9, 2016 11:03:48 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "선택된 단어 저장",
+      "text": "nvWords.write.parquet(\"playdata/data/words-nv.parquet\")",
+      "dateUpdated": "Oct 9, 2016 11:04:09 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true,
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474690889317_2104083340",
+      "id": "20160924-132129_1547020916",
+      "result": {
+        "code": "SUCCESS",
+        "type": "TEXT",
+        "msg": ""
+      },
+      "dateCreated": "Sep 24, 2016 1:21:29 AM",
+      "dateStarted": "Oct 9, 2016 11:04:01 AM",
+      "dateFinished": "Oct 9, 2016 11:04:02 AM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "dateUpdated": "Sep 24, 2016 1:14:56 AM",
+      "config": {
+        "colWidth": 12.0,
+        "graph": {
+          "mode": "table",
+          "height": 300.0,
+          "optionOpen": false,
+          "keys": [],
+          "values": [],
+          "groups": [],
+          "scatter": {},
+          "map": {
+            "baseMapType": "Streets",
+            "isOnline": true,
+            "pinCols": []
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1474690485549_-763984914",
+      "id": "20160924-131445_598195920",
+      "dateCreated": "Sep 24, 2016 1:14:45 AM",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "playdata/1.Preprocessing/4.WordSelection",
+  "id": "2BZ6T4BPA",
+  "angularObjects": {
+    "2BXWMZ2JP:shared_process": [],
+    "2BYRGXC6E:shared_process": [],
+    "2BYEZ229C:shared_process": [],
+    "2BXUZ9JVT:shared_process": [],
+    "2BVKZDUFQ:shared_process": [],
+    "2BXBPMYB6:shared_process": [],
+    "2BZ4YFDFE:shared_process": [],
+    "2BWAJCG58:shared_process": [],
+    "2BXMASZWN:shared_process": [],
+    "2BVZ9R4MY:shared_process": [],
+    "2BVR2UN2E:shared_process": [],
+    "2BWP96UN6:shared_process": [],
+    "2BX3AASWA:shared_process": [],
+    "2BYG7DEAC:shared_process": [],
+    "2BX5Z4XGV:shared_process": [],
+    "2BY6S66XQ:shared_process": [],
+    "2BY6EMV6C:shared_process": [],
+    "2BYEYC4NP:shared_process": []
+  },
+  "config": {
+    "looknfeel": "default"
+  },
+  "info": {}
+}
