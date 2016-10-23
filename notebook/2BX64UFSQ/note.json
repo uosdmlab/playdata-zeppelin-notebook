@@ -2,7 +2,7 @@
   "paragraphs": [
     {
       "text": "val news \u003d spark.read.parquet(\"playdata/data/news-with-id.parquet\").persist\nval words \u003d spark.read.parquet(\"playdata/data/words.parquet\").persist\n\nnews.createOrReplaceTempView(\"news\")\nwords.createOrReplaceTempView(\"word\")",
-      "dateUpdated": "Oct 13, 2016 9:34:35 PM",
+      "dateUpdated": "Oct 13, 2016 9:34:35 AM",
       "config": {
         "enabled": true,
         "tableHide": false,
@@ -36,8 +36,8 @@
         "msg": "\nnews: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [body: string, date: string ... 7 more fields]\n\nwords: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, word: string ... 5 more fields]\n"
       },
       "dateCreated": "Oct 9, 2016 10:40:22 AM",
-      "dateStarted": "Oct 13, 2016 9:34:35 PM",
-      "dateFinished": "Oct 13, 2016 9:34:59 PM",
+      "dateStarted": "Oct 13, 2016 9:34:35 AM",
+      "dateFinished": "Oct 13, 2016 9:34:59 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -176,8 +176,8 @@
     },
     {
       "title": "제목에 지명이 나올 확률",
-      "text": "%sql \nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio\nFROM    (\n    SELECT  label, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   feature[1] \u003d \u0027지명\u0027 AND origin \u003d \u0027title\u0027\n    GROUP BY label\n) t1 JOIN (\n    SELECT label, COUNT(*) AS total FROM news GROUP BY label\n) t2 ON (t1.label \u003d t2.label)\nORDER BY t1.label",
-      "dateUpdated": "Oct 11, 2016 2:48:02 AM",
+      "text": "%sql \nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio\nFROM    (\n    SELECT  label, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   char[1] \u003d \u0027지명\u0027 AND origin \u003d \u0027title\u0027\n    GROUP BY label\n) t1 JOIN (\n    SELECT label, COUNT(*) AS total FROM news GROUP BY label\n) t2 ON (t1.label \u003d t2.label)\nORDER BY t1.label",
+      "dateUpdated": "Oct 18, 2016 12:39:01 PM",
       "config": {
         "enabled": true,
         "title": true,
@@ -243,8 +243,8 @@
     },
     {
       "title": "제목에 인명이 나올 확률",
-      "text": "%sql \nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio\nFROM    (\n    SELECT  label, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   feature[1] \u003d \u0027인명\u0027 AND origin \u003d \u0027title\u0027\n    GROUP BY label\n) t1 JOIN (\n    SELECT label, COUNT(*) AS total FROM news GROUP BY label\n) t2 ON (t1.label \u003d t2.label)\nORDER BY t1.label",
-      "dateUpdated": "Oct 9, 2016 11:17:39 AM",
+      "text": "%sql \nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio\nFROM    (\n    SELECT  label, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   char[1] \u003d \u0027인명\u0027 AND origin \u003d \u0027title\u0027\n    GROUP BY label\n) t1 JOIN (\n    SELECT label, COUNT(*) AS total FROM news GROUP BY label\n) t2 ON (t1.label \u003d t2.label)\nORDER BY t1.label",
+      "dateUpdated": "Oct 18, 2016 12:39:01 PM",
       "config": {
         "enabled": true,
         "title": true,
@@ -367,8 +367,8 @@
     },
     {
       "title": "내용에 지명이 나올 확률",
-      "text": "%sql \nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio\nFROM    (\n    SELECT  label, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   feature[1] \u003d \u0027지명\u0027 AND origin \u003d \u0027body\u0027\n    GROUP BY label\n) t1 JOIN (\n    SELECT label, COUNT(*) AS total FROM news GROUP BY label\n) t2 ON (t1.label \u003d t2.label)\nORDER BY t1.label",
-      "dateUpdated": "Oct 9, 2016 11:17:42 AM",
+      "text": "%sql \nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio\nFROM    (\n    SELECT  label, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   char[1] \u003d \u0027지명\u0027 AND origin \u003d \u0027body\u0027\n    GROUP BY label\n) t1 JOIN (\n    SELECT label, COUNT(*) AS total FROM news GROUP BY label\n) t2 ON (t1.label \u003d t2.label)\nORDER BY t1.label",
+      "dateUpdated": "Oct 18, 2016 12:39:01 PM",
       "config": {
         "enabled": true,
         "title": true,
@@ -423,8 +423,8 @@
     },
     {
       "title": "내용에 인명이 나올 확률",
-      "text": "%sql \nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio\nFROM    (\n    SELECT  label, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   feature[1] \u003d \u0027인명\u0027 AND origin \u003d \u0027body\u0027\n    GROUP BY label\n) t1 JOIN (\n    SELECT label, COUNT(*) AS total FROM news GROUP BY label\n) t2 ON (t1.label \u003d t2.label)\nORDER BY t1.label",
-      "dateUpdated": "Oct 9, 2016 11:17:44 AM",
+      "text": "%sql \nSELECT  CASE t1.label WHEN 1 THEN \u0027화재\u0027 ELSE \u0027비화재\u0027 END AS label, cnt / total AS ratio\nFROM    (\n    SELECT  label, COUNT(*) AS cnt\n    FROM    word JOIN news ON (word.id \u003d news.id)\n    WHERE   char[1] \u003d \u0027인명\u0027 AND origin \u003d \u0027body\u0027\n    GROUP BY label\n) t1 JOIN (\n    SELECT label, COUNT(*) AS total FROM news GROUP BY label\n) t2 ON (t1.label \u003d t2.label)\nORDER BY t1.label",
+      "dateUpdated": "Oct 18, 2016 12:39:01 PM",
       "config": {
         "enabled": true,
         "title": true,
@@ -545,8 +545,8 @@
         "msg": "label\tratio\tpos\n비화재\t0.6159633243211473\t체언\n비화재\t0.18902080639473376\t부호\n비화재\t0.049136005642412134\t관계언\n비화재\t0.03608792758904432\t숫자\n비화재\t0.027741859644998236\t어미\n비화재\t0.023392500293875632\t용언\n화재\t0.6273516642547033\t체언\n화재\t0.1734804630969609\t부호\n화재\t0.07398697539797396\t숫자\n화재\t0.06023878437047757\t관계언\n화재\t0.016823444283646887\t어미\n화재\t0.015557163531114327\t용언\n"
       },
       "dateCreated": "Oct 9, 2016 10:40:22 AM",
-      "dateStarted": "Oct 13, 2016 9:37:02 PM",
-      "dateFinished": "Oct 13, 2016 9:37:03 PM",
+      "dateStarted": "Oct 13, 2016 9:37:02 AM",
+      "dateFinished": "Oct 13, 2016 9:37:03 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -618,8 +618,8 @@
         "msg": "label\tratio\tpos\n비화재\t0.43151443448593696\t체언\n비화재\t0.16030980664598538\t관계언\n비화재\t0.14908069142460156\t부호\n비화재\t0.07873793686932956\t어미\n비화재\t0.04324155150948198\t용언\n비화재\t0.03873958770403285\t숫자\n화재\t0.3867907374725921\t체언\n화재\t0.18167816460773303\t부호\n화재\t0.1547997219102626\t관계언\n화재\t0.0785389593026365\t어미\n화재\t0.051254077758168884\t숫자\n화재\t0.0436814802930638\t용언\n"
       },
       "dateCreated": "Oct 9, 2016 11:11:07 AM",
-      "dateStarted": "Oct 13, 2016 9:36:54 PM",
-      "dateFinished": "Oct 13, 2016 9:36:56 PM",
+      "dateStarted": "Oct 13, 2016 9:36:54 AM",
+      "dateFinished": "Oct 13, 2016 9:36:56 AM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
