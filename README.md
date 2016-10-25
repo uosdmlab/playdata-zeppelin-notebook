@@ -32,11 +32,9 @@ $ZEPPELIN_HOME/bin/zeppelin-daemon.sh restart
 다시 원래 노트들을 사용하려면 `$ZEPPELIN_HOME/conf/zeppelin-env.sh`에 추가한 라인을 지우거나 주석처리하고 Zeppelin을 재실행하시면 됩니다.
 
 ### 2. Dependency 추가
-[은전한닢 프로젝트](http://eunjeon.blogspot.kr/)의 형태소 분석기 [seunjeon](https://bitbucket.org/eunjeon/seunjeon)을 사용하기 위해 Spark interpreter dependency에 다음과 같이 추가해주세요.
-#### artifact
-`org.bitbucket.eunjeon:seunjeon_2.11:1.1.0`
-#### exclude
-`org.scala-lang:scala-library,org.scala-lang:scala-reflect`
+한국어 형태소 분석기 [spark-nkp](https://github.com/uosdmlab/spark-nkp)을 사용하기 위해 Spark interpreter dependency에 다음과 같이 추가해주세요.
+
+**artifact** `com.github.uosdmlab:spark-nkp_2.11:0.2.1`
 
 ### Issue
 GitHub issue로 올려주셔도 되고, 아래 주소로 메일주셔도 됩니다.
