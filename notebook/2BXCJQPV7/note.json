@@ -1,6 +1,7 @@
 {
   "paragraphs": [
     {
+      "title": "",
       "text": "val tf \u003d spark.read.parquet(\"playdata/feature/tf.parquet\")\n    .withColumnRenamed(\"features\", \"tf\")\n    .persist",
       "dateUpdated": "Oct 10, 2016 12:19:29 PM",
       "config": {
@@ -26,7 +27,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474692395652_-722737993",
       "id": "20160924-134635_101958960",
       "result": {
@@ -38,9 +38,11 @@
       "dateStarted": "Oct 10, 2016 12:19:29 PM",
       "dateFinished": "Oct 10, 2016 12:19:42 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%md\n\u003e 어떤 단어가 한 문서에 자주 나온다면, 그 문서를 대표한다고 볼 수 있습니다.\n\n\u003e 하지만, 다른 문서에도 자주 나오는 단어라면, 해당 문서만의 특징이 아니게되죠.\n\n\u003e 이러한 아이디어로 다른 문서에도 많이 나오는 단어의 TF 값은 줄여주는 알고리즘이 `IDF(Inverse Document Frequency)` 입니다.\n\n\u003e Spark에 [IDF](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.feature.IDF)라는 이름의 클래스로 구현되어 있습니다.",
       "dateUpdated": "Oct 5, 2016 9:03:56 AM",
       "config": {
@@ -67,7 +69,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475668837436_904766441",
       "id": "20161005-210037_1646933749",
       "result": {
@@ -79,9 +80,11 @@
       "dateStarted": "Oct 5, 2016 9:03:53 AM",
       "dateFinished": "Oct 5, 2016 9:03:53 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "import org.apache.spark.ml.feature.{IDF, IDFModel}\n\nval idf \u003d new IDF()\n    .setInputCol(\"tf\")\n    .setOutputCol(\"features\")\n    \nval idfModel: IDFModel \u003d idf.fit(tf)\n\nval tfidf \u003d idfModel.transform(tf)",
       "dateUpdated": "Oct 10, 2016 12:19:32 PM",
       "config": {
@@ -106,7 +109,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474692418976_1809340492",
       "id": "20160924-134658_1147231135",
       "result": {
@@ -118,6 +120,7 @@
       "dateStarted": "Oct 10, 2016 12:19:40 PM",
       "dateFinished": "Oct 10, 2016 12:19:45 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -148,7 +151,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474693058996_-255870655",
       "id": "20160924-135738_1681519857",
       "result": {
@@ -160,9 +162,11 @@
       "dateStarted": "Oct 5, 2016 9:12:29 AM",
       "dateFinished": "Oct 5, 2016 9:12:29 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%md\n\u003e 다음 노트들에서 첫 번째 뉴스 기사의 `TF`값이 `IDF`로 인해 어떻게 변했는지 살펴봅니다.",
       "dateUpdated": "Oct 11, 2016 9:56:16 AM",
       "config": {
@@ -189,7 +193,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476190515558_-1821573021",
       "id": "20161011-215515_1662569796",
       "result": {
@@ -201,6 +204,7 @@
       "dateStarted": "Oct 11, 2016 9:56:14 AM",
       "dateFinished": "Oct 11, 2016 9:56:14 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -231,7 +235,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476069834406_-121319728",
       "id": "20161010-122354_2117987395",
       "result": {
@@ -243,6 +246,7 @@
       "dateStarted": "Oct 10, 2016 12:27:50 PM",
       "dateFinished": "Oct 10, 2016 12:27:51 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -273,7 +277,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475669193350_-614749816",
       "id": "20161005-210633_1378898712",
       "result": {
@@ -285,6 +288,7 @@
       "dateStarted": "Oct 10, 2016 12:19:43 PM",
       "dateFinished": "Oct 10, 2016 12:19:46 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -315,7 +319,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475670440925_-550298657",
       "id": "20161005-212720_221494361",
       "result": {
@@ -327,6 +330,7 @@
       "dateStarted": "Oct 10, 2016 12:19:46 PM",
       "dateFinished": "Oct 10, 2016 12:19:50 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -386,7 +390,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475670767271_-588734676",
       "id": "20161005-213247_1484913207",
       "result": {
@@ -398,6 +401,7 @@
       "dateStarted": "Oct 10, 2016 12:20:52 PM",
       "dateFinished": "Oct 10, 2016 12:20:52 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -457,7 +461,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476069539999_-2123382793",
       "id": "20161010-121859_766926527",
       "result": {
@@ -469,6 +472,7 @@
       "dateStarted": "Oct 10, 2016 12:19:55 PM",
       "dateFinished": "Oct 10, 2016 12:19:56 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -499,7 +503,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474692571786_-845580161",
       "id": "20160924-134931_393785723",
       "result": {
@@ -511,9 +514,11 @@
       "dateStarted": "Sep 24, 2016 1:57:53 AM",
       "dateFinished": "Sep 24, 2016 1:57:54 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "",
       "dateUpdated": "Sep 24, 2016 1:58:03 AM",
       "config": {
@@ -538,11 +543,11 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474693073614_926108614",
       "id": "20160924-135753_1878086857",
       "dateCreated": "Sep 24, 2016 1:57:53 AM",
       "status": "READY",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     }
   ],

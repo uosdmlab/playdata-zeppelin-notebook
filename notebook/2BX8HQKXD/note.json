@@ -1,6 +1,7 @@
 {
   "paragraphs": [
     {
+      "title": "",
       "text": "val words \u003d spark.read.parquet(\"playdata/data/words-nv.parquet\").persist",
       "dateUpdated": "Oct 11, 2016 9:27:19 AM",
       "config": {
@@ -26,7 +27,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474690977976_1353376939",
       "id": "20160924-132257_1123557928",
       "result": {
@@ -38,9 +38,11 @@
       "dateStarted": "Oct 11, 2016 9:27:19 AM",
       "dateFinished": "Oct 11, 2016 9:27:43 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%md\n# Term Frequency(TF) 구하기\n\u003e 단어 빈도수는 텍스트 문서를 설명하는 간단하고도 강력한 방법입니다.\n\n\u003e Spark에서는 TF 구하는 알고리즘을 [CountVectorizer](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.feature.CountVectorizer)라는 이름으로 구현했습니다.\n\n#### `참고`\nTF를 구하는 알고리즘 중 [HashingTF](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.feature.HashingTF)도 있으나, 이는 hash 함수를 이용한 것이기 때문에 속도는 빠르지만 CountVectorizer에 비해 부정확합니다. (다른 두 단어의 hashing 값이 같을 수 있으니까요!)\n\n또한, 변환된 TF vector를 다시 단어로 돌릴 수 없다는 단점도 있습니다.",
       "dateUpdated": "Oct 12, 2016 12:36:16 PM",
       "config": {
@@ -68,7 +70,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475166285569_1059185375",
       "id": "20160930-012445_1835704050",
       "result": {
@@ -80,6 +81,7 @@
       "dateStarted": "Oct 5, 2016 8:39:48 AM",
       "dateFinished": "Oct 5, 2016 8:39:48 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -110,7 +112,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474690995778_-1310224372",
       "id": "20160924-132315_833208657",
       "result": {
@@ -122,9 +123,11 @@
       "dateStarted": "Oct 11, 2016 9:27:25 AM",
       "dateFinished": "Oct 11, 2016 9:27:44 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%md\n\u003e `collect_list` 함수에 대한 설명은 [API 문서](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.functions$)를 참고하세요!",
       "dateUpdated": "Oct 5, 2016 8:41:34 AM",
       "config": {
@@ -151,7 +154,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475667660394_-1429435093",
       "id": "20161005-204100_1564258401",
       "result": {
@@ -163,9 +165,11 @@
       "dateStarted": "Oct 5, 2016 8:41:32 AM",
       "dateFinished": "Oct 5, 2016 8:41:32 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "wordList.show",
       "dateUpdated": "Oct 9, 2016 11:04:22 AM",
       "config": {
@@ -191,7 +195,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474691468720_-437142630",
       "id": "20160924-133108_325572118",
       "result": {
@@ -203,9 +206,11 @@
       "dateStarted": "Oct 9, 2016 11:04:22 AM",
       "dateFinished": "Oct 9, 2016 11:04:23 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%md\n\u003e이제 CountVectorizer를 이용하여 단어들을 TF vector로 변환( *transform* )합니다!\n\n\u003e 학습( *fit* )으로 얻은 모델 CountVectorizerModel은 모든 단어에 대한 정보들을 갖고 있습니다.\n\n\u003e CountVectorizerModel의 멤버 `vocabulary`를 통해 각 단어가 벡터의 몇 번째 차원으로 할당되었는지 알 수 있습니다.",
       "dateUpdated": "Oct 5, 2016 8:52:36 AM",
       "config": {
@@ -232,7 +237,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475667735822_277619156",
       "id": "20161005-204215_909653681",
       "result": {
@@ -244,6 +248,7 @@
       "dateStarted": "Oct 5, 2016 8:50:58 AM",
       "dateFinished": "Oct 5, 2016 8:50:58 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -274,7 +279,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474691648217_1243668784",
       "id": "20160924-133408_880152787",
       "result": {
@@ -286,6 +290,7 @@
       "dateStarted": "Oct 11, 2016 9:27:44 AM",
       "dateFinished": "Oct 11, 2016 9:27:54 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -316,7 +321,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474691926417_667898895",
       "id": "20160924-133846_642475212",
       "result": {
@@ -328,6 +332,7 @@
       "dateStarted": "Oct 11, 2016 9:27:44 AM",
       "dateFinished": "Oct 11, 2016 9:27:54 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -358,7 +363,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474691950673_-370122989",
       "id": "20160924-133910_899744397",
       "result": {
@@ -370,6 +374,7 @@
       "dateStarted": "Oct 9, 2016 11:04:48 AM",
       "dateFinished": "Oct 9, 2016 11:04:49 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -400,7 +405,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476189186591_353340301",
       "id": "20161011-213306_899029439",
       "result": {
@@ -412,9 +416,11 @@
       "dateStarted": "Oct 11, 2016 9:33:32 AM",
       "dateFinished": "Oct 11, 2016 9:33:33 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%md\n\u003e 변형 결과로 얻는 TF vector는 [SparseVector](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.ml.linalg.SparseVector)입니다.",
       "dateUpdated": "Oct 5, 2016 8:56:07 AM",
       "config": {
@@ -441,7 +447,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475668434794_-254311784",
       "id": "20161005-205354_314026482",
       "result": {
@@ -453,6 +458,7 @@
       "dateStarted": "Oct 5, 2016 8:55:39 AM",
       "dateFinished": "Oct 5, 2016 8:55:39 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -483,7 +489,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474691862043_481772372",
       "id": "20160924-133742_404624610",
       "result": {
@@ -495,6 +500,7 @@
       "dateStarted": "Oct 9, 2016 11:05:01 AM",
       "dateFinished": "Oct 9, 2016 11:05:01 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -525,7 +531,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475668617764_122032292",
       "id": "20161005-205657_1876527840",
       "result": {
@@ -537,12 +542,13 @@
       "dateStarted": "Oct 9, 2016 11:05:04 AM",
       "dateFinished": "Oct 9, 2016 11:05:04 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "첫 번째 뉴스 기사의 TF 추출",
       "text": "import org.apache.spark.ml.linalg.Vector\n\nval tfArray \u003d features.select(\"features\").first.getAs[Vector](0).toArray\nval wordTF \u003d cvModel.vocabulary zip tfArray\n\nspark.createDataFrame(wordTF)\n    .toDF(\"word\", \"TF\")\n    .createOrReplaceTempView(\"tf\")",
-      "dateUpdated": "Oct 13, 2016 3:10:19 PM",
+      "dateUpdated": "Oct 13, 2016 3:10:19 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -567,7 +573,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476188864044_-148263351",
       "id": "20161011-212744_1275463240",
       "result": {
@@ -579,6 +584,7 @@
       "dateStarted": "Oct 11, 2016 9:33:31 AM",
       "dateFinished": "Oct 11, 2016 9:33:32 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -632,7 +638,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476188861348_-391424656",
       "id": "20161011-212741_1425621999",
       "result": {
@@ -644,6 +649,7 @@
       "dateStarted": "Oct 11, 2016 9:31:36 AM",
       "dateFinished": "Oct 11, 2016 9:31:36 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -674,7 +680,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474692056073_-1780826995",
       "id": "20160924-134056_555534140",
       "result": {
@@ -686,6 +691,7 @@
       "dateStarted": "Sep 24, 2016 1:50:28 AM",
       "dateFinished": "Sep 24, 2016 1:50:31 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -716,7 +722,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474692232847_678503822",
       "id": "20160924-134352_366137022",
       "result": {
@@ -728,6 +733,7 @@
       "dateStarted": "Oct 5, 2016 8:59:16 AM",
       "dateFinished": "Oct 5, 2016 8:59:17 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -758,7 +764,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475668749334_-1165521418",
       "id": "20161005-205909_1545310145",
       "result": {
@@ -770,9 +775,11 @@
       "dateStarted": "Oct 5, 2016 8:59:19 AM",
       "dateFinished": "Oct 5, 2016 8:59:20 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "",
       "dateUpdated": "Sep 24, 2016 1:31:24 AM",
       "config": {
@@ -797,11 +804,11 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474691474286_31112106",
       "id": "20160924-133114_1194001497",
       "dateCreated": "Sep 24, 2016 1:31:14 AM",
       "status": "READY",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     }
   ],

@@ -2,8 +2,8 @@
   "paragraphs": [
     {
       "title": "시작하기 전에!",
-      "text": "%md\n[Interpreter 설정](#interpreter)에서 Spark dependency에 형태소 분석기 [Spark NKP](https://github.com/uosdmlab/spark-nkp)을 추가합니다.\n\ndependency 추가란의 artifact을 다음과 같이 입력해주세요~\n\n**artifact** `com.github.uosdmlab:spark-nkp_2.11:0.1.0`\n\n-----------------------------\n\n혹시 개인 PC에서 돌리실때 메모리가 부족하면 `\u003cZEPPELIN_HOME\u003e/conf/zeppelin-env.sh` 파일을 열어 다음 라인을 추가하여 메모리를 늘려주세요!\n```sh\nexport SPARK_SUBMIT_OPTIONS\u003d\"--driver-memory 4G\"\n```\n\n수정 후에 재시작 잊지 마시구요!\n```sh\nbin/zeppelin-daemon.sh restart\n```",
-      "dateUpdated": "Oct 23, 2016 9:50:18 AM",
+      "text": "%md\n[Interpreter 설정](#interpreter)에서 Spark dependency에 형태소 분석기 [Spark NKP](https://github.com/uosdmlab/spark-nkp)을 추가합니다.\n\ndependency 추가란의 artifact을 다음과 같이 입력해주세요~\n\n**artifact** `com.github.uosdmlab:spark-nkp_2.11:0.2.1`\n\n-----------------------------\n\n혹시 개인 PC에서 돌리실때 메모리가 부족하면 `\u003cZEPPELIN_HOME\u003e/conf/zeppelin-env.sh` 파일을 열어 다음 라인을 추가하여 메모리를 늘려주세요!\n```sh\nexport SPARK_SUBMIT_OPTIONS\u003d\"--driver-memory 4G\"\n```\n\n수정 후에 재시작 잊지 마시구요!\n```sh\nbin/zeppelin-daemon.sh restart\n```",
+      "dateUpdated": "Oct 26, 2016 1:27:16 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -34,18 +34,19 @@
       "result": {
         "code": "SUCCESS",
         "type": "HTML",
-        "msg": "\u003cp\u003e\u003ca href\u003d\"#interpreter\"\u003eInterpreter 설정\u003c/a\u003e에서 Spark dependency에 형태소 분석기 \u003ca href\u003d\"https://github.com/uosdmlab/spark-nkp\"\u003eSpark NKP\u003c/a\u003e을 추가합니다.\u003c/p\u003e\n\u003cp\u003edependency 추가란의 artifact을 다음과 같이 입력해주세요~\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eartifact\u003c/strong\u003e \u003ccode\u003ecom.github.uosdmlab:spark-nkp_2.11:0.1.0\u003c/code\u003e\u003c/p\u003e\n\u003chr /\u003e\n\u003cp\u003e혹시 개인 PC에서 돌리실때 메모리가 부족하면 \u003ccode\u003e\u0026lt;ZEPPELIN_HOME\u0026gt;/conf/zeppelin-env.sh\u003c/code\u003e 파일을 열어 다음 라인을 추가하여 메모리를 늘려주세요!\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"sh\"\u003eexport SPARK_SUBMIT_OPTIONS\u003d\"--driver-memory 4G\"\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e수정 후에 재시작 잊지 마시구요!\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"sh\"\u003ebin/zeppelin-daemon.sh restart\n\u003c/code\u003e\u003c/pre\u003e\n"
+        "msg": "\u003cp\u003e\u003ca href\u003d\"#interpreter\"\u003eInterpreter 설정\u003c/a\u003e에서 Spark dependency에 형태소 분석기 \u003ca href\u003d\"https://github.com/uosdmlab/spark-nkp\"\u003eSpark NKP\u003c/a\u003e을 추가합니다.\u003c/p\u003e\n\u003cp\u003edependency 추가란의 artifact을 다음과 같이 입력해주세요~\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eartifact\u003c/strong\u003e \u003ccode\u003ecom.github.uosdmlab:spark-nkp_2.11:0.2.1\u003c/code\u003e\u003c/p\u003e\n\u003chr /\u003e\n\u003cp\u003e혹시 개인 PC에서 돌리실때 메모리가 부족하면 \u003ccode\u003e\u0026lt;ZEPPELIN_HOME\u0026gt;/conf/zeppelin-env.sh\u003c/code\u003e 파일을 열어 다음 라인을 추가하여 메모리를 늘려주세요!\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"sh\"\u003eexport SPARK_SUBMIT_OPTIONS\u003d\"--driver-memory 4G\"\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e수정 후에 재시작 잊지 마시구요!\u003c/p\u003e\n\u003cpre\u003e\u003ccode class\u003d\"sh\"\u003ebin/zeppelin-daemon.sh restart\n\u003c/code\u003e\u003c/pre\u003e\n"
       },
       "dateCreated": "Sep 25, 2016 10:55:07 AM",
-      "dateStarted": "Oct 23, 2016 9:50:14 AM",
-      "dateFinished": "Oct 23, 2016 9:50:14 AM",
+      "dateStarted": "Oct 26, 2016 1:26:49 AM",
+      "dateFinished": "Oct 26, 2016 1:26:50 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Spark 인터프리터 동작 확인",
-      "text": "sc.version",
-      "dateUpdated": "Oct 23, 2016 10:15:58 PM",
+      "text": "spark.version",
+      "dateUpdated": "Oct 26, 2016 1:53:24 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -75,17 +76,19 @@
       "result": {
         "code": "SUCCESS",
         "type": "TEXT",
-        "msg": "\nres0: String \u003d 2.0.0\n"
+        "msg": "\nres16: String \u003d 2.0.0\n"
       },
       "dateCreated": "Sep 24, 2016 12:12:53 PM",
-      "dateStarted": "Oct 23, 2016 10:15:58 PM",
-      "dateFinished": "Oct 23, 2016 10:16:13 PM",
+      "dateStarted": "Oct 26, 2016 1:53:24 AM",
+      "dateFinished": "Oct 26, 2016 1:53:24 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
-      "text": "import org.apache.spark.sql.functions._\nimport com.github.uosdmlab.nkp.NKP\n\nval df \u003d spark.createDataset(\n    Seq(\n        \"아버지가방에들어가신다.\",\n        \"사랑해요 제플린!\",\n        \"스파크는 재밌어\",\n        \"나는야 데이터과학자\",\n        \"데이터야~ 놀자~\"\n    )\n).toDF(\"text\")\n    .withColumn(\"id\", monotonically_increasing_id)\n\ndf.show\n\nval nkp \u003d new NKP\n\nval result \u003d nkp.transform(df)\n\nresult.show",
-      "dateUpdated": "Oct 23, 2016 10:16:57 PM",
+      "title": "",
+      "text": "import com.github.uosdmlab.nkp.Tokenizer\n\nval df \u003d spark.createDataset(\n    Seq(\n        \"아버지가방에들어가신다.\",\n        \"사랑해요 제플린!\",\n        \"스파크는 재밌어\",\n        \"나는야 데이터과학자\",\n        \"데이터야~ 놀자~\"\n    )\n).toDF(\"text\")\n\nval tokenizer \u003d new Tokenizer()\n    .setInputCol(\"text\")\n    .setOutputCol(\"words\")\n\nval result \u003d tokenizer.transform(df)\n\nresult.show(truncate \u003d false)",
+      "dateUpdated": "Oct 26, 2016 1:49:59 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -114,15 +117,17 @@
       "result": {
         "code": "SUCCESS",
         "type": "TEXT",
-        "msg": "\nimport org.apache.spark.sql.functions._\n\nimport com.github.uosdmlab.nkp.NKP\n\ndf: org.apache.spark.sql.DataFrame \u003d [text: string, id: bigint]\n+------------+---+\n|        text| id|\n+------------+---+\n|아버지가방에들어가신다.|  0|\n|   사랑해요 제플린!|  1|\n|    스파크는 재밌어|  2|\n|  나는야 데이터과학자|  3|\n|   데이터야~ 놀자~|  4|\n+------------+---+\n\n\nnkp: com.github.uosdmlab.nkp.NKP \u003d nkp_a9011145b32f\n\nresult: org.apache.spark.sql.DataFrame \u003d [id: bigint, word: string ... 4 more fields]\n+---+----+-------+--------------------+-----+---+\n| id|word|    pos|                char|start|end|\n+---+----+-------+--------------------+-----+---+\n|  0| 아버지|    [N]|[NNG, *, F, 아버지, ...|    0|  3|\n|  0|   가|    [J]|[JKS, *, F, 가, *,...|    3|  4|\n|  0|   방|    [N]|[NNG, *, T, 방, *,...|    4|  5|\n|  0|   에|    [J]|[JKB, *, F, 에, *,...|    5|  6|\n|  0| 들어가|    [V]|[VV, *, F, 들어가, *...|    6|  9|\n|  0|  신다|[EP, E]|[EP+EF, *, F, 신다,...|    9| 11|\n|  0|   .|    [S]|[SF, *, *, *, *, ...|   11| 12|\n|  1|  사랑|    [N]|[NNG, *, T, 사랑, *...|    0|  2|\n|  1|  해요|[XS, E]|[XSV+EF, *, F, 해요...|    2|  4|\n|  1| 제플린|    [N]|[NNP, *, T, 제플린, ...|    5|  8|\n|  1|   !|    [S]|[SF, *, *, *, *, ...|    8|  9|\n|  2| 스파크|    [N]|[NNG, *, F, 스파크, ...|    0|  3|\n|  2|   는|    [J]|[JX, *, T, 는, *, ...|    3|  4|\n|  2|  재밌|    [V]|[VA, *, T, 재밌, *,...|    5|  7|\n|  2|   어|    [E]|[EC, *, F, 어, *, ...|    7|  8|\n|  3|   나|    [N]|[NP, *, F, 나, *, ...|    0|  1|\n|  3|   는|    [J]|[JX, *, T, 는, *, ...|    1|  2|\n|  3|   야|    [I]|[IC, *, F, 야, *, ...|    2|  3|\n|  3| 데이터|    [N]|[NNG, *, F, 데이터, ...|    4|  7|\n|  3| 과학자|    [N]|[NNG, *, F, 과학자, ...|    7| 10|\n+---+----+-------+--------------------+-----+---+\nonly showing top 20 rows\n\n"
+        "msg": "\nimport com.github.uosdmlab.nkp.Tokenizer\n\ndf: org.apache.spark.sql.DataFrame \u003d [text: string]\n\ntokenizer: com.github.uosdmlab.nkp.Tokenizer \u003d nkp_t_eada1cef79a8\n\nresult: org.apache.spark.sql.DataFrame \u003d [text: string, words: array\u003cstring\u003e]\n+------------+--------------------------+\n|text        |words                     |\n+------------+--------------------------+\n|아버지가방에들어가신다.|[아버지, 가, 방, 에, 들어가, 신다, .]|\n|사랑해요 제플린!   |[사랑, 해요, 제플린, !]          |\n|스파크는 재밌어    |[스파크, 는, 재밌, 어]           |\n|나는야 데이터과학자  |[나, 는, 야, 데이터, 과학자]       |\n|데이터야~ 놀자~   |[데이터, 야, ~, 놀자, ~]        |\n+------------+--------------------------+\n\n"
       },
       "dateCreated": "Oct 18, 2016 12:33:48 PM",
-      "dateStarted": "Oct 23, 2016 10:16:57 PM",
-      "dateFinished": "Oct 23, 2016 10:16:59 PM",
+      "dateStarted": "Oct 26, 2016 1:50:29 AM",
+      "dateFinished": "Oct 26, 2016 1:50:30 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "",
       "dateUpdated": "Sep 24, 2016 12:13:08 PM",
       "config": {
@@ -146,30 +151,31 @@
       "id": "20160924-001257_1481334572",
       "dateCreated": "Sep 24, 2016 12:12:57 PM",
       "status": "READY",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     }
   ],
   "name": "playdata/0.ZeppelinSetting",
   "id": "2BVPGP948",
   "angularObjects": {
-    "2BXWMZ2JP:shared_process": [],
-    "2BYRGXC6E:shared_process": [],
-    "2BYEZ229C:shared_process": [],
-    "2BXUZ9JVT:shared_process": [],
-    "2BVKZDUFQ:shared_process": [],
-    "2BXBPMYB6:shared_process": [],
-    "2BZ4YFDFE:shared_process": [],
-    "2BWAJCG58:shared_process": [],
-    "2BXMASZWN:shared_process": [],
-    "2BVZ9R4MY:shared_process": [],
-    "2BVR2UN2E:shared_process": [],
-    "2BWP96UN6:shared_process": [],
-    "2BX3AASWA:shared_process": [],
-    "2BYG7DEAC:shared_process": [],
-    "2BX5Z4XGV:shared_process": [],
-    "2BY6S66XQ:shared_process": [],
-    "2BY6EMV6C:shared_process": [],
-    "2BYEYC4NP:shared_process": []
+    "2C26P6XVP:shared_process": [],
+    "2C2JFH4K5:shared_process": [],
+    "2BZBW7R3J:shared_process": [],
+    "2C189SEFA:shared_process": [],
+    "2BZXY891X:shared_process": [],
+    "2BY91FPXS:shared_process": [],
+    "2BYXKK1YK:shared_process": [],
+    "2C2SNEV1C:shared_process": [],
+    "2BZT1ADEX:shared_process": [],
+    "2C28276VN:shared_process": [],
+    "2BYRV9KN3:shared_process": [],
+    "2BZRS67AH:shared_process": [],
+    "2C23D7AT1:shared_process": [],
+    "2BZSPP779:shared_process": [],
+    "2BYUGKEN8:shared_process": [],
+    "2C28D186B:shared_process": [],
+    "2BY6WYTTM:shared_process": [],
+    "2C19N6XN3:shared_process": []
   },
   "config": {
     "looknfeel": "default"

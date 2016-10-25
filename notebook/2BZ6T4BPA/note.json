@@ -1,6 +1,7 @@
 {
   "paragraphs": [
     {
+      "title": "",
       "text": "val words \u003d spark.read.parquet(\"playdata/data/words.parquet\").persist",
       "dateUpdated": "Oct 14, 2016 12:19:51 PM",
       "config": {
@@ -26,7 +27,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474690425476_309571787",
       "id": "20160924-131345_858152264",
       "result": {
@@ -38,6 +38,7 @@
       "dateStarted": "Oct 14, 2016 12:19:51 PM",
       "dateFinished": "Oct 14, 2016 12:19:53 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -68,7 +69,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474690473613_-598389645",
       "id": "20160924-131433_1777369561",
       "result": {
@@ -80,9 +80,11 @@
       "dateStarted": "Oct 9, 2016 11:02:51 AM",
       "dateFinished": "Oct 9, 2016 11:02:52 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%md\n\u003e 단어의 수가 너무 많으면 차원이 지나치게 커지게 되고, 차원의 저주(curse of dimensionality)가 발생할 확률이 높아집니다.\n\n\u003e 따라서, 각각의 뉴스 기사를 가장 잘 표현할 수 있는 체언과 용언만을 feature로 사용합니다.\n체언(N)과 용언(V) 선택체언(N)과 용언(V) 선택\n\u003e 체언과 용언은 쉽게 생각하면 명사와 동사로 생각하시면 됩니다.",
       "dateUpdated": "Oct 5, 2016 8:21:46 AM",
       "config": {
@@ -109,7 +111,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475136214265_265681841",
       "id": "20160929-170334_753809394",
       "result": {
@@ -121,6 +122,7 @@
       "dateStarted": "Oct 5, 2016 8:20:46 AM",
       "dateFinished": "Oct 5, 2016 8:20:46 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -151,7 +153,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474690671050_1622856056",
       "id": "20160924-131751_76211105",
       "result": {
@@ -163,6 +164,7 @@
       "dateStarted": "Oct 14, 2016 12:19:52 PM",
       "dateFinished": "Oct 14, 2016 12:19:54 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -193,7 +195,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475136197548_-1707725916",
       "id": "20160929-170317_281274606",
       "result": {
@@ -205,9 +206,11 @@
       "dateStarted": "Oct 9, 2016 11:03:05 AM",
       "dateFinished": "Oct 9, 2016 11:03:06 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%md\n\u003e총 단어의 수가 `425303`에서 `187281`로 줄었습니다.",
       "dateUpdated": "Oct 5, 2016 8:22:48 AM",
       "config": {
@@ -234,7 +237,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475666524815_1179904065",
       "id": "20161005-202204_803249760",
       "result": {
@@ -246,9 +248,11 @@
       "dateStarted": "Oct 5, 2016 8:22:45 AM",
       "dateFinished": "Oct 5, 2016 8:22:45 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "nvWords.createOrReplaceTempView(\"nv_word\")",
       "dateUpdated": "Oct 14, 2016 12:20:09 PM",
       "config": {
@@ -274,7 +278,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476371996314_-1894436522",
       "id": "20161014-001956_1705237118",
       "result": {
@@ -286,6 +289,7 @@
       "dateStarted": "Oct 14, 2016 12:20:09 PM",
       "dateFinished": "Oct 14, 2016 12:20:10 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -316,7 +320,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474690826789_-1650204482",
       "id": "20160924-132026_945157155",
       "result": {
@@ -328,6 +331,7 @@
       "dateStarted": "Oct 14, 2016 12:20:18 PM",
       "dateFinished": "Oct 14, 2016 12:20:18 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -358,7 +362,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474690889317_2104083340",
       "id": "20160924-132129_1547020916",
       "result": {
@@ -370,9 +373,11 @@
       "dateStarted": "Oct 9, 2016 11:04:01 AM",
       "dateFinished": "Oct 9, 2016 11:04:02 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "",
       "dateUpdated": "Sep 24, 2016 1:14:56 AM",
       "config": {
@@ -397,11 +402,11 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474690485549_-763984914",
       "id": "20160924-131445_598195920",
       "dateCreated": "Sep 24, 2016 1:14:45 AM",
       "status": "READY",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     }
   ],
