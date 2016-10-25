@@ -1,8 +1,9 @@
 {
   "paragraphs": [
     {
+      "title": "",
       "text": "import org.apache.spark.ml.classification.NaiveBayesModel\n\nval news \u003d spark.read.parquet(\"playdata/data/news-with-id.parquet\").persist\n\nval tfFeatures \u003d spark.read.parquet(\"playdata/feature/tf.parquet\").persist\nval tfidfFeatures \u003d spark.read.parquet(\"playdata/feature/tf-idf.parquet\").persist\n    \nval nbTf \u003d NaiveBayesModel.load(\"playdata/model/nb-tf\")\nval nbTfidf \u003d NaiveBayesModel.load(\"playdata/model/nb-tf-idf\")",
-      "dateUpdated": "Oct 13, 2016 3:21:34 PM",
+      "dateUpdated": "Oct 13, 2016 3:21:34 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -26,7 +27,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474802475052_780534048",
       "id": "20160925-202115_1896970745",
       "result": {
@@ -35,15 +35,16 @@
         "msg": "\nimport org.apache.spark.ml.classification.NaiveBayesModel\n\nnews: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [body: string, date: string ... 7 more fields]\n\ntfFeatures: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, features: vector]\n\ntfidfFeatures: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, features: vector]\n\nnbTf: org.apache.spark.ml.classification.NaiveBayesModel \u003d NaiveBayesModel (uid\u003dnb_95011c8b89f9) with 2 classes\n\nnbTfidf: org.apache.spark.ml.classification.NaiveBayesModel \u003d NaiveBayesModel (uid\u003dnb_b0ab214e3194) with 2 classes\n"
       },
       "dateCreated": "Sep 25, 2016 8:21:15 AM",
-      "dateStarted": "Oct 13, 2016 3:21:34 PM",
-      "dateFinished": "Oct 13, 2016 3:21:59 PM",
+      "dateStarted": "Oct 13, 2016 3:21:34 AM",
+      "dateFinished": "Oct 13, 2016 3:21:59 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Test 데이터셋을 불러와 feature와 join",
       "text": "val test \u003d news.where(\"split \u003d \u0027test\u0027\")\n    .select(\"id\", \"label\")\n\nval tfTest \u003d test.join(tfFeatures, \"id\")\nval tfidfTest \u003d test.join(tfidfFeatures, \"id\")",
-      "dateUpdated": "Oct 13, 2016 3:22:20 PM",
+      "dateUpdated": "Oct 13, 2016 3:22:20 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -68,7 +69,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474802628421_2065208980",
       "id": "20160925-202348_2041572683",
       "result": {
@@ -80,12 +80,13 @@
       "dateStarted": "Oct 11, 2016 10:14:09 AM",
       "dateFinished": "Oct 11, 2016 10:14:10 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "각 모델의 정확도 계산",
       "text": "import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator\n\nval evaluator \u003d new MulticlassClassificationEvaluator()\n    .setMetricName(\"accuracy\")\n\nval tfAcc \u003d evaluator.evaluate(nbTf.transform(tfTest))\nval tfidfAcc \u003d evaluator.evaluate(nbTfidf.transform(tfidfTest))\n\nprintln(s\"NaiveBayesTF\\tAccuracy:$tfAcc\")\nprintln(s\"NaiveBayesTFIDF\\tAccuracy:$tfidfAcc\")",
-      "dateUpdated": "Oct 13, 2016 3:22:39 PM",
+      "dateUpdated": "Oct 13, 2016 3:22:39 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -110,7 +111,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474802783796_154343439",
       "id": "20160925-202623_991430597",
       "result": {
@@ -122,9 +122,11 @@
       "dateStarted": "Oct 11, 2016 10:14:16 AM",
       "dateFinished": "Oct 11, 2016 10:14:17 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "",
       "dateUpdated": "Oct 9, 2016 8:07:18 AM",
       "config": {
@@ -149,11 +151,11 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476011228146_-1546932300",
       "id": "20161009-200708_307026967",
       "dateCreated": "Oct 9, 2016 8:07:08 AM",
       "status": "READY",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     }
   ],

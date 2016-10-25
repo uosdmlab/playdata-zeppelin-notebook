@@ -1,6 +1,7 @@
 {
   "paragraphs": [
     {
+      "title": "",
       "text": "val features \u003d spark.read.parquet(\"playdata/feature/tf.parquet\").persist\nval news \u003d spark.read.parquet(\"playdata/data/news-with-id.parquet\").persist",
       "dateUpdated": "Oct 11, 2016 10:22:39 AM",
       "config": {
@@ -26,7 +27,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474693622547_-287980482",
       "id": "20160924-140702_1447972081",
       "result": {
@@ -38,12 +38,13 @@
       "dateStarted": "Oct 11, 2016 10:22:39 AM",
       "dateFinished": "Oct 11, 2016 10:22:41 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Training, test 데이터셋 분리",
       "text": "val train \u003d news.where(\"split \u003d \u0027training\u0027\")\n    .join(features, \"id\")\n    .select(\"id\", \"features\", \"label\")",
-      "dateUpdated": "Oct 13, 2016 3:20:31 PM",
+      "dateUpdated": "Oct 13, 2016 3:20:31 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -68,7 +69,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474693780074_1709649487",
       "id": "20160924-140940_1610590633",
       "result": {
@@ -80,9 +80,11 @@
       "dateStarted": "Oct 11, 2016 10:22:42 AM",
       "dateFinished": "Oct 11, 2016 10:22:42 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%md\n\u003e 머신러닝 결과는 데이터를 어떻게 나누냐에 따라 결과가 달라집니다.\n\n\u003e 때문에 모두 동일한 결과를 얻으실 수 있게 제가 미리 나누었습니다.\n\n\u003e 실제로는 보통 다음과 같이 나눕니다.\n\n```scala\nval Array(train, test) \u003d data.randomSplit(Array(0.7, 0.3))\n```",
       "dateUpdated": "Oct 6, 2016 1:06:46 AM",
       "config": {
@@ -109,7 +111,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474715381855_48439560",
       "id": "20160924-200941_1693803282",
       "result": {
@@ -121,12 +122,13 @@
       "dateStarted": "Oct 6, 2016 1:06:37 AM",
       "dateFinished": "Oct 6, 2016 1:06:43 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "학습",
       "text": "import org.apache.spark.ml.classification.{NaiveBayes, NaiveBayesModel}\n\nval model: NaiveBayesModel \u003d new NaiveBayes().fit(train)",
-      "dateUpdated": "Oct 13, 2016 3:20:45 PM",
+      "dateUpdated": "Oct 13, 2016 3:20:45 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -151,7 +153,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474715494513_295199878",
       "id": "20160924-201134_1892770485",
       "result": {
@@ -163,12 +164,13 @@
       "dateStarted": "Oct 11, 2016 10:22:44 AM",
       "dateFinished": "Oct 11, 2016 10:22:44 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "모델 저장",
       "text": "model.save(\"playdata/model/nb-tf\")",
-      "dateUpdated": "Oct 13, 2016 3:20:49 PM",
+      "dateUpdated": "Oct 13, 2016 3:20:49 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -193,7 +195,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474802512343_1813397665",
       "id": "20160925-202152_1935396507",
       "result": {
@@ -205,9 +206,11 @@
       "dateStarted": "Sep 25, 2016 8:22:23 AM",
       "dateFinished": "Sep 25, 2016 8:22:24 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "",
       "dateUpdated": "Sep 25, 2016 8:22:05 AM",
       "config": {
@@ -232,7 +235,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474693805897_559665673",
       "id": "20160924-141005_739182958",
       "result": {
@@ -244,6 +246,7 @@
       "dateStarted": "Sep 25, 2016 8:22:10 AM",
       "dateFinished": "Sep 25, 2016 8:22:10 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     }
   ],

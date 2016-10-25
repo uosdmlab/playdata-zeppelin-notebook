@@ -1,8 +1,9 @@
 {
   "paragraphs": [
     {
+      "title": "",
       "text": "import org.apache.spark.ml.classification.NaiveBayesModel\n\nval nbTf \u003d NaiveBayesModel.load(\"playdata/model/nb-tf\")\nval nbTfidf \u003d NaiveBayesModel.load(\"playdata/model/nb-tf-idf\")\n\nval news \u003d spark.read.parquet(\"playdata/data/news-with-id.parquet\").persist\n\nval tfFeatures \u003d spark.read.parquet(\"playdata/feature/tf.parquet\").persist\nval tfidfFeatures \u003d spark.read.parquet(\"playdata/feature/tf-idf.parquet\").persist\n    \nval test \u003d news.where(\"split \u003d \u0027test\u0027\")\n    .select(\"id\", \"label\")\n\nval tfTest \u003d test.join(tfFeatures, \"id\")\nval tfidfTest \u003d test.join(tfidfFeatures, \"id\")",
-      "dateUpdated": "Oct 13, 2016 3:56:01 PM",
+      "dateUpdated": "Oct 13, 2016 3:56:01 AM",
       "config": {
         "enabled": true,
         "graph": {
@@ -26,7 +27,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476009550294_1013583665",
       "id": "20160925-202115_1896970745",
       "result": {
@@ -35,12 +35,14 @@
         "msg": "\nimport org.apache.spark.ml.classification.NaiveBayesModel\n\nnbTf: org.apache.spark.ml.classification.NaiveBayesModel \u003d NaiveBayesModel (uid\u003dnb_95011c8b89f9) with 2 classes\n\nnbTfidf: org.apache.spark.ml.classification.NaiveBayesModel \u003d NaiveBayesModel (uid\u003dnb_b0ab214e3194) with 2 classes\n\nnews: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [body: string, date: string ... 7 more fields]\n\ntfFeatures: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, features: vector]\n\ntfidfFeatures: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [id: bigint, features: vector]\n\ntest: org.apache.spark.sql.DataFrame \u003d [id: bigint, label: double]\n\ntfTest: org.apache.spark.sql.DataFrame \u003d [id: bigint, label: double ... 1 more field]\n\ntfidfTest: org.apache.spark.sql.DataFrame \u003d [id: bigint, label: double ... 1 more field]\n"
       },
       "dateCreated": "Oct 9, 2016 7:39:10 AM",
-      "dateStarted": "Oct 13, 2016 3:56:01 PM",
-      "dateFinished": "Oct 13, 2016 3:56:08 PM",
+      "dateStarted": "Oct 13, 2016 3:56:01 AM",
+      "dateFinished": "Oct 13, 2016 3:56:08 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%md\n## 마법의 Evaluation 함수 3종세트\n\n### getMetrics\n모델과 테스트 데이터셋을 인자로 받아, 두 가지의 evaluation metric `MulticlassMetrics`, `BinaryClassificationMetrics`을 tuple로 반환합니다.\n\n### getMetricDF\n모델과 테스트 데이터셋을 인자로 받아, 모델의 평가 지표들을 담은 `DataFrame`을 반환합니다.\n원한다면, 세 번째 인자 name에 모델의 이름을 넣을 수 있습니다.\n\n### getCurves\n모델과 테스트 데이터셋을 인자로 받아, ROC, PR curve를 담은 두 개의 `DataFrame`을 반환합니다.\n\n\u003e 사용 방법은 아래의 예제 참고!",
       "dateUpdated": "Oct 9, 2016 7:39:10 AM",
       "config": {
@@ -67,7 +69,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476009550298_1012044670",
       "id": "20161008-182502_2015893463",
       "result": {
@@ -83,7 +84,7 @@
     {
       "title": "마법의 Evaluator",
       "text": "import org.apache.spark.mllib.evaluation.{MulticlassMetrics, BinaryClassificationMetrics}\nimport org.apache.spark.sql.{Dataset, Row, DataFrame}\nimport org.apache.spark.sql.functions._\nimport org.apache.spark.sql.types.DoubleType\nimport org.apache.spark.ml.classification.ClassificationModel\nimport org.apache.spark.ml.linalg.Vector\n\nobject Evaluator {\n    def getMetrics(model: ClassificationModel[_, _], dataset: Dataset[_]): (MulticlassMetrics, BinaryClassificationMetrics) \u003d {\n        val labelCol \u003d model.getLabelCol\n        val predictionCol \u003d model.getPredictionCol\n        val rawPredictionCol \u003d model.getRawPredictionCol\n        \n        val prediction \u003d model.transform(dataset)\n        \n        val scoreAndLabels \u003d\n          prediction.select(col(rawPredictionCol), col(labelCol).cast(DoubleType)).rdd.map {\n            case Row(rawPrediction: Vector, label: Double) \u003d\u003e (rawPrediction(1), label)\n            case Row(rawPrediction: Double, label: Double) \u003d\u003e (rawPrediction, label)\n          }\n        \n        val predictionAndLabels \u003d\n            prediction.select(col(predictionCol), col(labelCol).cast(DoubleType)).rdd.map {\n                case Row(prediction: Double, label: Double) \u003d\u003e (prediction, label)\n            }\n        \n        (new MulticlassMetrics(predictionAndLabels), new BinaryClassificationMetrics(scoreAndLabels))\n    }\n    \n    def getMetricDF(model: ClassificationModel[_, _], dataset: Dataset[_], name: String \u003d \"\"): DataFrame \u003d {\n        val (mul, bin) \u003d getMetrics(model, dataset)\n        val maxF1 \u003d bin.fMeasureByThreshold.map(_._2).collect.sorted.last\n        val modelName \u003d if(name.trim.isEmpty) model.toString else name\n        val metrics \u003d (modelName, mul.accuracy, mul.fMeasure(1.0), maxF1, mul.precision(1.0), mul.recall(1.0), bin.areaUnderROC, bin.areaUnderPR)\n        \n        spark.createDataFrame(Seq(metrics))\n            .toDF(\"name\", \"accuracy\", \"f1\", \"maxF1\", \"precision\", \"recall\", \"auROC\", \"auPR\")\n    }\n    \n    def getMetricDF(nameAndModelAndDataset: Seq[(String, ClassificationModel[_, _], Dataset[_])]): DataFrame \u003d \n        nameAndModelAndDataset.map(x \u003d\u003e getMetricDF(x._2, x._3, x._1))\n            .reduce(_ union _)\n            \n    def getMetricDF(nameAndModel: Seq[(String, ClassificationModel[_, _])], dataset: Dataset[_]): DataFrame \u003d \n        nameAndModel.map(x \u003d\u003e getMetricDF(x._2, dataset, x._1))\n            .reduce(_ union _)\n    \n    def getCurves(model: ClassificationModel[_, _], dataset: Dataset[_], name: String \u003d \"\"): (DataFrame, DataFrame) \u003d {\n        val (_, bin) \u003d getMetrics(model, dataset)\n        val modelName \u003d if(name.trim.isEmpty) model.toString else name\n        val roc \u003d bin.roc.toDF(\"fpr\", \"tpr\").withColumn(\"name\", lit(modelName))\n        val pr \u003d bin.pr.toDF(\"recall\", \"precision\").withColumn(\"name\", lit(modelName))\n        \n        (roc, pr)\n    }\n    \n    def getCurves(nameAndModelAndDataset: Seq[(String, ClassificationModel[_, _], Dataset[_])]): (DataFrame, DataFrame) \u003d {\n        nameAndModelAndDataset.map { case (name, model, dataset) \u003d\u003e\n            val (_, bin) \u003d getMetrics(model, dataset)\n            val modelName \u003d if(name.trim.isEmpty) model.toString else name\n            val roc \u003d bin.roc.toDF(\"fpr\", \"tpr\").withColumn(\"name\", lit(modelName))\n            val pr \u003d bin.pr.toDF(\"recall\", \"precision\").withColumn(\"name\", lit(modelName))\n            \n            (roc, pr)\n        }.reduce { (a, b) \u003d\u003e (a._1 union b._1, a._2 union b._2) }\n    }\n}",
-      "dateUpdated": "Oct 13, 2016 3:56:19 PM",
+      "dateUpdated": "Oct 13, 2016 3:56:19 AM",
       "config": {
         "enabled": true,
         "graph": {
@@ -108,7 +109,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476009550299_1011659921",
       "id": "20161008-184114_698874006",
       "result": {
@@ -124,7 +124,7 @@
     {
       "title": "마법의 Evaluator를 이용한 평가",
       "text": "val models \u003d Seq(\n        (\"Naive Bayes TF\", nbTf, tfTest),\n        (\"Naive Bayes TFIDF\", nbTfidf, tfidfTest)\n    )\n\nEvaluator.getMetricDF(models).createOrReplaceTempView(\"metric\")",
-      "dateUpdated": "Oct 13, 2016 3:56:47 PM",
+      "dateUpdated": "Oct 13, 2016 3:56:47 AM",
       "config": {
         "enabled": true,
         "graph": {
@@ -149,7 +149,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476009550301_1009351427",
       "id": "20160925-202544_1340178221",
       "result": {
@@ -163,6 +162,7 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%sql SELECT * FROM metric",
       "dateUpdated": "Oct 9, 2016 7:39:10 AM",
       "config": {
@@ -211,7 +211,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476009550303_1010120925",
       "id": "20160925-202723_1337114744",
       "result": {
@@ -225,6 +224,7 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "val (roc, pr) \u003d Evaluator.getCurves(models)\n\nroc.createOrReplaceTempView(\"roc\")\npr.createOrReplaceTempView(\"pr\")",
       "dateUpdated": "Oct 9, 2016 7:39:10 AM",
       "config": {
@@ -250,7 +250,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476009550304_995885216",
       "id": "20160930-012954_754495289",
       "result": {
@@ -320,7 +319,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476009550306_996654714",
       "id": "20160930-140042_621420567",
       "result": {
@@ -390,7 +388,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476009550309_993961471",
       "id": "20160930-140155_853996493",
       "result": {
@@ -404,6 +401,7 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "",
       "dateUpdated": "Oct 9, 2016 7:39:10 AM",
       "config": {
@@ -429,7 +427,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476009550311_994730969",
       "id": "20160925-202623_991430597",
       "result": {
