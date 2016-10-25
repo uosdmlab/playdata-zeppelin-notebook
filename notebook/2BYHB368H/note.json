@@ -1,6 +1,7 @@
 {
   "paragraphs": [
     {
+      "title": "",
       "text": "val features \u003d spark.read.parquet(\"playdata/feature/tf-idf.parquet\").persist\nval news \u003d spark.read.parquet(\"playdata/data/news-with-id.parquet\").persist",
       "dateUpdated": "Oct 11, 2016 10:23:21 AM",
       "config": {
@@ -26,7 +27,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474724601967_925354146",
       "id": "20160924-140702_1447972081",
       "result": {
@@ -38,12 +38,13 @@
       "dateStarted": "Oct 11, 2016 10:23:21 AM",
       "dateFinished": "Oct 11, 2016 10:23:23 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "Training, test 데이터셋 분리",
       "text": "val train \u003d news.where(\"split \u003d \u0027training\u0027\")\n    .join(features, \"id\")\n    .select(\"id\", \"features\", \"label\")",
-      "dateUpdated": "Oct 13, 2016 3:21:06 PM",
+      "dateUpdated": "Oct 13, 2016 3:21:06 AM",
       "config": {
         "enabled": true,
         "graph": {
@@ -68,7 +69,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474724601968_935742366",
       "id": "20160924-140940_1610590633",
       "result": {
@@ -80,12 +80,13 @@
       "dateStarted": "Oct 11, 2016 10:23:22 AM",
       "dateFinished": "Oct 11, 2016 10:23:23 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "학습",
       "text": "import org.apache.spark.ml.classification.{NaiveBayes, NaiveBayesModel}\n\nval model: NaiveBayesModel \u003d new NaiveBayes().fit(train)",
-      "dateUpdated": "Oct 13, 2016 3:21:09 PM",
+      "dateUpdated": "Oct 13, 2016 3:21:09 AM",
       "config": {
         "enabled": true,
         "graph": {
@@ -110,7 +111,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474724601972_934203371",
       "id": "20160924-201134_1892770485",
       "result": {
@@ -122,12 +122,13 @@
       "dateStarted": "Oct 11, 2016 10:23:24 AM",
       "dateFinished": "Oct 11, 2016 10:23:25 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
       "title": "모델 저장",
       "text": "model.save(\"playdata/model/nb-tf-idf\")",
-      "dateUpdated": "Oct 13, 2016 3:21:13 PM",
+      "dateUpdated": "Oct 13, 2016 3:21:13 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -152,7 +153,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474732572530_-566581213",
       "id": "20160925-005612_1531985325",
       "result": {
@@ -164,9 +164,11 @@
       "dateStarted": "Sep 25, 2016 8:24:52 AM",
       "dateFinished": "Sep 25, 2016 8:24:52 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "",
       "dateUpdated": "Sep 30, 2016 1:25:33 AM",
       "config": {
@@ -192,11 +194,11 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474802590910_1485915055",
       "id": "20160925-202310_1207134756",
       "dateCreated": "Sep 25, 2016 8:23:10 AM",
       "status": "READY",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     }
   ],

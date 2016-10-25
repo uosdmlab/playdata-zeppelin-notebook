@@ -1,6 +1,7 @@
 {
   "paragraphs": [
     {
+      "title": "",
       "text": "%md\n# `주의` 이 노트는 실행되지 않습니다!",
       "dateUpdated": "Oct 11, 2016 2:46:24 AM",
       "config": {
@@ -27,7 +28,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476164702576_-1693237172",
       "id": "20161011-144502_1040765233",
       "result": {
@@ -39,11 +39,13 @@
       "dateStarted": "Oct 11, 2016 2:46:22 AM",
       "dateFinished": "Oct 11, 2016 2:46:22 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%md\n### 모델 설명\n- *name* \u003d 말투 TF를 학습한 모델\n- *name*Old \u003d TF를 학습한 모델\n- *name*All \u003d (말투 Feature + 말투 TF)를 학습한 모델\n\n### 결합 모델\n- PV1 \u003d Logistic Regression + Random Forest + SVM\n- PV2 \u003d Random Forest + Naive Bayes + SVM",
-      "dateUpdated": "Oct 13, 2016 5:17:06 PM",
+      "dateUpdated": "Oct 13, 2016 5:17:06 AM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -68,7 +70,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476346339107_1906428931",
       "id": "20161013-171219_1752690573",
       "result": {
@@ -76,10 +77,11 @@
         "type": "HTML",
         "msg": "\u003ch3\u003e모델 설명\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cem\u003ename\u003c/em\u003e \u003d 말투 TF를 학습한 모델\u003c/li\u003e\n\u003cli\u003e\u003cem\u003ename\u003c/em\u003eOld \u003d TF를 학습한 모델\u003c/li\u003e\n\u003cli\u003e\u003cem\u003ename\u003c/em\u003eAll \u003d (말투 Feature + 말투 TF)를 학습한 모델\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e결합 모델\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003ePV1 \u003d Logistic Regression + Random Forest + SVM\u003c/li\u003e\n\u003cli\u003ePV2 \u003d Random Forest + Naive Bayes + SVM\u003c/li\u003e\n\u003c/ul\u003e\n"
       },
-      "dateCreated": "Oct 13, 2016 5:12:19 PM",
-      "dateStarted": "Oct 13, 2016 5:17:04 PM",
-      "dateFinished": "Oct 13, 2016 5:17:04 PM",
+      "dateCreated": "Oct 13, 2016 5:12:19 AM",
+      "dateStarted": "Oct 13, 2016 5:17:04 AM",
+      "dateFinished": "Oct 13, 2016 5:17:04 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -111,7 +113,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476023541291_-1974799463",
       "id": "20160908-190856_162967599",
       "result": {
@@ -177,7 +178,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1472705000534_112600838",
       "id": "20160901-134320_1158036653",
       "result": {
@@ -189,6 +189,7 @@
       "dateStarted": "Sep 5, 2016 2:22:21 AM",
       "dateFinished": "Sep 5, 2016 2:22:23 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -244,7 +245,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1472663805321_2135924876",
       "id": "20160901-021645_238213850",
       "result": {
@@ -256,6 +256,7 @@
       "dateStarted": "Sep 5, 2016 2:22:23 AM",
       "dateFinished": "Sep 5, 2016 2:22:23 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -318,7 +319,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476023541292_-1976723207",
       "id": "20160919-115855_1247513532",
       "result": {
@@ -389,7 +389,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476023541294_-1975953709",
       "id": "20160919-122151_1272352365",
       "result": {
@@ -403,6 +402,7 @@
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "%spark ",
       "dateUpdated": "Oct 9, 2016 11:32:21 AM",
       "config": {
@@ -428,7 +428,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1476023541296_-1965950238",
       "id": "20160904-214126_324482243",
       "result": {

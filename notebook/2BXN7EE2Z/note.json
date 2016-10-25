@@ -3,7 +3,7 @@
     {
       "title": "데이터셋 다운로드, Spark로 읽기",
       "text": "val rawJson \u003d scala.io.Source.fromURL(\"https://raw.githubusercontent.com/uosdmlab/playdata-zeppelin-notebook/master/data/fire-news.json\").mkString.split(\"\\n\")\nval rddJson \u003d sc.parallelize(rawJson)\nval news \u003d spark.read.json(rddJson)",
-      "dateUpdated": "Oct 12, 2016 10:30:03 PM",
+      "dateUpdated": "Oct 12, 2016 10:30:03 AM",
       "config": {
         "enabled": true,
         "title": true,
@@ -28,7 +28,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474649933720_-1462103693",
       "id": "20160924-002415_650243526",
       "result": {
@@ -40,6 +39,7 @@
       "dateStarted": "Oct 8, 2016 1:03:23 AM",
       "dateFinished": "Oct 8, 2016 1:03:28 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -70,7 +70,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474649933720_-1462103693",
       "id": "20160924-002532_220228577",
       "result": {
@@ -82,6 +81,7 @@
       "dateStarted": "Sep 24, 2016 12:38:30 PM",
       "dateFinished": "Sep 24, 2016 12:38:32 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -113,7 +113,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474649933720_-1462103693",
       "id": "20160924-015245_544621788",
       "result": {
@@ -125,6 +124,7 @@
       "dateStarted": "Oct 4, 2016 11:43:54 AM",
       "dateFinished": "Oct 4, 2016 11:43:54 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -155,7 +155,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474649933721_-1462488442",
       "id": "20160924-002850_881079062",
       "result": {
@@ -167,6 +166,7 @@
       "dateStarted": "Oct 9, 2016 2:59:46 AM",
       "dateFinished": "Oct 9, 2016 2:59:46 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -197,7 +197,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474650578219_-1002510251",
       "id": "20160924-020938_1135780295",
       "result": {
@@ -209,6 +208,7 @@
       "dateStarted": "Oct 9, 2016 1:06:39 AM",
       "dateFinished": "Oct 9, 2016 1:06:39 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -239,7 +239,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474649933721_-1462488442",
       "id": "20160924-003040_528345062",
       "result": {
@@ -251,6 +250,7 @@
       "dateStarted": "Sep 24, 2016 12:39:17 PM",
       "dateFinished": "Sep 24, 2016 12:39:17 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -304,7 +304,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474649933722_-1461334196",
       "id": "20160924-003000_147592620",
       "result": {
@@ -316,6 +315,7 @@
       "dateStarted": "Sep 24, 2016 12:39:19 PM",
       "dateFinished": "Sep 24, 2016 12:39:19 PM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -347,7 +347,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474650399102_1957734107",
       "id": "20160924-020639_1177443589",
       "result": {
@@ -359,6 +358,7 @@
       "dateStarted": "Oct 4, 2016 11:45:14 AM",
       "dateFinished": "Oct 4, 2016 11:45:14 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -389,7 +389,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475991074703_-1924759385",
       "id": "20161009-143114_64643119",
       "result": {
@@ -401,6 +400,7 @@
       "dateStarted": "Oct 9, 2016 2:31:25 AM",
       "dateFinished": "Oct 9, 2016 2:31:26 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -454,7 +454,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475917267893_69692040",
       "id": "20161008-180107_1229422009",
       "result": {
@@ -466,6 +465,7 @@
       "dateStarted": "Oct 8, 2016 6:07:43 AM",
       "dateFinished": "Oct 8, 2016 6:07:43 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -507,7 +507,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1475992766924_968884771",
       "id": "20161009-145926_1898085454",
       "result": {
@@ -519,9 +518,11 @@
       "dateStarted": "Oct 9, 2016 2:59:55 AM",
       "dateFinished": "Oct 9, 2016 2:59:55 AM",
       "status": "FINISHED",
+      "errorMessage": "",
       "progressUpdateIntervalMs": 500
     },
     {
+      "title": "",
       "text": "",
       "dateUpdated": "Sep 24, 2016 1:58:53 AM",
       "config": {
@@ -541,7 +542,6 @@
         "params": {},
         "forms": {}
       },
-      "apps": [],
       "jobName": "paragraph_1474649933722_-1461334196",
       "id": "20160924-001257_1481334572",
       "dateCreated": "Sep 24, 2016 1:58:53 AM",
