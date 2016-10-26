@@ -1,7 +1,7 @@
 # Zeppelin 노트북: 화재 뉴스 기사 분류
 > 2016년 10월 14일 (금) **데이터야놀자**의 세션 **Spark와 Zeppelin을 활용한 머신러닝 실전 적용기** 발표에 사용된 노트북입니다.
 
-본 노트북은 총 1326건의 뉴스 기사들을 Spark ML을 활용해 주제가 화재인 것과 아닌 것들로 나누는 **text binary classification** 예제입니다. 아래의 ZeppelinHub Viewer 링크들을 통해 노트들을 미리 보실 수 있습니다.
+본 노트북은 총 1326건의 뉴스 기사들을 Spark ML을 활용해 주제가 화재인 것과 아닌 것들로 나누는 **한국어 text binary classification** 예제입니다. 아래의 ZeppelinHub Viewer 링크들을 통해 노트들을 미리 보실 수 있습니다.
 
 ## 미리 보기: ZeppelinHub Viewer
 
