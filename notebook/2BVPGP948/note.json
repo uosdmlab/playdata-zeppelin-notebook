@@ -86,9 +86,9 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "title": "",
+      "title": "spark-nkp 동작 확인",
       "text": "import com.github.uosdmlab.nkp.Tokenizer\n\nval df \u003d spark.createDataset(\n    Seq(\n        \"아버지가방에들어가신다.\",\n        \"사랑해요 제플린!\",\n        \"스파크는 재밌어\",\n        \"나는야 데이터과학자\",\n        \"데이터야~ 놀자~\"\n    )\n).toDF(\"text\")\n\nval tokenizer \u003d new Tokenizer()\n    .setInputCol(\"text\")\n    .setOutputCol(\"words\")\n\nval result \u003d tokenizer.transform(df)\n\nresult.show(truncate \u003d false)",
-      "dateUpdated": "Oct 26, 2016 1:49:59 AM",
+      "dateUpdated": "Oct 26, 2016 7:23:09 PM",
       "config": {
         "colWidth": 12.0,
         "graph": {
@@ -106,7 +106,8 @@
           }
         },
         "enabled": true,
-        "editorMode": "ace/mode/scala"
+        "editorMode": "ace/mode/scala",
+        "title": true
       },
       "settings": {
         "params": {},
