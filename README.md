@@ -1,6 +1,28 @@
 # Zeppelin 노트북: 화재 뉴스 기사 분류
 > 2016년 10월 14일 (금) **데이터야놀자**의 세션 **Spark와 Zeppelin을 활용한 머신러닝 실전 적용기** 발표에 사용된 노트북입니다.
 
+## 미리 보기: ZeppelinHub Viewer
+
+[전체 목록](https://www.zeppelinhub.com/viewer/search?q=playdata) (총 13개의 노트)
+
+- [0.ZeppelinSetting](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS80ZjFjMGIyNGE3M2U0MTRiOGMwNWM0NmM2OGE4Y2JhYy9ub3RlLmpzb24)
+- 1.Preprocessing
+  - [1.DownloadDataset](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS9kMTYyYzlmNjgyYjk0N2U3ODM5YjIyNGZjZDA1NzBmNS9ub3RlLmpzb24)
+  - [2.LabelingID](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS81ZDgzNWZhMmZmNmE0NzQ1ODk4YzFkNjQ4YzQ2YjhhMC9ub3RlLmpzb24)
+  - [3.WordExtraction](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS8xZTc2MWRmYTE4NGU0NDhiODg0OWVmY2JlYjc0NTY5Ny9ub3RlLmpzb24)
+  - [4.WordSelection](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS82ZjA0NjI2NTJmNWM0NWUyOGFjYTJlN2ViNjcxN2QyNi9ub3RlLmpzb24)
+- 2.Featurize
+  - [1.TF](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS82YTdhZjhhNTBkODY0NTFhODEwZDIzYjJkN2VjNmFmZS9ub3RlLmpzb24)
+  - [2.IDF](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS9kNGQyYWZiYmJjNDE0MjNiOTY5ZGE4NTQ5NDA3MDI1NS9ub3RlLmpzb24)
+- 3.Training
+  - [1.NaiveBayesTF](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS9lNmY3NDY0MWE5YTg0ZDJkOTFlNDI2NmRlZjIwMTYxYi9ub3RlLmpzb24)
+  - [2.NaiveBayesTFIDF](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS81NzBlNDc3NTY1ZDA0MWRkYjQzZmRmN2U3MDU4N2VmZS9ub3RlLmpzb24)
+- 4.Evaluation
+  - [1.Accuracy](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS8zNmI1OGFkZDkxYWY0ZDQyOTU2ZDFhMWFmNjI2NmJmNS9ub3RlLmpzb24)
+  - [2.All](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS9hZjA1NjUwMDdmYTE0NDJkOWMxOTI0M2E5MzBhZWNkNC9ub3RlLmpzb24)
+- [5.ExploratoryDataAnalysis](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS9hMjU0MzIzZjY1YjU0MmU0OTg3YWVkMmE0YzYzZGQyZS9ub3RlLmpzb24)
+- [6.TuningResult](https://www.zeppelinhub.com/viewer/notebooks/bm90ZTovL2p1bi9wbGF5ZGF0YS80YTdkNWE4ZmE5NzU0OGY3YTQzZThiYjljZTU0OGI0Yy9ub3RlLmpzb24)
+
 ## 사용법
 > Zeppelin은 설치하셨다고 가정합니다 ㅎㅎ
 
